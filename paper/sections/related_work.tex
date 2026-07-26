@@ -1,0 +1,51 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Automated scientific discovery and question generation.}
+Computational discovery has a long lineage, from rule-based rediscovery
+of physical laws \citep{langley1987} through closed-loop robot
+scientists \citep{king2009} to the Nobel Turing Challenge's call for
+AI scientists \citep{kitano2021}. Recent LLM-based systems generate
+research ideas, hypotheses, or full papers: literature-based generation
+\citep{wang2024scimon}, agentic idea refinement
+\citep{baek2024researchagent}, and end-to-end automated research
+\citep{lu2024aiscientist}. Literature-based discovery pioneered the
+underlying intuition that recombining published evidence can anticipate
+findings later verified empirically \citep{swanson1986}. Our work is
+orthogonal to all of these: we do not propose a better generator; we
+propose the missing evaluation.
+
+\paragraph{Evaluating generated ideas.}
+Existing evaluations are dominated by human preference and LLM scoring.
+\citet{si2024llmideas} ran a large expert study comparing human and LLM
+research ideas on rated novelty and excitement---the most rigorous
+instance of the expert-score paradigm, and still a measurement of
+\emph{opinion at generation time} rather than of what the ideas turned
+out to be worth. LLM-as-judge scoring inherits known biases (position,
+verbosity, self-preference) and, for questions about the future,
+cannot be validated against ground truth at all. Historical backtesting
+replaces both with an outcome variable that exists independently of any
+rater: the subsequent behavior of the scientific community.
+
+\paragraph{Backtesting and forecasting benchmarks.}
+Scoring a strategy on held-out history is standard in quantitative
+finance, along with well-documented failure modes---overfitting to the
+backtest itself \citep{bailey2014backtest}---that motivate our
+freezing and no-overwrite rules. Forecasting benchmarks score models on
+events that resolve after training \citep{zou2022autocast}; retrodictive
+evaluation with temporal holdouts is likewise used to test whether
+models anticipate later discoveries \citep{swanson1986,king2009}.
+We transplant this design to a harder target: not whether a stated
+event occurs, but whether an open-ended research question earns the
+community's future investment. Code benchmarks such as SWE-bench
+\citep{jimenez2024swebench} demonstrated how a well-specified task
+format plus frozen data can reorganize a research area around
+measurable progress; we aim the same mechanism at question discovery.
+
+\paragraph{Data contamination.}
+Temporal splits are increasingly used to control LLM memorization in
+evaluation. Our protocol controls the \emph{retrieval} channel
+completely (corpus manifests, isolation rules, CI checks) and treats the
+\emph{weights} channel---models whose training data postdates the
+cutoff---as a declared, audited threat rather than a solved problem
+(Section~\ref{sec:threats}).

@@ -1,0 +1,57 @@
+\section{Error Analysis}
+\label{sec:errors}
+
+The released curation log records every human intervention made before
+freezing; the failure modes below are taken from it and from the
+adjudication log, and each motivates a benchmark rule.
+
+\paragraph{Question duplication.} The generator produced near-duplicate
+questions (q\_002/q\_003) from the same claim pair, differing mainly in
+emphasis; they were merged during curation into one question with two
+sub-questions. Left unmerged, duplicates would double-count a single
+insight in every rate. Rule: submissions are screened for
+near-duplicates, and instances should report a deduplication note; a
+mechanical similarity screen is a v1.1 roadmap item.
+
+\paragraph{Leading questions (presupposition).} Several generated
+questions presupposed their own answer. q\_001 originally asserted that
+vertical wind shear \emph{exists} rather than asking what causes the
+wind-speed discrepancy; q\_008 originally presupposed the subsolar water
+abundance rather than framing artifact-vs-atmosphere attribution. A
+question that presupposes its answer cannot be cleanly refuted---and
+q\_008's later refutation was only expressible because curation reframed
+it as attribution. Rule: the quality gate flags presupposing phrasings
+before freezing; the reframing is logged.
+
+\paragraph{Self-contradictory quantifiers.} q\_003's original phrasing
+asked whether a detection was ``robust to biases exceeding an order of
+magnitude''---a bias that large \emph{is} non-robustness. Templated
+quantifier language can silently produce unanswerable questions; the
+clarity gate exists for this.
+
+\paragraph{Conflated statistical and physical framing.} q\_010
+originally asked what ``temperature and pressure conditions'' produce a
+5.4$\sigma$ water detection, conflating atmospheric state with the
+detection pipeline (significance depends on noise model, priors, null
+hypothesis---not on the atmosphere). It was reframed as a sensitivity
+analysis; its clarity-gate score (6.0) was the lowest of the set, and
+its outcome (\labelfmt{partially\_addressed} on one supporting paper)
+remains among the weakest-evidenced labels.
+
+\paragraph{Premise bias in generation.} The generator inherits the
+premises of the papers it reads: single-dataset conclusions taken at
+face value can produce questions that merely restate a claim rather
+than test it. The tension-typing stage (which explicitly marks
+\emph{single-dataset conclusion} as a signal type) partially controls
+this---q\_008 and q\_005 are that control working---but the benchmark's
+premise dimension is the systematic check: a healthy portfolio should
+show a mix of \labelfmt{supported} and \labelfmt{refuted}, not uniform
+support of its sources.
+
+\paragraph{Retrieval near-misses.} Judged evidence for q\_007
+(HD~189733\,b / HAT-P-11\,b patchy clouds) leans partly on a
+three-retrieval-framework study of HAT-P-\emph{18}\,b---directly
+relevant methodologically, but not the named targets. The adjudication
+log records the engagement-bar judgment; releasing full top-8 lists
+(v1.1) will let others re-litigate such calls, which is the point of
+releasing them.

@@ -1,0 +1,127 @@
+\section{Introduction}
+\label{sec:intro}
+
+A growing family of systems claims to generate scientific research
+questions, hypotheses, or ideas
+\citep{lu2024aiscientist,wang2024scimon,baek2024researchagent}. How do we
+know whether any of them is good at it? Today, essentially every
+evaluation falls into one of three patterns: an \emph{expert score} (a
+panel rates novelty and significance on a Likert scale), an \emph{LLM
+score} (a language model rates the same properties), or a \emph{case
+study} (a handful of generated ideas is narrated persuasively). All
+three share the same defect: they are subjective. Expert panels disagree
+with each other and with themselves \citep{si2024llmideas}; LLM judges
+inherit the biases of their training distribution and can be steered by
+phrasing; case studies are selected by the authors. None of these
+evaluations can be \emph{wrong} in a way that data could demonstrate,
+which is another way of saying none of them measures anything.
+
+Science itself offers a harder criterion. Research questions are bets
+about where inquiry should go next, and the scientific community
+eventually settles those bets: it invests observing time, funds
+follow-ups, writes papers that answer some questions, poses others
+independently, and refutes the premises of a few. This suggests a simple
+standard:
+
+\begin{quote}
+\emph{A scientific question is valuable if future science actually
+invests in answering it.}
+\end{quote}
+
+The standard becomes an evaluation protocol the moment we rewind the
+clock. Fix a historical cutoff. Give a system only the literature
+available before the cutoff. Freeze the questions it generates. Then let
+the literature published \emph{after} the cutoff---which the system
+never saw---grade the bet: Was the question answered? Substantially
+advanced? Independently posed by working scientists? Ignored? Was its
+underlying premise confirmed, or refuted? We call this procedure
+\textbf{historical backtesting}, by analogy with the evaluation of
+trading strategies on held-out past data \citep{bailey2014backtest}, and
+with recent forecasting benchmarks that score models against events
+occurring after training \citep{zou2022autocast}.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    node distance=0.55cm,
+    stage/.style={draw, rounded corners=2pt, minimum width=6.2cm,
+                  minimum height=0.72cm, align=center, font=\small},
+    past/.style={stage, fill=blue!8},
+    future/.style={stage, fill=orange!12},
+    eval/.style={stage, fill=green!10},
+    arr/.style={-{Stealth[length=2.2mm]}, thick}]
+  \node[past]   (p1) {Past Literature ($\leq$ cutoff)};
+  \node[past,   below=of p1] (p2) {Generate Scientific Questions};
+  \node[past,   below=of p2] (p3) {Freeze Questions};
+  \node[future, below=of p3] (f1) {Future Literature (after cutoff)};
+  \node[future, below=of f1] (f2) {Retrieve Evidence};
+  \node[eval,   below=of f2] (e1) {Historical Outcome Assessment};
+  \node[eval,   below=of e1] (e2) {Benchmark Metrics};
+  \draw[arr] (p1) -- (p2);
+  \draw[arr] (p2) -- (p3);
+  \draw[arr] (p3) -- (f1);
+  \draw[arr] (f1) -- (f2);
+  \draw[arr] (f2) -- (e1);
+  \draw[arr] (e1) -- (e2);
+  \node[right=0.5cm of p2, font=\footnotesize\itshape, text width=4.4cm, align=left]
+    {any system: evidence graph,\\ prompted LLM, heuristic, human};
+  \node[right=0.5cm of f1, font=\footnotesize\itshape, text width=4.4cm, align=left]
+    {temporally isolated;\\ never seen at generation time};
+  \node[right=0.5cm of e1, font=\footnotesize\itshape, text width=4.4cm, align=left]
+    {constrained judge +\\ human adjudication};
+\end{tikzpicture}
+\caption{The historical backtesting protocol. No question generator,
+evidence graph, or particular LLM appears in the loop: the protocol
+evaluates \emph{frozen question lists}, whatever produced them.}
+\label{fig:protocol}
+\end{figure}
+
+Crucially, the protocol contains no question generator
+(Figure~\ref{fig:protocol}). It takes a frozen list of questions as
+input and returns outcome labels and metrics as output. Any
+system---an evidence-graph pipeline, a prompted LLM, a citation
+heuristic, a human scientist---can be evaluated under identical
+conditions. This is what makes it a benchmark rather than a validation
+appendix for one particular architecture.
+
+\paragraph{Contributions.} We make three claims, in decreasing order of
+strength:
+
+\begin{enumerate}
+  \item \textbf{Protocol (strong).} We formalize historical backtesting
+    as an evaluation protocol for scientific question discovery:
+    temporal isolation rules, a question-freezing requirement, fixed
+    future-evidence retrieval, a two-dimensional outcome taxonomy that
+    separates a question's fate (\labelfmt{answered},
+    \labelfmt{partially\_addressed}, \labelfmt{posed\_but\_open},
+    \labelfmt{not\_addressed}) from its premise's fate
+    (\labelfmt{supported}, \labelfmt{refuted}, \labelfmt{weakened},
+    \labelfmt{still\_plausible}, \labelfmt{not\_applicable}), and
+    metrics defined over those labels (Sections~\ref{sec:protocol}
+    and~\ref{sec:metrics}).
+  \item \textbf{Benchmark instance (medium).} We release a reproducible
+    astronomy instance with temporally isolated past and future corpora
+    (2{,}512 and 1{,}891 papers; cutoff 2020-12-31), frozen questions,
+    released retrieval records, adjudicated labels, one-command metric
+    computation with CI-enforced reproducibility, a submission format,
+    and four reference baselines (Sections~\ref{sec:dataset}
+    and~\ref{sec:baselines}).
+  \item \textbf{Empirical pilot (cautious).} In an initial set of ten
+    questions generated from pre-cutoff evidence only, all ten were
+    substantively engaged by the 2021--2026 literature, including one
+    whose underlying premise was subsequently refuted by three
+    independent analyses (Section~\ref{sec:results}). With $n=10$
+    questions from one system in one domain, we do \emph{not} claim
+    that AI can reliably identify the most valuable future scientific
+    questions; we claim the protocol can tell us, eventually, whether
+    it can.
+\end{enumerate}
+
+What we believe is ultimately most useful here is not any single
+result but the change of category: scientific question quality moves
+from a matter of taste (``this question seems interesting'') to a
+measured, comparable quantity (``under historical backtesting, 100\% of
+this system's questions were engaged by later literature; 10\% led to a
+premise refutation''). Every artifact needed to run the protocol---data,
+code, labels, and checks---is public, and Astronomy~v1 is offered as the
+first instance of the benchmark, not as its definition.

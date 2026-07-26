@@ -1,0 +1,147 @@
+\section{Pilot Results: Historical Validation}
+\label{sec:results}
+
+We ran the full protocol on the ten frozen
+\texttt{evidence\_graph\_v1} questions. Headline numbers: every
+question was substantively engaged by the 2021--2026 literature
+(coverage 100\%); two were answered, seven partially addressed, one
+independently posed and still open; one premise was refuted. Evidence
+strength: 2.4 supporting papers per question on average, with 60\% of
+labels supported by $\geq 2$ independent papers. The earliest
+judge-cited engagement came 1--5 years after the cutoff (mean 2.9).
+Table~\ref{tab:perq} gives the per-question picture.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Per-question outcomes for \texttt{evidence\_graph\_v1} on
+  Astronomy v1 (system rank order; $|E|$ = independent supporting
+  papers; year = earliest cited engagement).}
+  \label{tab:perq}
+  \begin{tabular}{@{}clllcc@{}}
+    \toprule
+    Rank & ID & Outcome & Premise & $|E|$ & Year \\
+    \midrule
+    1  & q\_002 & \labelfmt{posed\_but\_open}      & \labelfmt{still\_plausible} & 1 & 2022 \\
+    2  & q\_001 & \labelfmt{partially\_addressed}  & \labelfmt{supported}        & 3 & 2021 \\
+    3  & q\_004 & \labelfmt{partially\_addressed}  & \labelfmt{supported}        & 1 & 2021 \\
+    4  & q\_008 & \labelfmt{answered}              & \labelfmt{refuted}          & 3 & 2025 \\
+    5  & q\_007 & \labelfmt{partially\_addressed}  & \labelfmt{still\_plausible} & 3 & 2024 \\
+    6  & q\_010 & \labelfmt{partially\_addressed}  & \labelfmt{still\_plausible} & 1 & 2022 \\
+    7  & q\_005 & \labelfmt{answered}              & \labelfmt{supported}        & 2 & 2024 \\
+    8  & q\_009 & \labelfmt{partially\_addressed}  & \labelfmt{supported}        & 5 & 2021 \\
+    9  & q\_006 & \labelfmt{partially\_addressed}  & \labelfmt{still\_plausible} & 1 & 2025 \\
+    10 & q\_011 & \labelfmt{partially\_addressed}  & \labelfmt{still\_plausible} & 4 & 2024 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Case study: a premise refuted (q\_008, HD 209458 b)}
+\label{sec:results:case}
+
+From pre-2021 evidence, the system flagged a single-dataset conclusion:
+the influential retrieval of a \emph{strongly subsolar} water abundance
+at the terminator of HD~209458\,b \citep{macdonald2017}. The frozen
+question asked, in 2020 terms:
+
+\begin{quote}\itshape
+Is the strongly subsolar terminator water abundance retrieved for
+HD~209458\,b a property of the atmosphere or an artifact of retrieval
+assumptions, as tested by comparing independent retrieval frameworks on
+the same and on independent datasets?
+\end{quote}
+
+The 2021--2026 literature then performed exactly the test the question
+specified (Figure~\ref{fig:case}): a reanalysis of HST and JWST spectra
+with improved systematics treatment and Bayesian model averaging, an
+independent retrieval framework demonstrating that free-vs-equilibrium
+chemistry assumptions span the subsolar-to-solar range, and ground-based
+high-resolution spectroscopy constraining the abundance independently of
+space-based data. All three converge: the terminator water abundance is
+consistent with solar, and the strongly subsolar value was an artifact
+of earlier retrieval assumptions and data systematics. Under the
+taxonomy this is \labelfmt{answered} + \labelfmt{refuted}: the question
+was resolved \emph{by} the community overturning the premise the
+question challenged---an outcome that no expert score assigned in 2020
+could have certified, and precisely what backtesting exists to detect.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+    font=\small,
+    evt/.style={align=center, font=\footnotesize},
+    arr/.style={-{Stealth[length=2.2mm]}, thick}]
+
+  \draw[arr] (0,0) -- (13.2,0);
+  \node[font=\footnotesize] at (13.0,-0.35) {year};
+  \foreach \x/\y in {0.8/2017, 3.0/2020, 5.2/2021, 7.4/2023, 9.6/2025, 11.8/2026}
+    \draw (\x,0.08) -- (\x,-0.08) node[below, font=\footnotesize] {\y};
+
+  \node[evt, text width=2.6cm] at (0.8,1.35)
+    {subsolar H$_2$O\\ retrieved for\\ HD 209458 b};
+  \draw[arr] (0.8,0.75) -- (0.8,0.12);
+
+  \draw[fill=blue!15, rounded corners=2pt] (2.2,1.6) rectangle (3.8,2.35);
+  \node[evt] at (3.0,1.975) {frozen\\ question};
+  \draw[arr] (3.0,1.6) -- (3.0,0.12);
+  \node[evt] at (3.0,2.65) {\emph{artifact or atmosphere?}};
+
+  \draw[dashed] (3.0,-0.7) -- (3.0,1.4);
+  \node[evt] at (3.0,-1.15) {cutoff\\ 2020-12-31};
+
+  \node[evt, text width=3.4cm] at (9.6,1.45)
+    {three independent\\ reanalyses converge:\\ H$_2$O consistent with solar};
+  \draw[arr] (9.6,0.75) -- (9.6,0.12);
+  \node[evt, text width=3.9cm] at (9.6,-0.85)
+    {\labelfmt{answered} + premise \labelfmt{refuted}};
+
+  \draw[thick, orange!80!black] (5.2,-1.7) -- (11.8,-1.7)
+    node[midway, below, font=\footnotesize\itshape]
+    {future corpus window (2021--2026)};
+  \draw[thick, orange!80!black] (5.2,-1.78) -- (5.2,-1.62);
+  \draw[thick, orange!80!black] (11.8,-1.78) -- (11.8,-1.62);
+\end{tikzpicture}
+\caption{Timeline of q\_008. The question was frozen from pre-2021
+evidence; by 2025 three independent analyses had performed the test it
+specified and refuted its premise---the strongly subsolar water
+abundance was a retrieval artifact.}
+\label{fig:case}
+\end{figure}
+
+\subsection{Secondary observations}
+
+\paragraph{The top-ranked question is independently posed and open.}
+The system's rank-1 question (q\_002: how terminator heterogeneity
+biases the WASP-12\,b water abundance and C/O ratio) tracks a
+methodological concern the community has since engaged in general form
+--- inhomogeneous-terminator biases in retrievals --- without resolving
+it for WASP-12\,b specifically: \labelfmt{posed\_but\_open}. A question
+the field poses but has not answered is a live research target; that the
+system's top pick lands there is the behavior a ranking is supposed to
+produce, though $n=1$ at rank 1 proves nothing by itself.
+
+\paragraph{An answered null result.} q\_005 asked whether HST
+transmission data independently support NH$_3$ or HCN in HD~209458\,b
+--- a molecular-detection claim from the same single-dataset analysis as
+q\_008 \citep{macdonald2017}. By 2024--2025, high-resolution
+spectroscopy had placed stringent upper limits on both species:
+\labelfmt{answered}, premise \labelfmt{supported} (the data indeed do
+not independently support the detection). Backtesting counts a
+cleanly resolved null exactly as it counts a positive.
+
+\paragraph{Instrument-gated engagement.} q\_011 (whether JWST validated
+pre-launch predictions of TRAPPIST-1 CO$_2$ detectability,
+\citealp{lustigyaeger2019}) could not have been engaged before JWST flew;
+its first cited engagement is 2024 and stellar contamination has so far
+prevented a definitive test. Engagement timing is partly an instrument
+schedule, not purely a question-quality signal---a confound
+Section~\ref{sec:threats} treats explicitly.
+
+\paragraph{What these ten questions do not show.} With ten questions
+from one system in one domain, rates carry wide intervals (the exact
+95\% Clopper--Pearson interval for 10/10 coverage is $[0.69, 1.0]$), no
+baseline rows are populated yet, and the generating system's LLM
+components postdate the cutoff (Section~\ref{sec:threats}). The pilot
+demonstrates that the protocol runs end-to-end and yields auditable,
+reproducible labels; it does not establish that any system reliably
+anticipates future science.

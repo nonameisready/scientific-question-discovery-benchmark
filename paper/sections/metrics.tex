@@ -1,0 +1,89 @@
+\section{Benchmark Metrics}
+\label{sec:metrics}
+
+Let $Q$ be the $n$ frozen questions of a submission, with outcome labels
+$o(q)$ and premise labels $p(q)$ as in Table~\ref{tab:taxonomy}, and let
+$E(q)$ be the set of independent post-cutoff papers cited as supporting
+evidence for $q$'s label. All rates are over $n$, so the four outcome
+rates sum to one.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Benchmark metrics v1.0. All are computed by
+  \texttt{benchmark/metrics.py} from the released annotation records.}
+  \label{tab:metrics}
+  \begin{tabular}{@{}lp{9.6cm}@{}}
+    \toprule
+    Metric & Definition \\
+    \midrule
+    Coverage (future attention rate) &
+      $\frac{1}{n}\,|\{q : o(q) \neq \labelfmt{not\_addressed}\}|$ ---
+      did future science engage the question at all? \\
+    Answer rate &
+      $\frac{1}{n}\,|\{q : o(q) = \labelfmt{answered}\}|$ \\
+    Partial rate &
+      $\frac{1}{n}\,|\{q : o(q) = \labelfmt{partially\_addressed}\}|$ \\
+    Open rate &
+      $\frac{1}{n}\,|\{q : o(q) = \labelfmt{posed\_but\_open}\}|$ ---
+      the community independently recognized the question \\
+    Premise refutation rate &
+      $\frac{1}{n}\,|\{q : p(q) = \labelfmt{refuted}\}|$ ---
+      questions that led to an established conclusion being overturned \\
+    Evidence strength &
+      mean $|E(q)|$ over engaged questions, and the multi-source rate
+      $\frac{1}{n}\,|\{q : |E(q)| \geq 2\}|$ --- is the label supported
+      by multiple independent papers? \\
+    Lead time &
+      years between question submission and the first time the community
+      \emph{independently poses} the same question \\
+    Community attention &
+      volume of future investment engaging the question: papers,
+      citations, review mentions, and major observing programs (e.g.\
+      JWST/HST proposals) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Coverage vs.\ answer rate.} Coverage asks whether the
+question pointed anywhere the community went at all; the answer/partial/
+open decomposition asks what happened when it got there. A system can
+maximize coverage with fashionable-topic questions, which is why
+coverage is never reported alone (Section~\ref{sec:threats} discusses
+the popularity confound).
+
+\paragraph{Premise refutation rate.} This is the metric we most want the
+field to adopt. Questions that trigger refutations are the rarest and
+arguably most valuable output of question discovery---they mark places
+where the literature's accepted conclusions were wrong and where a
+well-aimed question preceded the correction. Under the two-dimensional
+taxonomy the refutation is recorded without erasing the fact that the
+question was thereby \emph{answered}.
+
+\paragraph{Lead time.} If a system poses a question at the cutoff and
+the community first independently poses it in year $T{+}\ell$, the
+system led the field by $\ell$ years; averaged over questions this
+yields a comparable earliness score. Measuring $\ell$ requires
+identifying \emph{community first-posed dates}, which demands careful
+review-literature annotation we do not yet have. Astronomy~v1 therefore
+reports \texttt{mean\_lead\_time\_years:\,null} rather than a number we
+cannot defend; the released records do include a weaker, well-defined
+lower bound---\emph{first-engagement lag}, the years from cutoff to the
+earliest judge-cited supporting paper (pilot mean 2.9, range 1--5)---
+which should not be confused with lead time.
+
+\paragraph{Community attention.} Beyond binary engagement, the volume of
+future investment (paper counts, citations to engaging papers, review
+mentions, dedicated observing programs) reflects how much the community
+cared. v1 records the ingredients (supporting bibcodes, their venues and
+years) and reports evidence strength; a calibrated attention index is
+future work, and Section~\ref{sec:threats} explains why raw attention
+must never be the headline metric.
+
+\paragraph{Reporting requirements.} A benchmark report must state: the
+instance and protocol versions, $n$, all outcome and premise rates, the
+evidence-strength pair, and either lead time or an explicit null. The
+released implementation produces exactly this
+(\texttt{results/astronomy\_v1/metrics.json}) with one command, and CI
+fails if the committed numbers do not reproduce from the raw
+annotations.

@@ -1,0 +1,64 @@
+\section{Baselines}
+\label{sec:baselines}
+
+A benchmark that only ever scored one system would be a validation
+appendix. Astronomy~v1 ships four reference baselines, chosen to
+bracket the interesting comparisons; each consumes only \corpusA{}
+records, freezes its output before any future-corpus access, and is
+evaluated through the identical pipeline.
+
+\begin{description}
+  \item[B1: Random claims.] Sample random pre-cutoff papers and template
+    their headline result into a robustness question. The floor: any
+    system must beat chance-directed attention.
+  \item[B2: Direct LLM.] Give an LLM a sample of pre-cutoff abstracts
+    and ask for the most valuable open questions. The ``why not just ask
+    GPT?'' comparison. Because a modern LLM's weights postdate the
+    cutoff, this baseline is also a contamination probe: performance
+    that vanishes for post-training-cutoff instances indicates
+    memorized hindsight rather than generation ability
+    (Section~\ref{sec:threats}).
+  \item[B3: Review future work.] Extract explicitly posed open questions
+    from pre-cutoff review papers. The strongest natural reference: a
+    discovery system is interesting only if it adds value over questions
+    the community had already written down. Note this baseline should
+    score highly on coverage \emph{by construction}---these questions
+    are known community priorities---so the discriminating metrics are
+    premise refutation and lead time, where a copied question can never
+    lead the field.
+  \item[B4: Citation leaders.] Template follow-up questions from the
+    most-cited pre-cutoff papers. Tests whether chasing prominence
+    matches structured evidence analysis.
+\end{description}
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Astronomy v1 leaderboard. The pilot release scores one
+  submission; baseline rows will be populated from the released harness
+  (\texttt{baselines/}), and external systems can submit via the
+  interface in Section~\ref{sec:protocol}. Lead time is reported as null
+  until community first-posed dates are annotated
+  (Section~\ref{sec:metrics}).}
+  \label{tab:leaderboard}
+  \begin{tabular}{@{}lccccc@{}}
+    \toprule
+    System & $n$ & Coverage & Answered & Premise refuted & Lead time \\
+    \midrule
+    \texttt{evidence\_graph\_v1} \citep{paper1} & 10 & 100\% & 20\% & 10\% & --- \\
+    B1 random claims        & --- & --- & --- & --- & --- \\
+    B2 direct LLM           & --- & --- & --- & --- & --- \\
+    B3 review future work   & --- & --- & --- & --- & --- \\
+    B4 citation leaders     & --- & --- & --- & --- & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The pilot release implements the four baselines as runnable submission
+generators but reports scores only for \texttt{evidence\_graph\_v1}
+(Table~\ref{tab:leaderboard}): baseline outcome labels require the same
+retrieval--judging--adjudication budget as any submission, and we
+prefer an honest partially populated leaderboard over rushed labels.
+Populating the baseline rows is the release's first roadmap item, and
+the leaderboard file (\texttt{results/leaderboard.json}) is designed for
+external submissions to append to.

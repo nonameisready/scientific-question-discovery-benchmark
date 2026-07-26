@@ -1,0 +1,119 @@
+\section{The Historical Backtesting Protocol}
+\label{sec:protocol}
+
+The protocol evaluates a set of frozen questions $Q = \{q_1,\dots,q_n\}$
+against a future corpus. It has six steps; each is fully specified so
+that two groups running the same instance obtain the same measurement.
+
+\subsection{Step 1: Choose a cutoff}
+A historical date $T$ (Astronomy~v1: 2020-12-31) splits the literature
+into a \emph{past corpus} \corpusA{} (everything available up to $T$)
+and a \emph{future window} realized as an isolated corpus \corpusB{}
+(strictly after $T$). The cutoff must be far enough in the past for the
+community to have had time to act---we recommend $\geq 4$ years---and
+recent enough that the past corpus reflects a modern research frontier.
+
+\subsection{Step 2: Generate questions}
+Any method may generate questions: an evidence-graph pipeline, a
+prompted LLM, a heuristic over citation statistics, a human expert. The
+only requirements are (i) the generator consumes \emph{only} \corpusA{}
+evidence, and (ii) every question records the pre-cutoff evidence it is
+grounded in (\texttt{source\_evidence\_ids}). A submission whose source
+evidence postdates $T$ is invalid, mechanically
+(\texttt{scripts/validate\_cutoff.py}).
+
+\subsection{Step 3: Freeze}
+Questions are serialized---identifier, text, cutoff, generating system,
+source evidence, system-assigned rank---with \texttt{frozen:\,true}
+\emph{before any access to post-cutoff literature}, and are never edited
+afterwards. Freezing is the protocol's load-bearing rule: without it,
+question text drifts toward what the evaluator has meanwhile learned the
+future contains, and the backtest silently becomes a description of the
+future rather than a prediction of it \citep{bailey2014backtest}. In the
+released implementation frozen files are append-only and guarded by CI;
+editing a released question mints a new versioned instance rather than
+overwriting the old one.
+
+\subsection{Step 4: Define the future window}
+\corpusB{} is collected under its own frozen manifest (query set, date
+window, deduplication rules) and stored separately from \corpusA{};
+records from \corpusB{} must never enter the generation pipeline. The
+Astronomy~v1 window is 2021--2026. Bounding the window matters for
+comparability: ``eventually engaged'' is not a fixed target, but
+``engaged within $k$ years'' is.
+
+\subsection{Step 5: Retrieve future evidence}
+For each frozen question, the question text and every \corpusB{}
+document (title + abstract) are embedded
+(\texttt{text-embedding-3-small}); the top-$k$ documents by cosine
+similarity ($k=8$) become the candidate evidence. Retrieval is
+deliberately fixed and deliberately simple: systems are compared on
+their \emph{questions}, not their retrievers, and reviewers can inspect
+exactly which documents the judge saw because retrieval records are part
+of the release.
+
+\subsection{Step 6: Assess outcomes}
+\label{sec:protocol:outcomes}
+
+A judge reads the question and its retrieved candidates and assigns two
+\emph{independent} labels (Table~\ref{tab:taxonomy}): the fate of the
+question and the fate of its premise.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Outcome taxonomy v1.0. The two dimensions are labeled
+  independently.}
+  \label{tab:taxonomy}
+  \begin{tabular}{@{}llp{8.2cm}@{}}
+    \toprule
+    Dimension & Label & Meaning \\
+    \midrule
+    \multirow{4}{*}{\texttt{outcome}}
+      & \labelfmt{answered} & Future evidence substantially answers the question (including by refuting its premise) \\
+      & \labelfmt{partially\_addressed} & Important, directly relevant progress; core question unresolved \\
+      & \labelfmt{posed\_but\_open} & The community independently poses essentially the same question without resolving it \\
+      & \labelfmt{not\_addressed} & No meaningful follow-up in the future corpus \\
+    \midrule
+    \multirow{5}{*}{\texttt{premise\_status}}
+      & \labelfmt{supported} & Future evidence confirms the underlying premise \\
+      & \labelfmt{refuted} & Future evidence falsifies the underlying premise \\
+      & \labelfmt{weakened} & Substantial doubt cast without falsification \\
+      & \labelfmt{still\_plausible} & The premise was not directly tested after the cutoff \\
+      & \labelfmt{not\_applicable} & The question rests on no contestable premise \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Two design decisions deserve emphasis. First, the dimensions are
+separated because the single most informative outcome a backtest can
+surface---\emph{the community answered this question by refuting its
+premise}---is inexpressible in a flat label set: it is simultaneously a
+resolution (\labelfmt{answered}) and a falsification
+(\labelfmt{refuted}). Our pilot's headline case
+(Section~\ref{sec:results:case}) is exactly of this type. Second,
+premise refutation is scored as a \emph{success} of the question, not a
+failure: a question that provokes the community into overturning one of
+its own published conclusions has done the most a question can do.
+
+The judge operates under hard constraints enforced outside the model:
+it may cite only bibcodes from the retrieved candidates (violations are
+errors, never silently dropped); topical similarity is explicitly
+insufficient---the cited paper must bear on the question's actual test
+or premise; unknown labels fall back to the most conservative value and
+are flagged. Every machine-assigned label then passes \emph{human
+adjudication} under written guidelines (citation validity, the
+engagement bar, the outcome/premise split), and the adjudication log is
+released alongside the labels. No result enters the benchmark
+unreviewed.
+
+\subsection{Submissions}
+A system is evaluated by submitting a directory containing
+\texttt{questions.jsonl} (the frozen questions) and
+\texttt{metadata.json} (system description, including a mandatory
+declaration of any LLM components and their versions, for contamination
+auditing). The benchmark pipeline---isolation checks, retrieval,
+judging, adjudication, metrics, report---is identical for every
+submission; the system whose questions we evaluate in
+Section~\ref{sec:results} interacts with the benchmark only through
+this interface.

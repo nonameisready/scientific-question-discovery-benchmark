@@ -1,0 +1,69 @@
+\section{Threats to Validity}
+\label{sec:threats}
+
+Historical backtesting removes rater subjectivity; it does not remove
+every confound. We enumerate the serious ones and what the protocol
+does---and cannot do---about each.
+
+\paragraph{Future inattention is not question badness.} A question can
+be ignored because the enabling instrument never flew, the community's
+funding shifted, or the subfield is small---not because the question was
+poor. q\_011 was unanswerable before JWST delivered TRAPPIST-1 spectra;
+had JWST slipped five years, an excellent question would have scored
+\labelfmt{not\_addressed}. Mitigations: bounded windows make the
+censoring explicit; \labelfmt{posed\_but\_open} separates
+``recognized but unresolved'' from ``ignored''; instances should be
+read as \emph{engagement within $k$ years given the era's instruments},
+not as timeless value.
+
+\paragraph{Future attention is not question goodness.} Symmetrically, a
+question on a fashionable topic collects engagement for reasons other
+than merit; coverage alone can be gamed by asking about whatever is
+popular. Mitigations: coverage is never reported alone; premise
+refutation and (future) lead time cannot be earned by fashion-chasing;
+baseline B4 (citation leaders) exists precisely to price in prominence;
+and the engagement bar requires the cited paper to bear on the
+question's actual test, not its topic.
+
+\paragraph{LLM training contamination.} The generating system and the
+judge both use models whose training data postdates the cutoff. The
+protocol seals the retrieval channel, not the weights channel: a model
+may ``know'' the 2025 refutation while drafting a 2020-framed question.
+This is the deepest threat to any backtest run with modern models.
+Mitigations, none complete: source-evidence audit forces every question
+to be grounded in cited pre-cutoff evidence; submission metadata must
+declare all LLM components and versions; baseline B2 doubles as a
+contamination probe; and the decisive test is \emph{prospective}
+instances---questions frozen today and scored in 2030 cannot be
+contaminated. The protocol is explicitly designed so its instances
+convert from retrospective to prospective by just letting time pass.
+
+\paragraph{Judge and adjudicator reliability.} A single LLM judge,
+even citation-constrained and human-adjudicated, is one reading of the
+evidence; abstracts (not full texts) bound what it can see, and the
+adjudicators are not blind to which system produced the questions.
+Mitigations: labels ship with rationales and citations so any label is
+independently checkable; disagreement is handled by written conservative
+rules (prefer the weaker engagement); multi-judge agreement measurement
+and blinded adjudication are roadmap items.
+
+\paragraph{Retrieval as a bottleneck.} Top-8 abstract-embedding
+retrieval can miss engaging papers (undercounting engagement) or
+surface topically similar non-engagement (which the judge must reject).
+Fixed retrieval is a deliberate trade: it makes comparisons across
+systems fair and auditable at the cost of an engagement floor.
+Sensitivity of labels to $k$ and to the retriever is measurable within
+the released data schema and belongs in v1.1.
+
+\paragraph{Small $n$, one domain, self-evaluation.} Ten questions from
+one system in one domain, evaluated by the group that built that system,
+support no ranking claims---which is why the leaderboard ships
+partially populated, the harness is public, and the paper's empirical
+claim is deliberately modest (Section~\ref{sec:intro}). The protocol's
+value grows with adversarial use by systems we did not build.
+
+\paragraph{Curation hindsight.} Humans who edited questions before
+freezing know the post-2020 literature. The curation log is released so
+every edit is auditable (e.g.\ q\_008's reframing strengthened
+falsifiability without smuggling in the answer), but retrospective
+instances cannot fully exclude this channel; prospective ones can.
