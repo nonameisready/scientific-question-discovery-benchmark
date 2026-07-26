@@ -1,0 +1,35 @@
+{
+  "corpus_id": "exoplanet_atmospheres_v1",
+  "role": "past_corpus",
+  "cutoff_date": "2020-12-31",
+  "publication_year": {
+    "min": 2015,
+    "max": 2020
+  },
+  "n_papers": 2512,
+  "n_core_full_text": 500,
+  "source": "NASA_ADS",
+  "supplement": "arXiv",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet"
+  ],
+  "fields": [
+    "title",
+    "abstract",
+    "author",
+    "pubdate",
+    "doi",
+    "bibcode",
+    "arxiv_id",
+    "citation",
+    "reference",
+    "keyword",
+    "data"
+  ],
+  "leakage_rule": "Nothing dated after cutoff_date may enter this corpus, including catalog rows whose rowupdate postdates the cutoff.",
+  "frozen_at": "2026-07-25",
+  "provenance": "https://github.com/nonameisready/scientific-question-discovery (manifests/exoplanet_atmospheres_v1__2026-07-25.yaml)"
+}

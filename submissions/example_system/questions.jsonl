@@ -1,0 +1,1 @@
+{"question_id": "q_001", "question": "Is the reported low water abundance of planet X robust to retrieval assumptions?", "domain": "exoplanet_atmospheres", "cutoff_date": "2020-12-31", "generated_at": "2026-01-15", "generation_system": "my_system_v1", "source_evidence_ids": ["2019MNRAS.482.1485P"], "rank": 1, "frozen": true}

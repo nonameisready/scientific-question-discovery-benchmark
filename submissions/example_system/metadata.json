@@ -1,0 +1,10 @@
+{
+  "system_name": "example_system",
+  "description": "Template submission. Replace questions.jsonl with your system's frozen questions and fill in this metadata before opening a PR.",
+  "repository": "https://github.com/your-org/your-system",
+  "cutoff_date": "2020-12-31",
+  "domain": "exoplanet_atmospheres",
+  "n_questions": 1,
+  "frozen": true,
+  "llm_components": {"generation": "declare any LLMs used, with versions"}
+}

@@ -1,0 +1,25 @@
+# Astronomy v1 benchmark instance — exoplanet atmospheres, cutoff 2020-12-31.
+#
+# Astronomy v1 is the first benchmark *instance*, not the definition of
+# the benchmark itself. A new domain or cutoff mints a new config file;
+# released instances are never edited in place.
+
+benchmark_version: astronomy_v1
+cutoff_date: "2020-12-31"
+domain: exoplanet_atmospheres
+
+questions_file: data/questions/astronomy_questions_v1.jsonl
+retrieval_file: data/retrieval/astronomy_top8_v1.jsonl
+annotations_file: data/annotations/outcomes_v1.jsonl
+results_dir: results/astronomy_v1
+
+past_corpus_manifest: data/corpus_metadata/corpus_a_manifest.json
+future_corpus_manifest: data/corpus_metadata/corpus_b_manifest.json
+
+judge_model: gpt-4.1
+
+retrieval:
+  model: text-embedding-3-small
+  top_k: 8
+  corpus_start: "2021-01-01"
+  corpus_end: "2026-07-01"

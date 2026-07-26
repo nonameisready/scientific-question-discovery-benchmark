@@ -1,0 +1,8 @@
+# Default retrieval settings for all benchmark instances.
+# Retrieval is fully specified so instances are comparable across systems:
+# deviating runs must record their own settings in the retrieval records.
+
+model: text-embedding-3-small
+similarity: cosine
+document_text: "title + abstract, truncated to 6000 characters"
+top_k: 8

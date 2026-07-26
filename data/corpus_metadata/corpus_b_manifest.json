@@ -1,0 +1,25 @@
+{
+  "corpus_id": "exoplanet_atmospheres_validation_v1",
+  "role": "future_corpus",
+  "validates": "exoplanet_atmospheres_v1",
+  "validation_window": {
+    "min": 2021,
+    "max": 2026
+  },
+  "n_papers": 1891,
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"HD 189733\" AND (wind OR \"vertical shear\" OR blueshift)",
+    "\"WASP-12\" AND (water OR \"C/O\" OR retrieval)",
+    "\"HD 209458\" AND (water OR sodium OR abundance)",
+    "\"TRAPPIST-1\" AND (JWST OR \"carbon dioxide\" OR CO2)",
+    "\"WASP-121\" AND water"
+  ],
+  "isolation_rule": "Records from this corpus must never enter the past-corpus pipeline; validation records are stored separately and filtered by corpus identifier. Deduplicated by bibcode; records without abstracts dropped.",
+  "frozen_at": "2026-07-25",
+  "provenance": "https://github.com/nonameisready/scientific-question-discovery (manifests/exoplanet_atmospheres_validation_v1__2026-07-25.yaml)"
+}

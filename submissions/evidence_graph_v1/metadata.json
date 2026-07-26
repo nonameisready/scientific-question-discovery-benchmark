@@ -1,0 +1,14 @@
+{
+  "system_name": "evidence_graph_v1",
+  "description": "Evidence-based scientific question discovery: provenance-carrying claims, typed cross-paper tensions, human-adjudicated signals, two-stage ranking (Paper 1).",
+  "repository": "https://github.com/nonameisready/scientific-question-discovery",
+  "cutoff_date": "2020-12-31",
+  "domain": "exoplanet_atmospheres",
+  "n_questions": 10,
+  "frozen": true,
+  "submitted_at": "2026-07-25",
+  "llm_components": {
+    "extraction_and_generation": "gpt-4.1 (claims, tensions, drafting)",
+    "training_cutoff_note": "The generator LLM's training data postdates the corpus cutoff; contamination is audited in the benchmark's threats-to-validity analysis."
+  }
+}
