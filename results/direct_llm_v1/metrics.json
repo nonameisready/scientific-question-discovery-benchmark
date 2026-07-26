@@ -1,0 +1,26 @@
+{
+  "benchmark_version": "astronomy_v1",
+  "protocol_version": "1.0",
+  "cutoff_date": "2020-12-31",
+  "n_questions": 10,
+  "future_attention_rate": 0.9,
+  "answered_rate": 0.0,
+  "partial_rate": 0.9,
+  "posed_but_open_rate": 0.0,
+  "not_addressed_rate": 0.1,
+  "premise_refutation_rate": 0.0,
+  "premise_status_counts": {
+    "still_plausible": 1,
+    "supported": 9
+  },
+  "mean_retrieval_support_count": 4.44,
+  "multi_source_rate": 0.9,
+  "mean_top1_retrieval_similarity": 0.7319,
+  "first_engagement_lag_years": {
+    "mean": 1.33,
+    "min": 1,
+    "max": 4,
+    "note": "lower bound from judge-cited evidence only"
+  },
+  "mean_lead_time_years": null
+}

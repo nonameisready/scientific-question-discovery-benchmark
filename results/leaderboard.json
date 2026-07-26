@@ -9,6 +9,51 @@
       "answered_rate": 0.2,
       "premise_refutation_rate": 0.1,
       "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_review_future_work_v1",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 1.0,
+      "answered_rate": 0.1,
+      "premise_refutation_rate": 0.0,
+      "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_citation_leader_v1",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 1.0,
+      "answered_rate": 0.3,
+      "premise_refutation_rate": 0.0,
+      "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_random_claim_v1",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 0.7,
+      "answered_rate": 0.0,
+      "premise_refutation_rate": 0.0,
+      "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_direct_llm_gpt41_v1",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 0.9,
+      "answered_rate": 0.0,
+      "premise_refutation_rate": 0.0,
+      "mean_lead_time_years": null
+    },
+    {
+      "system": "evidence_graph_v1_judge_only_rerun",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 0.9,
+      "answered_rate": 0.1,
+      "premise_refutation_rate": 0.1,
+      "mean_lead_time_years": null
     }
   ]
 }

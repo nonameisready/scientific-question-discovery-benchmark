@@ -118,6 +118,11 @@ def constrain(judged: dict, allowed_bibcodes: set[str], question_id: str) -> dic
     stray = [e.get("bibcode") for e in evidence if e.get("bibcode") not in allowed_bibcodes]
     if stray:
         raise CitationError(f"{question_id}: judge cited non-candidate bibcodes {stray}")
+    if outcome == "not_addressed" and evidence:
+        # A judge that cites evidence while declaring non-engagement is
+        # contradicting itself. Resolve conservatively: keep the weaker
+        # outcome, drop the citations, and force human review.
+        evidence, flagged = [], True
     return {
         "question_id": question_id,
         "outcome": outcome,
