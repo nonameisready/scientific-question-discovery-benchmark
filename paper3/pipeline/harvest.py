@@ -17,6 +17,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -43,8 +44,11 @@ START_YEAR = 2005
 END_YEAR = 2025
 
 PAGE_SIZE = 1000
-REQUEST_DELAY_S = 3.0
+REQUEST_DELAY_S = 3.5
 MAX_RETRIES = 6
+
+
+RATE_LIMIT_BACKOFF_S = 180.0
 
 
 def _fetch(url: str) -> bytes:
@@ -53,6 +57,14 @@ def _fetch(url: str) -> bytes:
         try:
             with urllib.request.urlopen(url, timeout=45) as resp:
                 return resp.read()
+        except urllib.error.HTTPError as err:
+            last_err = err
+            if err.code == 429:
+                # arXiv throttling bans last minutes, not seconds: wait it out.
+                print(f"[harvest] 429 rate-limited, backing off (attempt {attempt + 1})", flush=True)
+                time.sleep(RATE_LIMIT_BACKOFF_S * (attempt + 1))
+            else:
+                time.sleep(REQUEST_DELAY_S * (attempt + 1))
         except Exception as err:  # noqa: BLE001 - network flakiness is expected
             last_err = err
             time.sleep(REQUEST_DELAY_S * (attempt + 1))
