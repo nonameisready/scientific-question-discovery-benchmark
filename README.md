@@ -86,6 +86,7 @@ citation leaders) live in [baselines/](baselines/).
 | `results/` | released metrics, per-question results, reports, leaderboard |
 | `tests/` + `.github/workflows/` | offline tests, data validation, reproducibility smoke test |
 | `paper/` | the benchmark paper (Paper 2) |
+| `paper3/` | **Paper 3**: ~1,000-question temporally grounded dataset (5 cutoffs × 8 subfields × 4 sources) + predictor-discovery study — see [paper3/README.md](paper3/README.md) |
 
 ## Relationship to the question-generation repo (Paper 1)
 

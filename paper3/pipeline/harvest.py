@@ -42,7 +42,7 @@ CATEGORIES = [
 START_YEAR = 2005
 END_YEAR = 2025
 
-PAGE_SIZE = 2000
+PAGE_SIZE = 1000
 REQUEST_DELAY_S = 3.0
 MAX_RETRIES = 6
 
@@ -51,7 +51,7 @@ def _fetch(url: str) -> bytes:
     last_err: Exception | None = None
     for attempt in range(MAX_RETRIES):
         try:
-            with urllib.request.urlopen(url, timeout=90) as resp:
+            with urllib.request.urlopen(url, timeout=45) as resp:
                 return resp.read()
         except Exception as err:  # noqa: BLE001 - network flakiness is expected
             last_err = err

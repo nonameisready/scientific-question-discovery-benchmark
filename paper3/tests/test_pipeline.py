@@ -1,8 +1,10 @@
 """Offline unit tests for the Paper 3 pipeline (no network, no API keys)."""
 
-import numpy as np
+import pytest
 
-from paper3.pipeline import analysis, facilities, features, generate, mine, subfields
+pytest.importorskip("sklearn", reason="paper3 requires the scientific stack")
+
+from paper3.pipeline import analysis, facilities, features, generate, mine, subfields  # noqa: E402
 
 
 def _doc(i, title, abstract, published="2010-05-01", cats=("astro-ph.EP",)):
