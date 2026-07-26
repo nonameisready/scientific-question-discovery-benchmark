@@ -80,27 +80,44 @@ def auto_labels(question: str, ctx: FutureContext) -> dict:
 
 
 _JUDGE_SYSTEM = (
-    "You are an outcome judge for a study of scientific questions. You will see a "
-    "research question frozen at a historical cutoff date, and a set of candidate "
+    "You are a strict outcome judge for a study of scientific questions. You will "
+    "see a research question frozen at a historical cutoff date, and candidate "
     "papers published AFTER that cutoff. Judge only from the candidate papers "
     "given: do not use any other knowledge of the literature, and do not guess "
-    "who or what generated the question."
+    "who or what generated the question. Be strict: a paper from the same "
+    "subfield is usually only topically ADJACENT — it engages the question "
+    "DIRECTLY only if it investigates the question's own central objects, "
+    "quantities, or claimed relationship, or reports evidence that answers or "
+    "undermines the question itself."
 )
 
 _JUDGE_TEMPLATE = (
     "Question (frozen at {cutoff}): {question}\n\n"
     "Candidate future papers (published after the cutoff):\n{evidence}\n\n"
-    "Based ONLY on these candidates, output JSON with:\n"
-    '- "addressed": true if future work substantively engaged with this question\n'
-    '- "answer_status": one of "answered", "partially_addressed", "posed_but_open", '
-    '"premise_refuted", "not_addressed"\n'
+    "Step 1 — classify EVERY candidate id as:\n"
+    '  "direct"    = investigates this question itself (its specific objects, '
+    "quantities, or claimed relationship), or reports evidence bearing on its answer\n"
+    '  "adjacent"  = same topic or subfield, but does not investigate this question\n'
+    '  "unrelated" = neither\n'
+    "Step 2 — outcome, using ONLY the direct candidates:\n"
+    '  "not_addressed"       = no direct candidate\n'
+    '  "posed_but_open"      = direct candidates pose or flag the question as open, '
+    "without substantive new evidence\n"
+    '  "partially_addressed" = >=1 direct candidate contributes substantive new '
+    "evidence on part of the question, but it is not settled\n"
+    '  "answered"            = direct candidates report a resolution that would '
+    "reasonably settle the main question\n"
+    '  "premise_refuted"     = direct candidates show the question\'s underlying '
+    "premise or assumption was wrong\n\n"
+    "Output JSON with:\n"
+    '- "per_candidate": [{{"id": "...", "relation": "direct|adjacent|unrelated"}}, ...]\n'
+    '- "addressed": true only if at least one candidate is direct AND the outcome '
+    "is not not_addressed\n"
+    '- "answer_status": one of the five outcomes above\n'
     '- "premise_status": one of "intact", "weakened", "refuted", "not_applicable"\n'
-    '- "supporting_ids": arxiv ids of the candidates that justify your label (may be empty)\n'
+    '- "supporting_ids": the direct candidate ids only (may be empty)\n'
     '- "rationale": 1-2 sentences citing those ids\n'
-    '- "confidence": 0.0-1.0\n'
-    "A question is 'addressed' only if at least one candidate genuinely bears on it; "
-    "topical overlap alone is not enough. Use 'premise_refuted' when the candidates "
-    "show the question's premise was wrong."
+    '- "confidence": 0.0-1.0'
 )
 
 
@@ -127,15 +144,19 @@ def judge_question(
     status = str(resp.get("answer_status", "not_addressed"))
     if status not in ANSWER_STATUSES:
         status = "not_addressed"
-    addressed = bool(resp.get("addressed", False))
-    if status == "not_addressed":
-        addressed = False
-    elif not addressed:
-        # judge said engaged status but addressed=false: trust the status
-        addressed = status != "not_addressed"
+    per_candidate = resp.get("per_candidate", []) or []
+    n_direct = sum(1 for c in per_candidate if str(c.get("relation")) == "direct")
+    n_adjacent = sum(1 for c in per_candidate if str(c.get("relation")) == "adjacent")
+    # addressed is derived, not taken on faith: it requires at least one
+    # direct candidate and a non-null outcome.
+    if n_direct == 0 and per_candidate:
+        status = "not_addressed"
+    addressed = status != "not_addressed" and (n_direct > 0 or not per_candidate)
     return {
         "addressed": addressed,
-        "answer_status": status,
+        "answer_status": status if addressed else "not_addressed",
+        "n_direct": n_direct,
+        "n_adjacent": n_adjacent,
         "premise_status": str(resp.get("premise_status", "not_applicable")),
         "supporting_ids": [str(x) for x in resp.get("supporting_ids", [])][:TOP_K_JUDGE],
         "rationale": str(resp.get("rationale", ""))[:800],
@@ -152,6 +173,8 @@ def label_question(question: dict, ctx: FutureContext) -> dict:
         judged = {
             "addressed": False,
             "answer_status": "not_addressed",
+            "n_direct": 0,
+            "n_adjacent": 0,
             "premise_status": "not_applicable",
             "supporting_ids": [],
             "rationale": "No future paper reached the minimum relevance threshold.",

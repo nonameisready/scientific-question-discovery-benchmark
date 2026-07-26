@@ -1,0 +1,24 @@
+{
+  "n": 196,
+  "addressed_agreement": 0.8010204081632653,
+  "addressed_kappa": 0.20935043442283818,
+  "status_agreement": 0.6989795918367347,
+  "status_kappa": 0.14593796159527345,
+  "per_class": {
+    "answered": {
+      "precision_vs_primary": 0.0,
+      "recall_vs_primary": 0.0,
+      "n_primary": 1
+    },
+    "partially_addressed": {
+      "precision_vs_primary": 0.9923664122137404,
+      "recall_vs_primary": 0.6951871657754011,
+      "n_primary": 187
+    },
+    "not_addressed": {
+      "precision_vs_primary": 0.15555555555555556,
+      "recall_vs_primary": 0.875,
+      "n_primary": 8
+    }
+  }
+}

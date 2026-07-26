@@ -5,17 +5,17 @@
     2005,
     2025
   ],
-  "n_papers_total": 235232,
-  "corpus_sha256": "6cf50368628e8becf90338392387a258e0dfbd39a749633ffc405f252cb060a2",
+  "n_papers_total": 313189,
+  "corpus_sha256": "a73720ed5b2017a09aca8a8a3413c7729bedd78db2ab67493111970748e65671",
   "subfield_paper_totals": {
-    "exoplanet_atmospheres": 2746,
-    "protoplanetary_disks": 7510,
-    "stellar_activity": 2882,
-    "fast_radio_bursts": 1058,
-    "gravitational_waves": 10583,
-    "galaxy_evolution": 15110,
-    "cosmology_tensions": 11624,
-    "compact_objects": 24549
+    "exoplanet_atmospheres": 4354,
+    "protoplanetary_disks": 10378,
+    "stellar_activity": 4347,
+    "fast_radio_bursts": 1966,
+    "gravitational_waves": 17989,
+    "galaxy_evolution": 21390,
+    "cosmology_tensions": 16403,
+    "compact_objects": 34266
   },
   "cutoff_windows": {
     "2012": {
