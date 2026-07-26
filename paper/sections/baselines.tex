@@ -11,13 +11,13 @@ evaluated through the identical pipeline.
   \item[B1: Random claims.] Sample random pre-cutoff papers and template
     their headline result into a robustness question. The floor: any
     system must beat chance-directed attention.
-  \item[B2: Direct LLM.] Give an LLM a sample of pre-cutoff abstracts
-    and ask for the most valuable open questions. The ``why not just ask
-    GPT?'' comparison. Because a modern LLM's weights postdate the
-    cutoff, this baseline is also a contamination probe: performance
-    that vanishes for post-training-cutoff instances indicates
-    memorized hindsight rather than generation ability
-    (Section~\ref{sec:threats}).
+  \item[B2: Direct LLM.] Give an LLM (\texttt{gpt-4.1}, 60 sampled
+    pre-cutoff abstracts) a request for the most valuable open
+    questions. The ``why not just ask GPT?'' comparison. Because a
+    modern LLM's weights postdate the cutoff, this baseline is also a
+    contamination probe: performance that vanishes for
+    post-training-cutoff instances indicates memorized hindsight rather
+    than generation ability (Section~\ref{sec:threats}).
   \item[B3: Review future work.] Extract explicitly posed open questions
     from pre-cutoff review papers. The strongest natural reference: a
     discovery system is interesting only if it adds value over questions
@@ -28,37 +28,98 @@ evaluated through the identical pipeline.
     lead the field.
   \item[B4: Citation leaders.] Template follow-up questions from the
     most-cited pre-cutoff papers. Tests whether chasing prominence
-    matches structured evidence analysis.
+    matches structured evidence analysis. One caveat is built in: ADS
+    citation counts are fetched at corpus-rebuild time and therefore
+    include post-cutoff citations, so this baseline selects papers with
+    \emph{hindsight} knowledge of which pre-2021 work the future found
+    important---a bias in its favor that a cutoff-dated citation
+    snapshot would remove.
 \end{description}
+
+\paragraph{Evaluation conditions.} All four baselines were run through
+the released pipeline: top-8 retrieval with
+\texttt{text-embedding-3-small} against the manifest-rebuilt future
+corpus restricted to the frozen window (2{,}384 records, a superset of
+the frozen 1{,}891 due to retroactive ADS indexing, containing all 22
+citations in the released annotations), then \texttt{gpt-4.1} judging
+at temperature 0 under the citation constraints of
+Section~\ref{sec:protocol}. Baseline labels are \emph{judge-only}: they
+have not received the human adjudication that the released
+\texttt{evidence\_graph\_v1} labels did. To make that comparison
+honest, Table~\ref{tab:leaderboard} also reports a judge-only rerun of
+the evidence-graph submission under exactly the baseline conditions.
+The rerun doubles as a replication check: it reproduces the released
+mean top-1 retrieval similarity (0.668 vs.\ 0.666) and lands within one
+label of the adjudicated results (coverage 90\% vs.\ 100\%, answered
+10\% vs.\ 20\%, refutation 10\% = 10\%)---the deltas are exactly the
+two labels adjudication had strengthened, so judge-only scoring reads
+as the conservative floor of the adjudicated score.
 
 \begin{table}[t]
   \centering
   \small
-  \caption{Astronomy v1 leaderboard. The pilot release scores one
-  submission; baseline rows will be populated from the released harness
-  (\texttt{baselines/}), and external systems can submit via the
-  interface in Section~\ref{sec:protocol}. Lead time is reported as null
-  until community first-posed dates are annotated
-  (Section~\ref{sec:metrics}).}
+  \caption{Astronomy v1 leaderboard ($n=10$ questions per system).
+  Adjud.\ = human-adjudicated labels; judge-only rows are directly
+  comparable to each other. Cov.\ = future-attention rate; Ans.\ =
+  answered; Part.\ = partially addressed; Open = posed but open; Ref.\ =
+  premise refuted; $s_1$ = mean top-1 retrieval similarity. Lead time
+  is null for all systems until community first-posed dates are
+  annotated (Section~\ref{sec:metrics}).}
   \label{tab:leaderboard}
-  \begin{tabular}{@{}lccccc@{}}
+  \begin{tabular}{@{}llcccccc@{}}
     \toprule
-    System & $n$ & Coverage & Answered & Premise refuted & Lead time \\
+    System & Eval & Cov. & Ans. & Part. & Open & Ref. & $s_1$ \\
     \midrule
-    \texttt{evidence\_graph\_v1} \citep{paper1} & 10 & 100\% & 20\% & 10\% & --- \\
-    B1 random claims        & --- & --- & --- & --- & --- \\
-    B2 direct LLM           & --- & --- & --- & --- & --- \\
-    B3 review future work   & --- & --- & --- & --- & --- \\
-    B4 citation leaders     & --- & --- & --- & --- & --- \\
+    \texttt{evidence\_graph\_v1} \citep{paper1} & adjud. & 100\% & 20\% & 70\% & 10\% & 10\% & 0.666 \\
+    \midrule
+    \texttt{evidence\_graph\_v1} (rerun) & judge & 90\% & 10\% & 80\% & 0\% & 10\% & 0.668 \\
+    B4 citation leaders     & judge & 100\% & 30\% & 70\% & 0\% & 0\% & 0.632 \\
+    B3 review future work   & judge & 100\% & 10\% & 70\% & 20\% & 0\% & 0.593 \\
+    B2 direct LLM           & judge & 90\% & 0\% & 90\% & 0\% & 0\% & 0.732 \\
+    B1 random claims        & judge & 70\% & 0\% & 70\% & 0\% & 0\% & 0.611 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The pilot release implements the four baselines as runnable submission
-generators but reports scores only for \texttt{evidence\_graph\_v1}
-(Table~\ref{tab:leaderboard}): baseline outcome labels require the same
-retrieval--judging--adjudication budget as any submission, and we
-prefer an honest partially populated leaderboard over rushed labels.
-Populating the baseline rows is the release's first roadmap item, and
-the leaderboard file (\texttt{results/leaderboard.json}) is designed for
-external submissions to append to.
+\paragraph{Reading the leaderboard.} Three observations, offered with
+the $n=10$ caution of Section~\ref{sec:results} applying to every row.
+
+\emph{Coverage saturates.} Every non-random system scores 90--100\% on
+future attention: in a field this active, any fluent, topical question
+attracts partial engagement within five years. Coverage separates the
+floor (random claims, 70\%, the only system with three
+\labelfmt{not\_addressed} labels) from everything else, and nothing
+else---which is why the protocol never reports it alone
+(Section~\ref{sec:threats}).
+
+\emph{Answered-rate comparisons need reading, not just ranking.} The
+citation-leader baseline posts the highest judge-only answered rate
+(30\%). Two mechanisms inflate it: its hindsight-biased paper selection
+(above), and its template---``does the conclusion of highly cited paper
+$X$ hold?''---which pattern-matches the replication studies that
+prominent results reliably attract, so the judge can mark it answered
+whenever the community re-examined a famous result for any reason. What
+the template cannot do is risk anything: B4 refuted no premise, and by
+construction a question of the form ``is the famous result right?''
+poses nothing the community was not already testing. The evidence-graph
+submission's answered questions, by contrast, specified particular
+tests (Section~\ref{sec:results:case}) and include the leaderboard's
+only refuted premise---on both adjudicated and judge-only rows.
+
+\emph{The contamination probe registers a signal.} The direct-LLM
+baseline has by far the highest retrieval similarity to future
+literature ($s_1 = 0.732$ vs.\ 0.593--0.668 for every other system) and
+the highest mean support count (4.6 cited papers per question)---its
+questions are phrased in the way the 2021--2026 literature would come
+to phrase them, consistent with weights that have read that literature.
+Yet it resolves nothing: 0\% answered, 0\% refuted, 90\% partial. The
+pattern suggests phrasing-level contamination without commitment to
+falsifiable specifics---broad, well-aimed questions that everything
+engages and nothing settles. Prospective instances
+(Section~\ref{sec:conclusion}) will separate the two channels
+definitively.
+
+Baseline generators, frozen submissions, retrieval records with full
+per-document scores, judge annotations, and per-system reports are all
+released; the leaderboard file is designed for external submissions to
+append to.

@@ -33,7 +33,11 @@ This is the deepest threat to any backtest run with modern models.
 Mitigations, none complete: source-evidence audit forces every question
 to be grounded in cited pre-cutoff evidence; submission metadata must
 declare all LLM components and versions; baseline B2 doubles as a
-contamination probe; and the decisive test is \emph{prospective}
+contamination probe---and registers one: its questions sit measurably
+closer to the future literature's phrasing than any other system's
+($s_1 = 0.732$, Table~\ref{tab:leaderboard}) while resolving nothing,
+the signature of phrasing-level memorization without specific
+foresight; and the decisive test is \emph{prospective}
 instances---questions frozen today and scored in 2030 cannot be
 contaminated. The protocol is explicitly designed so its instances
 convert from retrospective to prospective by just letting time pass.
@@ -55,11 +59,14 @@ systems fair and auditable at the cost of an engagement floor.
 Sensitivity of labels to $k$ and to the retriever is measurable within
 the released data schema and belongs in v1.1.
 
-\paragraph{Small $n$, one domain, self-evaluation.} Ten questions from
-one system in one domain, evaluated by the group that built that system,
-support no ranking claims---which is why the leaderboard ships
-partially populated, the harness is public, and the paper's empirical
-claim is deliberately modest (Section~\ref{sec:intro}). The protocol's
+\paragraph{Small $n$, one domain, self-evaluation.} Ten questions per
+system in one domain, evaluated by the group that built the leading
+system, support no ranking claims---which is why the baseline rows are
+labeled judge-only rather than adjudicated, the harness is public, and
+the paper's empirical claim is deliberately modest
+(Section~\ref{sec:intro}). At $n=10$ the leaderboard's answered-rate
+differences (0--30\%) are within each other's confidence intervals; we
+report them as priced reference points, not rankings. The protocol's
 value grows with adversarial use by systems we did not build.
 
 \paragraph{Curation hindsight.} Humans who edited questions before
