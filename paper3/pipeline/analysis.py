@@ -25,7 +25,10 @@ def _controls_frame(df: pd.DataFrame) -> pd.DataFrame:
     src = pd.get_dummies(df["source"], prefix="src", drop_first=True).astype(float)
     env = df[["env_pub_volume_3y", "env_growth_ratio"]].astype(float)
     env = (env - env.mean()) / env.std().replace(0, 1)
-    return pd.concat([ctrl, src, env], axis=1)
+    out = pd.concat([ctrl, src, env], axis=1)
+    # Constant columns (e.g. cutoff year within a single-cutoff subset) make
+    # the design singular; drop them so subgroup fits stay estimable.
+    return out.loc[:, out.std() > 0]
 
 
 def univariate(df: pd.DataFrame, target: str = "y_addressed") -> pd.DataFrame:
