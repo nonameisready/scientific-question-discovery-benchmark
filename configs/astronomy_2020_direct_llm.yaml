@@ -1,0 +1,23 @@
+# Astronomy v1 instance — direct_llm submission, evaluated against the
+# manifest-rebuilt future corpus (judge-only run, no human adjudication).
+# Same cutoff, retrieval settings, and judge as configs/astronomy_2020.yaml.
+
+benchmark_version: astronomy_v1
+cutoff_date: "2020-12-31"
+domain: exoplanet_atmospheres
+
+questions_file: submissions/direct_llm_v1/questions.jsonl
+retrieval_file: data/retrieval/direct_llm_top8_v1.jsonl
+annotations_file: data/annotations/outcomes_direct_llm_v1.jsonl
+results_dir: results/direct_llm_v1
+
+past_corpus_manifest: data/corpus_metadata/corpus_a_manifest.json
+future_corpus_manifest: data/corpus_metadata/corpus_b_manifest.json
+
+judge_model: gpt-4.1
+
+retrieval:
+  model: text-embedding-3-small
+  top_k: 8
+  corpus_start: "2021-01-01"
+  corpus_end: "2026-07-01"

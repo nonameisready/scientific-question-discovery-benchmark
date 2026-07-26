@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from benchmark.schemas import write_jsonl  # noqa: E402
 
 ADS_URL = "https://api.adsabs.harvard.edu/v1/search/query"
-FIELDS = "bibcode,title,abstract,pubdate"
+FIELDS = "bibcode,title,abstract,pubdate,citation_count"
 PAGE = 200
 
 
@@ -74,6 +74,10 @@ def main() -> None:
                 "title": title[0] if isinstance(title, list) else title,
                 "abstract": doc["abstract"],
                 "pubdate": doc.get("pubdate"),
+                # As reported by ADS at rebuild time (includes post-cutoff
+                # citations); see baselines/citation_leader.py for how this
+                # biases the citation-leader baseline upward.
+                "citation_count": doc.get("citation_count", 0),
                 "corpus_id": manifest["corpus_id"],
             })
         print(f"  {query!r}: cumulative {len(rows)} unique records")
