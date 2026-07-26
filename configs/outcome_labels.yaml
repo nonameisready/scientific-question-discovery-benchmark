@@ -1,0 +1,24 @@
+# Outcome taxonomy v1 — two independent dimensions.
+# See docs/outcome_taxonomy.md for definitions and decision rules.
+
+taxonomy_version: "1.0"
+
+outcome:
+  answered: >
+    Future evidence substantially answers the question (including by
+    refuting its premise).
+  partially_addressed: >
+    Important, directly-relevant progress, but the core question remains
+    unresolved.
+  posed_but_open: >
+    The community independently recognizes / poses essentially the same
+    question without resolving it.
+  not_addressed: >
+    No meaningful follow-up in the future corpus.
+
+premise_status:
+  supported: Future evidence confirms the question's underlying premise.
+  refuted: Future evidence falsifies the underlying premise.
+  weakened: Future evidence casts substantial doubt without falsifying.
+  still_plausible: The premise was not directly tested after the cutoff.
+  not_applicable: The question does not rest on a contestable premise.
