@@ -1,0 +1,14 @@
+{
+  "benchmark": "scientific-question-backtesting",
+  "entries": [
+    {
+      "system": "evidence_graph_v1",
+      "benchmark_version": "astronomy_v1",
+      "n_questions": 10,
+      "future_attention_rate": 1.0,
+      "answered_rate": 0.2,
+      "premise_refutation_rate": 0.1,
+      "mean_lead_time_years": null
+    }
+  ]
+}
