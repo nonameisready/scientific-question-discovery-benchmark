@@ -28,3 +28,4 @@ paper/*.out
 paper/*.pdf
 paper/*.synctex.gz
 paper3/data/raw/
+paper3/data/cache/
