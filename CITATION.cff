@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite it as below."
+title: "Scientific Question Backtesting Benchmark"
+abstract: >
+  An open protocol and pilot benchmark for historically evaluating
+  AI-generated scientific questions: questions are frozen against
+  literature available before a historical cutoff and evaluated against
+  a temporally isolated future corpus.
+type: software
+license: Apache-2.0
+version: 1.0.0
+date-released: "2026-07-26"
+repository-code: "https://github.com/nonameisready/scientific-question-discovery-benchmark"
+authors:
+  - name: "Scientific Question Discovery project"
+preferred-citation:
+  type: article
+  title: "Historical Backtesting for Scientific Question Discovery: A Protocol and Astronomy Pilot"
+  authors:
+    - name: "Scientific Question Discovery project"
+  year: 2026
+  notes: "Manuscript in preparation; see paper/ in this repository."

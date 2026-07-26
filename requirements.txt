@@ -1,0 +1,3 @@
+pyyaml>=6.0
+requests>=2.31   # only needed for live corpus collection / retrieval / judging
+pytest>=7.4      # tests
