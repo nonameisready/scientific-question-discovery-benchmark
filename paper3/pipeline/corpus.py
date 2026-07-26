@@ -16,6 +16,7 @@ from . import subfields
 
 RAW_DIR = Path("paper3/data/raw/arxiv")
 PROCESSED = Path("paper3/data/raw/corpus_classified.jsonl")
+SUBFIELD_DIR = Path("paper3/data/raw/subfields")
 STATS_PATH = Path("paper3/data/corpus/subfield_year_stats.json")
 
 CUTOFF_YEARS = (2012, 2014, 2016, 2018, 2020)
@@ -43,26 +44,42 @@ def is_reviewish(title: str) -> bool:
 
 
 def build_processed(raw_dir: Path = RAW_DIR, out_path: Path = PROCESSED) -> int:
-    """Merge shards, dedup, classify into subfields; returns record count."""
+    """Merge shards, dedup, classify into subfields; returns record count.
+
+    Also writes one JSONL per subfield (papers assigned to it, all years) so
+    that per-cell corpus loads don't rescan the full corpus.
+    """
     seen: set[str] = set()
     n_out = 0
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    SUBFIELD_DIR.mkdir(parents=True, exist_ok=True)
+    sub_files = {
+        key: (SUBFIELD_DIR / f"{key}.jsonl").open("w", encoding="utf-8")
+        for key in subfields.SUBFIELD_KEYS
+    }
     shards = sorted(raw_dir.glob("*.jsonl"))
-    with out_path.open("w", encoding="utf-8") as out:
-        for shard in shards:
-            with shard.open(encoding="utf-8") as fh:
-                for line in fh:
-                    rec = json.loads(line)
-                    if rec["id"] in seen or not rec.get("abstract"):
-                        continue
-                    seen.add(rec["id"])
-                    scores = subfields.classify(
-                        rec["title"], rec["abstract"], rec.get("categories", [])
-                    )
-                    rec["subfields"] = scores
-                    rec["year"] = int(rec["published"][:4])
-                    out.write(json.dumps(rec, ensure_ascii=False) + "\n")
-                    n_out += 1
+    try:
+        with out_path.open("w", encoding="utf-8") as out:
+            for shard in shards:
+                with shard.open(encoding="utf-8") as fh:
+                    for line in fh:
+                        rec = json.loads(line)
+                        if rec["id"] in seen or not rec.get("abstract"):
+                            continue
+                        seen.add(rec["id"])
+                        scores = subfields.classify(
+                            rec["title"], rec["abstract"], rec.get("categories", [])
+                        )
+                        rec["subfields"] = scores
+                        rec["year"] = int(rec["published"][:4])
+                        payload = json.dumps(rec, ensure_ascii=False) + "\n"
+                        out.write(payload)
+                        for key in scores:
+                            sub_files[key].write(payload)
+                        n_out += 1
+    finally:
+        for fh in sub_files.values():
+            fh.close()
     return n_out
 
 
@@ -76,13 +93,15 @@ def load_subfield_docs(
     subfield_key: str,
     date_from: str,
     date_to: str,
-    path: Path = PROCESSED,
 ) -> list[dict]:
     """All docs assigned to the subfield with date_from <= published <= date_to."""
     docs = []
-    for rec in iter_processed(path):
-        if subfield_key in rec["subfields"] and date_from <= rec["published"] <= date_to:
-            docs.append(rec)
+    path = SUBFIELD_DIR / f"{subfield_key}.jsonl"
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            rec = json.loads(line)
+            if date_from <= rec["published"] <= date_to:
+                docs.append(rec)
     docs.sort(key=lambda r: r["published"])
     return docs
 
