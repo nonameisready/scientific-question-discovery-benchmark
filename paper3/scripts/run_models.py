@@ -22,6 +22,13 @@ table, and writes all results to paper3/results/:
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+
 import json
 from pathlib import Path
 

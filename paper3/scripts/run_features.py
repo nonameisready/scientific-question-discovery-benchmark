@@ -6,6 +6,13 @@ question_id containing all cutoff-time features (groups A-F).
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+
+
 import json
 from collections import defaultdict
 from pathlib import Path
