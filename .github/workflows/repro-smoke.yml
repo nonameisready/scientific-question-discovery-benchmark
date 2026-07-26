@@ -1,0 +1,25 @@
+name: Reproducibility smoke test
+
+# Runs the one-command benchmark pipeline end-to-end offline on the
+# released astronomy v1 instance (validation -> metrics -> report) and
+# fails if the regenerated results differ from the committed ones.
+# No embeddings or LLM calls: CI never spends API budget.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Re-run the full offline pipeline
+        run: python -m benchmark.run --config configs/astronomy_2020.yaml
+      - name: Committed results must be reproducible
+        run: git diff --exit-code results/
