@@ -1,28 +1,35 @@
 \section{Roadmap and Conclusion}
 \label{sec:conclusion}
 
-\paragraph{Roadmap.} The released instance is a floor, not a ceiling.
-In order: (1) adjudicate the judge-only baseline rows
-(Table~\ref{tab:leaderboard}) and accept external submissions;
-(2) release full top-8 retrieval lists with per-document scores and a
-near-duplicate screen (v1.1); (3) annotate community first-posed dates
-in the review literature to activate lead time; (4) calibrate a
-community-attention index (papers, citations, observing programs)
-against the popularity confound; (5) mint instances in additional
-domains and at additional cutoffs, including \emph{prospective}
-instances---questions frozen now, scored when the future arrives---which
-eliminate the contamination and hindsight channels entirely;
-(6) measure judge robustness (multi-judge agreement, retrieval
-sensitivity, blinded adjudication).
+\paragraph{Roadmap.} The released instances are a floor, not a
+ceiling. In order: (1) scale the \emph{submission} side---a 100+
+question evidence-graph run on v1L---to resolve the refutation-rate
+comparison that $n=10$ leaves open (Section~\ref{sec:scaled}), and
+adjudicate the judge-only rows; (2) release full top-8 retrieval lists
+for v1 with per-document scores and a near-duplicate screen (v1.1;
+the v1L records already ship with full scores); (3) annotate community
+first-posed dates in the review literature to activate lead time;
+(4) calibrate a community-attention index (papers, citations, observing
+programs) against the popularity confound; (5) mint instances in
+additional domains and at additional cutoffs, including
+\emph{prospective} instances---questions frozen now, scored when the
+future arrives---which eliminate the contamination and hindsight
+channels entirely; (6) measure judge robustness (multi-judge agreement,
+retrieval sensitivity, blinded adjudication).
 
 \paragraph{Conclusion.} We formalized historical backtesting as an
-evaluation protocol for scientific question discovery, released a
-reproducible astronomy instance with temporally isolated corpora and
+evaluation protocol for scientific question discovery, released two
+reproducible astronomy instances with temporally isolated corpora and
 fully auditable labels, and ran a ten-question pilot in which every
 frozen question was substantively engaged by literature the generating
 system never saw---including one whose premise the community
 subsequently refuted, the exact convergence test the question had
-specified. The individual numbers matter less than the category they
+specified. Scaling the baselines to 424 questions then did what a
+benchmark is supposed to do: it overturned two of our own small-sample
+conclusions, put a measurable floor under a third, and left the
+qualitative distinction---a refutation reached by specifying its test
+in advance---standing but explicitly unresolved at current sample
+sizes. The individual numbers matter less than the category they
 inhabit: for the first time, ``this system asks good scientific
 questions'' is a claim with a denominator---falsifiable, comparable
 across systems, and computable by anyone from frozen public data.

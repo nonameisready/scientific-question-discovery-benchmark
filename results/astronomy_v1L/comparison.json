@@ -1,0 +1,458 @@
+{
+  "instances": {
+    "v1": {
+      "evidence_graph_adjudicated": {
+        "engaged": {
+          "k": 10,
+          "n": 10,
+          "rate": 1.0,
+          "ci95": [
+            0.6915,
+            1.0
+          ]
+        },
+        "answered": {
+          "k": 2,
+          "n": 10,
+          "rate": 0.2,
+          "ci95": [
+            0.0252,
+            0.5561
+          ]
+        },
+        "posed_but_open": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        },
+        "refuted": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        }
+      },
+      "evidence_graph_judge_only": {
+        "engaged": {
+          "k": 9,
+          "n": 10,
+          "rate": 0.9,
+          "ci95": [
+            0.555,
+            0.9975
+          ]
+        },
+        "answered": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        },
+        "posed_but_open": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "refuted": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        }
+      },
+      "random_claim": {
+        "engaged": {
+          "k": 7,
+          "n": 10,
+          "rate": 0.7,
+          "ci95": [
+            0.3475,
+            0.9333
+          ]
+        },
+        "answered": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "posed_but_open": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        }
+      },
+      "review_future_work": {
+        "engaged": {
+          "k": 10,
+          "n": 10,
+          "rate": 1.0,
+          "ci95": [
+            0.6915,
+            1.0
+          ]
+        },
+        "answered": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        },
+        "posed_but_open": {
+          "k": 2,
+          "n": 10,
+          "rate": 0.2,
+          "ci95": [
+            0.0252,
+            0.5561
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        }
+      },
+      "citation_leader": {
+        "engaged": {
+          "k": 10,
+          "n": 10,
+          "rate": 1.0,
+          "ci95": [
+            0.6915,
+            1.0
+          ]
+        },
+        "answered": {
+          "k": 3,
+          "n": 10,
+          "rate": 0.3,
+          "ci95": [
+            0.0667,
+            0.6525
+          ]
+        },
+        "posed_but_open": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        }
+      },
+      "direct_llm": {
+        "engaged": {
+          "k": 9,
+          "n": 10,
+          "rate": 0.9,
+          "ci95": [
+            0.555,
+            0.9975
+          ]
+        },
+        "answered": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "posed_but_open": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        }
+      }
+    },
+    "v1L": {
+      "evidence_graph_judge_only": {
+        "engaged": {
+          "k": 8,
+          "n": 10,
+          "rate": 0.8,
+          "ci95": [
+            0.4439,
+            0.9748
+          ]
+        },
+        "answered": {
+          "k": 3,
+          "n": 10,
+          "rate": 0.3,
+          "ci95": [
+            0.0667,
+            0.6525
+          ]
+        },
+        "posed_but_open": {
+          "k": 0,
+          "n": 10,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.3085
+          ]
+        },
+        "refuted": {
+          "k": 1,
+          "n": 10,
+          "rate": 0.1,
+          "ci95": [
+            0.0025,
+            0.445
+          ]
+        }
+      },
+      "random_claim": {
+        "engaged": {
+          "k": 91,
+          "n": 125,
+          "rate": 0.728,
+          "ci95": [
+            0.6412,
+            0.8037
+          ]
+        },
+        "answered": {
+          "k": 14,
+          "n": 125,
+          "rate": 0.112,
+          "ci95": [
+            0.0626,
+            0.1808
+          ]
+        },
+        "posed_but_open": {
+          "k": 2,
+          "n": 125,
+          "rate": 0.016,
+          "ci95": [
+            0.0019,
+            0.0566
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 125,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.0291
+          ]
+        }
+      },
+      "review_future_work": {
+        "engaged": {
+          "k": 45,
+          "n": 49,
+          "rate": 0.9184,
+          "ci95": [
+            0.804,
+            0.9773
+          ]
+        },
+        "answered": {
+          "k": 11,
+          "n": 49,
+          "rate": 0.2245,
+          "ci95": [
+            0.1177,
+            0.3662
+          ]
+        },
+        "posed_but_open": {
+          "k": 4,
+          "n": 49,
+          "rate": 0.0816,
+          "ci95": [
+            0.0227,
+            0.196
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 49,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.0725
+          ]
+        }
+      },
+      "citation_leader": {
+        "engaged": {
+          "k": 109,
+          "n": 125,
+          "rate": 0.872,
+          "ci95": [
+            0.8005,
+            0.925
+          ]
+        },
+        "answered": {
+          "k": 32,
+          "n": 125,
+          "rate": 0.256,
+          "ci95": [
+            0.1822,
+            0.3418
+          ]
+        },
+        "posed_but_open": {
+          "k": 1,
+          "n": 125,
+          "rate": 0.008,
+          "ci95": [
+            0.0002,
+            0.0438
+          ]
+        },
+        "refuted": {
+          "k": 4,
+          "n": 125,
+          "rate": 0.032,
+          "ci95": [
+            0.0088,
+            0.0799
+          ]
+        }
+      },
+      "direct_llm": {
+        "engaged": {
+          "k": 120,
+          "n": 125,
+          "rate": 0.96,
+          "ci95": [
+            0.9091,
+            0.9869
+          ]
+        },
+        "answered": {
+          "k": 19,
+          "n": 125,
+          "rate": 0.152,
+          "ci95": [
+            0.0941,
+            0.2271
+          ]
+        },
+        "posed_but_open": {
+          "k": 2,
+          "n": 125,
+          "rate": 0.016,
+          "ci95": [
+            0.0019,
+            0.0566
+          ]
+        },
+        "refuted": {
+          "k": 0,
+          "n": 125,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.0291
+          ]
+        }
+      }
+    }
+  },
+  "contrasts": {
+    "random_vs_direct_llm_engagement": {
+      "metric": "engaged",
+      "random_claim": "91/125",
+      "direct_llm": "120/125",
+      "fisher_p_two_sided": 0.0
+    },
+    "random_vs_citation_leader_engagement": {
+      "metric": "engaged",
+      "random_claim": "91/125",
+      "citation_leader": "109/125",
+      "fisher_p_two_sided": 0.00679
+    },
+    "citation_leader_vs_direct_llm_answered": {
+      "metric": "answered",
+      "citation_leader": "32/125",
+      "direct_llm": "19/125",
+      "fisher_p_two_sided": 0.05896
+    },
+    "citation_leader_vs_random_answered": {
+      "metric": "answered",
+      "citation_leader": "32/125",
+      "random_claim": "14/125",
+      "fisher_p_two_sided": 0.00513
+    },
+    "citation_leader_vs_random_refuted": {
+      "metric": "refuted",
+      "citation_leader": "4/125",
+      "random_claim": "0/125",
+      "fisher_p_two_sided": 0.12199
+    }
+  }
+}

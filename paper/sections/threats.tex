@@ -35,9 +35,12 @@ to be grounded in cited pre-cutoff evidence; submission metadata must
 declare all LLM components and versions; baseline B2 doubles as a
 contamination probe---and registers one: its questions sit measurably
 closer to the future literature's phrasing than any other system's
-($s_1 = 0.732$, Table~\ref{tab:leaderboard}) while resolving nothing,
-the signature of phrasing-level memorization without specific
-foresight; and the decisive test is \emph{prospective}
+($s_1 = 0.732$ at $n=10$, 0.722 at $n=125$;
+Tables~\ref{tab:leaderboard} and~\ref{tab:scaled}), with its cited
+engagement concentrated in the years nearest its training distribution,
+while its answered rate stays indistinguishable from random
+templates---the signature of phrasing-level memorization without
+specific foresight; and the decisive test is \emph{prospective}
 instances---questions frozen today and scored in 2030 cannot be
 contaminated. The protocol is explicitly designed so its instances
 convert from retrospective to prospective by just letting time pass.
@@ -59,15 +62,17 @@ systems fair and auditable at the cost of an engagement floor.
 Sensitivity of labels to $k$ and to the retriever is measurable within
 the released data schema and belongs in v1.1.
 
-\paragraph{Small $n$, one domain, self-evaluation.} Ten questions per
-system in one domain, evaluated by the group that built the leading
-system, support no ranking claims---which is why the baseline rows are
-labeled judge-only rather than adjudicated, the harness is public, and
-the paper's empirical claim is deliberately modest
-(Section~\ref{sec:intro}). At $n=10$ the leaderboard's answered-rate
-differences (0--30\%) are within each other's confidence intervals; we
-report them as priced reference points, not rankings. The protocol's
-value grows with adversarial use by systems we did not build.
+\paragraph{Small $n$ where it matters most, one domain,
+self-evaluation.} The scaled instance lifts the baseline side to
+$n=125$ per system, and Section~\ref{sec:scaled} shows how much that
+matters: two of three small-sample conclusions did not survive. But
+the submission under test still has ten questions---every
+evidence-graph rate keeps a $\sim$30-point-wide interval, and the
+refutation-rate comparison against baselines is unresolvable at
+$n=10$ ($p=0.32$). One domain, evaluated by the group that built the
+leading system, judge-only baseline labels: all still true. We report
+priced reference points, not rankings; the protocol's value grows with
+adversarial use by systems we did not build.
 
 \paragraph{Curation hindsight.} Humans who edited questions before
 freezing know the post-2020 literature. The curation log is released so

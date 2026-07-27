@@ -1,0 +1,124 @@
+\section{Scaling the Baselines: Astronomy v1L}
+\label{sec:scaled}
+
+Every baseline conclusion in Section~\ref{sec:baselines} rests on ten
+questions per system. To test which of them survive a larger sample, we
+minted a second instance, \textbf{astronomy v1L}: same cutoff, same
+retrieval and judge settings, but corpora rebuilt from broadened
+manifests (12 past-corpus and 18 future-corpus ADS query sets covering
+clouds and hazes, atmospheric escape, phase curves, high-resolution
+spectroscopy, and JWST; 4{,}040 past and 5{,}754 frozen-window future
+records---1.8$\times$ and 2.4$\times$ the v1 corpora) and baselines
+scaled to 125 questions each. The review--future-work extractor is the
+exception by necessity: it exhausts the supply of explicitly posed
+questions in all 4{,}040 pre-cutoff abstracts at 49---itself a finding;
+the community's already-written-down questions are a finite resource.
+In total v1L evaluates 424 frozen baseline questions plus the ten
+evidence-graph questions re-run as a cross-instance anchor, all
+judge-only. The v1 instance and its released data are untouched.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Astronomy v1L results (judge-only). Brackets are exact 95\%
+  Clopper--Pearson intervals. Eng.\ = future-attention rate; Ans.\ =
+  answered; Ref.\ = premise refuted; $s_1$ = mean top-1 retrieval
+  similarity; lag = mean years to earliest cited engagement. The
+  evidence-graph row is the ten v1 questions re-evaluated on the v1L
+  corpus (anchor), not a scaled submission.}
+  \label{tab:scaled}
+  \begin{tabular}{@{}lrllllr@{}}
+    \toprule
+    System & $n$ & Eng. & Ans. & Ref. & $s_1$ & lag \\
+    \midrule
+    \texttt{evidence\_graph} (anchor) & 10 & 80\% [44,97] & 30\% [7,65] & 10\% [0,45] & 0.682 & 3.5 \\
+    B2 direct LLM & 125 & 96\% [91,99] & 15\% [9,23] & 0\% [0,3] & 0.722 & 1.9 \\
+    B4 citation leaders & 125 & 87\% [80,93] & 26\% [18,34] & 3.2\% [1,8] & 0.632 & 2.5 \\
+    B3 review future work & 49 & 92\% [80,98] & 22\% [12,37] & 0\% [0,7] & 0.567 & 2.4 \\
+    B1 random claims & 125 & 73\% [64,80] & 11\% [6,18] & 0\% [0,3] & 0.622 & 2.8 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:scaled} gives the scaled results. Sample size changes
+two of Section~\ref{sec:baselines}'s three conclusions and sharpens the
+third---which is the point of running the experiment.
+
+\paragraph{Revised: coverage does discriminate at scale.} At $n=10$
+every non-random system sat at 90--100\% engagement and we concluded
+coverage separates only the floor. At $n=125$ the rates pull apart:
+random claims 72.8\% [64,80], citation leaders 87.2\%, direct LLM
+96.0\% [91,99]; random vs.\ direct-LLM engagement differs at
+$p<10^{-4}$ and random vs.\ citation leaders at $p=0.007$ (two-sided
+Fisher). The v1 reading was a small-sample artifact. What survives is
+the ceiling: fluent, topical LLM questions still approach saturation,
+so coverage separates the bottom and middle of the range while
+compressing the top---it remains unusable as a sole metric.
+
+\paragraph{Revised: premise refutation is not unique to the
+evidence-graph system.} At $n=10$ no baseline refuted a premise; at
+$n=125$ the citation-leader baseline catches four refutations (3.2\%
+[1,8]): the subsolar-water conclusion for HD~209458\,b (the same
+\citealp{macdonald2017} result behind q\_008), the methane-depleted
+atmosphere of K2-18\,b overturned by JWST, TiO in WASP-121\,b
+unconfirmed by later data, and systematic bias found in benchmark
+ultracool-dwarf retrievals. Asking ``is the famous result right?''\ of
+enough famous results does eventually catch the ones that fall---note
+its hindsight-biased selection (Section~\ref{sec:baselines}) works in
+its favor here, since post-cutoff citation counts are inflated by
+exactly the controversies that produce reversals. Three things remain
+true. Refutation is the rarest outcome for every system (random
+templates: 0/125, upper bound 2.9\%---refutations are not free; a
+question must aim at a contestable claim). The evidence-graph
+submission's nominal rate stays highest (10\% vs.\ 3.2\%), but $n=10$
+cannot establish superiority ($p=0.32$). And the two routes to a
+refutation differ qualitatively: prominence-chasing rediscovers that
+famous claims attract scrutiny, while the evidence-graph question
+specified the decisive test from pre-cutoff evidence tensions
+(Section~\ref{sec:results:case}). The scaled data cannot yet separate
+those routes quantitatively; a scaled evidence-graph submission could.
+
+\paragraph{Sharpened: there is a nonzero answered floor.} Random
+robustness templates get \emph{answered} 11.2\% [6,18] of the
+time---the field re-examines even arbitrarily chosen results at a
+measurable base rate. The v1 estimate of that floor (0/10) was too
+flattering to every other system: an answered rate is meaningful only
+against $\sim$11\%, not zero. Citation leaders (25.6\%) clear the floor
+($p=0.005$); direct LLM (15.2\%) does not ($p=0.42$).
+
+\paragraph{Persistent: the contamination signature.} The direct-LLM
+baseline keeps the highest similarity to future literature at scale
+($s_1=0.722$ vs.\ 0.567--0.682 for all others), the broadest engagement
+(96\%, multi-source rate 94\%), and the earliest mean engagement (1.9
+years---its cited evidence concentrates in 2021--2022, the years
+closest to its training distribution). Scaling revises one part of the
+v1 reading: it does convert engagement into answers (15.2\% vs.\ 0/10
+at $n=10$), but at a rate statistically indistinguishable from random
+templates, despite engaging twice as much of the literature. Breadth
+without resolution remains the signature.
+
+\paragraph{Cross-instance anchor: metrics are corpus-relative.}
+Re-judging the ten v1 questions on the 2.4$\times$ larger corpus flips
+four labels in both directions: two questions gain \labelfmt{answered}
+(richer evidence pools), one drops to \labelfmt{not\_addressed} (its
+engaging papers pushed out of a top-8 that a larger corpus makes more
+competitive), and one premise moves \labelfmt{weakened}$\to$
+\labelfmt{still\_plausible}. q\_008's \labelfmt{answered} +
+\labelfmt{refuted} reproduces. The lesson is structural: rates are
+functions of the (corpus, retriever, judge) triple, so rows are
+comparable only within an instance---v1 and v1L rows must never be
+ranked against each other, and the frozen-instance design exists
+precisely to make the triple explicit.
+
+\paragraph{What scaling did and did not change.} The scaled study
+strengthens the benchmark's discriminative claims (coverage now
+separates three tiers; answered rates have a measurable floor) and
+weakens one system-level claim (refutation exclusivity). It does not
+change the evidence-graph submission's standing---its rates are
+unchanged and its refutation reproduces---but it narrows what that
+standing demonstrates: at current sample sizes, the defensible
+statement is that structured evidence analysis found a refutation by
+specifying its test in advance, not that it finds refutations at a
+higher rate than strong heuristics. Settling the rate question requires
+scaling the \emph{submission}, not just the baselines---the first item
+on the revised roadmap.

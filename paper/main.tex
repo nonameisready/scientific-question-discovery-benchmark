@@ -62,11 +62,18 @@ answered, seven partially addressed, one independently posed and still
 open---and one question's underlying premise (a strongly subsolar water
 abundance for HD~209458\,b) was subsequently refuted by three
 independent analyses, the exact convergence the question called for.
-Baseline evaluation shows engagement rates saturating for any fluent
-system (70--100\%) while no baseline refutes a premise, and surfaces a
-measurable contamination signature in the direct-LLM baseline, whose
-questions track the future literature's phrasing more closely than any
-other system's yet resolve nothing. We analyze failure modes and
+A scaled second instance (astronomy v1L: 424 frozen baseline questions
+against a 5{,}754-paper future corpus) then stress-tests the
+small-sample conclusions and revises two of them: engagement rates
+\emph{do} discriminate at $n=125$ (random 73\% vs.\ direct-LLM 96\%,
+$p<10^{-4}$), and premise refutation is rare but not unique---chasing
+highly cited results catches refutations on 3.2\% of questions, while
+random templates stay at zero and acquire a measurable
+11\%-answered floor. The direct-LLM contamination signature persists at
+scale: the closest phrasing to future literature (similarity 0.722 vs.\
+$\leq$0.682 for all others) and the broadest engagement, with an
+answered rate indistinguishable from random templates. We analyze
+failure modes and
 threats to validity, and position this pilot as the initial instance of
 a benchmark that any question-discovery system can run against.
 \end{abstract}
@@ -78,6 +85,7 @@ a benchmark that any question-discovery system can run against.
 \input{sections/dataset}
 \input{sections/baselines}
 \input{sections/results}
+\input{sections/scaled}
 \input{sections/error_analysis}
 \input{sections/threats}
 \input{sections/conclusion}
