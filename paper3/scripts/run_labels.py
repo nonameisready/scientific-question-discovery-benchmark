@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import json
 import random
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from paper3.pipeline import analysis, corpus, labeling
@@ -45,8 +46,8 @@ def main() -> None:
         future_docs = corpus.load_subfield_docs(subfield_key, date_from, date_to)
         ctx = labeling.FutureContext(future_docs, cy)
         ctxs[(subfield_key, cy)] = ctx
-        for q in qs:
-            labels.append(label := labeling.label_question(q, ctx))
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            labels.extend(pool.map(lambda q: labeling.label_question(q, ctx), qs))
         print(
             f"[labels] {subfield_key}@{cy}: {len(qs)} questions, future corpus {len(future_docs)}",
             flush=True,
@@ -64,8 +65,7 @@ def main() -> None:
     refuted = [r for r in judged if r["answer_status"] == "premise_refuted"]
     others = [r for r in judged if r["answer_status"] != "premise_refuted"]
     sample = refuted + rng.sample(others, min(len(others), int(len(labels) * SECOND_JUDGE_FRACTION)))
-    second = []
-    for rec in sample:
+    def second_judge(rec: dict) -> dict:
         q = by_id[rec["question_id"]]
         ctx = ctxs[(q["subfield"], q["cutoff_year"])]
         id_to_doc = {d["id"]: d for d in ctx.future_docs}
@@ -73,7 +73,10 @@ def main() -> None:
         judged2 = labeling.judge_question(
             q["question"], q["cutoff_date"], docs, model=SECOND_JUDGE_MODEL
         )
-        second.append({"question_id": rec["question_id"], **judged2})
+        return {"question_id": rec["question_id"], **judged2}
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        second = list(pool.map(second_judge, sample))
     with OUT2.open("w", encoding="utf-8") as fh:
         for rec in second:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
