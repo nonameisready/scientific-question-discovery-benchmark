@@ -6,7 +6,7 @@
     "min": 2015,
     "max": 2020
   },
-  "n_papers": null,
+  "n_papers": 4040,
   "source": "NASA_ADS",
   "ads_queries": [
     "\"exoplanet atmosphere\"",
