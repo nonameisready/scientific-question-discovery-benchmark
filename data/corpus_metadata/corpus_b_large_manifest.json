@@ -1,0 +1,36 @@
+{
+  "corpus_id": "exoplanet_atmospheres_validation_v1L",
+  "role": "future_corpus",
+  "validates": "exoplanet_atmospheres_v1L",
+  "validation_window": {
+    "min": 2021,
+    "max": 2026
+  },
+  "n_papers": null,
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"hot Jupiter\" AND atmosphere",
+    "exoplanet AND (cloud OR haze OR aerosol) AND atmosphere",
+    "\"atmospheric escape\" AND exoplanet",
+    "\"phase curve\" AND exoplanet",
+    "\"secondary eclipse\" AND exoplanet",
+    "\"high-resolution spectroscopy\" AND exoplanet AND atmosphere",
+    "\"thermal inversion\" AND exoplanet",
+    "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere",
+    "JWST AND \"exoplanet atmosphere\"",
+    "\"HD 189733\" AND (wind OR \"vertical shear\" OR blueshift)",
+    "\"WASP-12\" AND (water OR \"C/O\" OR retrieval)",
+    "\"HD 209458\" AND (water OR sodium OR abundance)",
+    "\"TRAPPIST-1\" AND (JWST OR \"carbon dioxide\" OR CO2)",
+    "\"WASP-121\" AND water"
+  ],
+  "isolation_rule": "Records from this corpus must never enter the past-corpus pipeline; validation records are stored separately and filtered by corpus identifier. Deduplicated by bibcode; records without abstracts dropped. Restricted to pubdate < 2026-07 at evaluation time to match the v1 freeze window.",
+  "extends": "exoplanet_atmospheres_validation_v1",
+  "purpose": "Scaled instance (astronomy_v1L) for large-n baseline evaluation; the v1 instance and its corpora remain frozen and unchanged.",
+  "frozen_at": "2026-07-27",
+  "provenance": "this repository (data/corpus_metadata/corpus_b_large_manifest.json); rebuild with scripts/prepare_corpus.py"
+}

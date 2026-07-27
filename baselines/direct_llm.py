@@ -46,39 +46,56 @@ def main() -> None:
     parser.add_argument("--domain", required=True)
     parser.add_argument("--n", type=int, default=10)
     parser.add_argument("--sample", type=int, default=60,
-                        help="abstracts shown to the model")
+                        help="abstracts shown to the model per batch")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--batches", type=int, default=1,
+                        help="split generation into this many calls, each over a "
+                             "fresh abstract sample (seed+batch); duplicate "
+                             "question texts are dropped")
     parser.add_argument("--model", default="gpt-4.1")
+    parser.add_argument("--system-name", default=None,
+                        help="override the generation_system string")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
 
     papers = load_past_corpus(args.corpus, args.cutoff)
-    sample = random.Random(args.seed).sample(papers, min(args.sample, len(papers)))
-    blocks = [f"[{p['paper_id']}] {p['title']}\n{p['abstract'][:1200]}" for p in sample]
-    body = {
-        "model": args.model,
-        "response_format": {"type": "json_object"},
-        "temperature": 0,
-        "messages": [
-            {"role": "system",
-             "content": PROMPT.format(cutoff=args.cutoff, n=args.n, domain=args.domain)},
-            {"role": "user", "content": "\n\n".join(blocks)},
-        ],
-    }
-    resp = requests.post(
-        API_URL, json=body, timeout=300,
-        headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"})
-    resp.raise_for_status()
-    proposed = json.loads(resp.json()["choices"][0]["message"]["content"])["questions"]
-
-    allowed = {p["paper_id"] for p in sample}
-    records = []
-    for i, q in enumerate(proposed[:args.n], start=1):
-        sources = [b for b in q.get("source_bibcodes", []) if b in allowed]
-        records.append(submission_record(
-            i, q["question"], f"baseline_direct_llm_{args.model}_v1",
-            args.cutoff, args.domain, sources))
-    write_submission(args.out, records, f"baseline_direct_llm_{args.model}_v1")
+    system = args.system_name or f"baseline_direct_llm_{args.model}_v1"
+    per_batch = -(-args.n // args.batches)  # ceil
+    records, seen_questions = [], set()
+    for batch in range(args.batches):
+        sample = random.Random(args.seed + batch).sample(
+            papers, min(args.sample, len(papers)))
+        blocks = [f"[{p['paper_id']}] {p['title']}\n{p['abstract'][:1200]}"
+                  for p in sample]
+        body = {
+            "model": args.model,
+            "response_format": {"type": "json_object"},
+            "temperature": 0,
+            "messages": [
+                {"role": "system",
+                 "content": PROMPT.format(cutoff=args.cutoff, n=per_batch,
+                                          domain=args.domain)},
+                {"role": "user", "content": "\n\n".join(blocks)},
+            ],
+        }
+        resp = requests.post(
+            API_URL, json=body, timeout=300,
+            headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"})
+        resp.raise_for_status()
+        proposed = json.loads(
+            resp.json()["choices"][0]["message"]["content"])["questions"]
+        allowed = {p["paper_id"] for p in sample}
+        for q in proposed[:per_batch]:
+            text = q["question"].strip()
+            if text.lower() in seen_questions or len(records) >= args.n:
+                continue
+            seen_questions.add(text.lower())
+            sources = [b for b in q.get("source_bibcodes", []) if b in allowed]
+            records.append(submission_record(
+                len(records) + 1, text, system, args.cutoff, args.domain, sources))
+        if len(records) >= args.n:
+            break
+    write_submission(args.out, records, system)
 
 
 if __name__ == "__main__":
