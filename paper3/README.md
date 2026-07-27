@@ -33,9 +33,19 @@ knowledge change.
 | Extra source | the 10 frozen Paper 1 evidence-graph questions (cutoff 2020) |
 
 The underlying corpus is the complete arXiv astro-ph metadata record
-(2005–2025, ~330k papers), harvested via the public arXiv API and
-classified into subfields with transparent keyword rules
-(`pipeline/subfields.py`).
+(2005–2025, **313,189 papers** after deduplication), harvested via the
+public arXiv API and classified into subfields with transparent keyword
+rules (`pipeline/subfields.py`).
+
+**Headline results** (details in the paper): 980 frozen questions, 52.7%
+substantively addressed within 5 years under a strict blinded judge;
+controls 32% vs. mined sources ~50% vs. direct-LLM 88% (leakage-caveated);
+temporal-split AUC 0.71 (logistic on structured features), cross-domain
+AUC 0.71, leave-one-subfield-out 0.62–0.78; the robust predictors of
+future attention are prior review recognition, density of directly
+related prior evidence, and explicit competing hypotheses — while five of
+six pre-stated mechanism hypotheses (including "tension beats novelty")
+are not supported.
 
 ## Feature groups (all cutoff-time)
 

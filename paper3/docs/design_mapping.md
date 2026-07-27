@@ -42,3 +42,10 @@ How each element of the Paper 3 design brief maps onto this codebase.
   protocol is written so that human passes can slot in later.
 - **Cutoffs start at 2012** (not 2010) so that even the youngest subfields
   (FRBs) have a non-empty past corpus, while keeping 5 full future windows.
+- **Judge escalation.** The first-pass GPT-4o-mini judge accepted topical
+  overlap as engagement (94% addressed). The released labels use a strict
+  two-stage rubric (per-candidate direct/adjacent/unrelated classification,
+  `addressed` derived from direct engagement) with GPT-4o as primary judge
+  and GPT-4o-mini as the independent verification judge. Both passes are
+  preserved in the LLM cache; the lenient-vs-strict comparison is reported
+  in the paper's label-reliability section.

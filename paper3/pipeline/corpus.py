@@ -155,6 +155,8 @@ def env_features(stats: dict, subfield_key: str, cutoff_year: int) -> dict:
         "env_pub_share_3y": recent / total_recent if total_recent else 0.0,
         "env_growth_ratio": (recent + 1) / (earlier + 1),
         "env_review_count_3y": window_sum(rev_by_year, cutoff_year - 2, cutoff_year),
-        "env_years_to_next_facility": gap if gap is not None else 99.0,
+        # Horizon capped at 10y: "no known upcoming facility" and "a decade
+        # away" are equivalent for cutoff-time planning purposes.
+        "env_years_to_next_facility": min(gap, 10.0) if gap is not None else 10.0,
         "env_facility_within_3y": 1 if gap is not None and gap <= 3 else 0,
     }
