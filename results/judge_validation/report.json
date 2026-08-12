@@ -1,0 +1,213 @@
+{
+  "sample_size": 90,
+  "E1_mismatch_control": {
+    "normal_engagement_rate": 0.7444,
+    "mismatched_engagement_rate": 0.2,
+    "normal": "67/90",
+    "mismatched": "18/90",
+    "per_system": {
+      "evidence_graph": {
+        "normal_engaged": "8/10",
+        "mismatched_engaged": "1/10"
+      },
+      "direct_llm": {
+        "normal_engaged": "12/16",
+        "mismatched_engaged": "3/16"
+      },
+      "citation_leader": {
+        "normal_engaged": "11/16",
+        "mismatched_engaged": "5/16"
+      },
+      "random_claim": {
+        "normal_engaged": "12/16",
+        "mismatched_engaged": "4/16"
+      },
+      "tension_llm": {
+        "normal_engaged": "12/16",
+        "mismatched_engaged": "1/16"
+      },
+      "tension_template": {
+        "normal_engaged": "12/16",
+        "mismatched_engaged": "4/16"
+      }
+    }
+  },
+  "E2_cross_model": {
+    "pairwise_cohen_kappa": {
+      "outcome:gpt-4.1|gpt-4o": 0.3386,
+      "outcome:gpt-4.1|gpt-4-turbo": 0.1959,
+      "outcome:gpt-4o|gpt-4-turbo": 0.7137,
+      "premise_status:gpt-4.1|gpt-4o": 0.1859,
+      "premise_status:gpt-4.1|gpt-4-turbo": 0.0528,
+      "premise_status:gpt-4o|gpt-4-turbo": 0.3023
+    },
+    "fleiss_kappa": {
+      "outcome": 0.3765,
+      "premise_status": 0.0297
+    },
+    "percent_agreement": {
+      "outcome:gpt-4.1|gpt-4o": 0.5333,
+      "outcome:gpt-4.1|gpt-4-turbo": 0.4333,
+      "outcome:gpt-4o|gpt-4-turbo": 0.8444,
+      "premise_status:gpt-4.1|gpt-4o": 0.5222,
+      "premise_status:gpt-4.1|gpt-4-turbo": 0.4556,
+      "premise_status:gpt-4o|gpt-4-turbo": 0.8889
+    },
+    "conclusion_robustness": {
+      "gpt-4.1": {
+        "rates": {
+          "evidence_graph": {
+            "engaged": 0.8,
+            "answered": 0.3,
+            "refuted": 0.1
+          },
+          "direct_llm": {
+            "engaged": 0.75,
+            "answered": 0.25,
+            "refuted": 0.0
+          },
+          "citation_leader": {
+            "engaged": 0.688,
+            "answered": 0.25,
+            "refuted": 0.062
+          },
+          "random_claim": {
+            "engaged": 0.75,
+            "answered": 0.312,
+            "refuted": 0.0
+          },
+          "tension_llm": {
+            "engaged": 0.75,
+            "answered": 0.312,
+            "refuted": 0.0
+          },
+          "tension_template": {
+            "engaged": 0.75,
+            "answered": 0.25,
+            "refuted": 0.0
+          }
+        },
+        "checks": {
+          "tension_llm_refutes_more_than_direct_llm": false,
+          "tension_llm_answers_more_than_direct_llm": true,
+          "direct_llm_engages_more_than_random": false,
+          "structure_only_answers_more_than_direct_llm": false
+        }
+      },
+      "gpt-4o": {
+        "rates": {
+          "evidence_graph": {
+            "engaged": 0.7,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "direct_llm": {
+            "engaged": 0.75,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "citation_leader": {
+            "engaged": 0.5,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "random_claim": {
+            "engaged": 0.375,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "tension_llm": {
+            "engaged": 0.625,
+            "answered": 0.188,
+            "refuted": 0.062
+          },
+          "tension_template": {
+            "engaged": 0.625,
+            "answered": 0.062,
+            "refuted": 0.0
+          }
+        },
+        "checks": {
+          "tension_llm_refutes_more_than_direct_llm": true,
+          "tension_llm_answers_more_than_direct_llm": true,
+          "direct_llm_engages_more_than_random": true,
+          "structure_only_answers_more_than_direct_llm": true
+        }
+      },
+      "gpt-4-turbo": {
+        "rates": {
+          "evidence_graph": {
+            "engaged": 0.6,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "direct_llm": {
+            "engaged": 0.812,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "citation_leader": {
+            "engaged": 0.375,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "random_claim": {
+            "engaged": 0.25,
+            "answered": 0.0,
+            "refuted": 0.0
+          },
+          "tension_llm": {
+            "engaged": 0.625,
+            "answered": 0.125,
+            "refuted": 0.0
+          },
+          "tension_template": {
+            "engaged": 0.688,
+            "answered": 0.0,
+            "refuted": 0.0
+          }
+        },
+        "checks": {
+          "tension_llm_refutes_more_than_direct_llm": false,
+          "tension_llm_answers_more_than_direct_llm": true,
+          "direct_llm_engages_more_than_random": true,
+          "structure_only_answers_more_than_direct_llm": false
+        }
+      }
+    }
+  },
+  "E3_self_consistency": {
+    "e3_rep1:outcome": {
+      "percent_agreement": 0.9667,
+      "cohen_kappa": 0.9539,
+      "n": 90
+    },
+    "e3_rep1:premise_status": {
+      "percent_agreement": 0.9556,
+      "cohen_kappa": 0.9214,
+      "n": 90
+    },
+    "e3_rep2:outcome": {
+      "percent_agreement": 0.9333,
+      "cohen_kappa": 0.908,
+      "n": 90
+    },
+    "e3_rep2:premise_status": {
+      "percent_agreement": 0.9444,
+      "cohen_kappa": 0.9034,
+      "n": 90
+    }
+  },
+  "E4_prompt_perturbation": {
+    "e4_reworded:outcome": {
+      "percent_agreement": 0.7667,
+      "cohen_kappa": 0.6794,
+      "n": 90
+    },
+    "e4_reworded:premise_status": {
+      "percent_agreement": 0.8333,
+      "cohen_kappa": 0.7228,
+      "n": 90
+    }
+  }
+}

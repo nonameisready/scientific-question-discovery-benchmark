@@ -220,6 +220,51 @@ def run_e1() -> None:
                   prompt_id="mismatch_control")
 
 
+CONCLUSION_SYSTEMS = ["direct_llm", "random_claim", "tension_llm", "tension_template"]
+CONCLUSION_N = 40
+
+
+def build_conclusion_sample() -> dict:
+    """Unstratified random sample for conclusion robustness.
+
+    The main validation sample is stratified by outcome label *within each
+    system*, which equalises every system's label mix and therefore destroys
+    exactly the between-system rate differences the paper's conclusions are
+    about. Conclusion robustness needs an unstratified draw."""
+    rng = random.Random(SEED + 1)
+    spec_by_name = {n: (q, r, a) for n, q, r, a in SYSTEMS}
+    sample = {}
+    for name in CONCLUSION_SYSTEMS:
+        qfile, rfile, afile = spec_by_name[name]
+        ids = sorted(o["question_id"] for o in load_jsonl(ROOT / afile))
+        sample[name] = {"questions_file": qfile, "retrieval_file": rfile,
+                        "annotations_file": afile,
+                        "question_ids": sorted(rng.sample(ids, min(CONCLUSION_N, len(ids))))}
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "conclusion_sample.json").write_text(json.dumps(sample, indent=2),
+                                                encoding="utf-8")
+    print(f"OK: unstratified conclusion sample "
+          f"({sum(len(v['question_ids']) for v in sample.values())} questions)")
+    return sample
+
+
+def run_e2c() -> None:
+    """Cross-model judging on the unstratified conclusion sample."""
+    path = OUT / "conclusion_sample.json"
+    sample = (json.loads(path.read_text(encoding="utf-8")) if path.exists()
+              else build_conclusion_sample())
+    for model in ALT_MODELS:
+        tag = model.replace(".", "").replace("-", "")
+        for name, spec in sample.items():
+            out_file = OUT / f"e2c_{tag}_{name}.jsonl"
+            if out_file.exists():
+                continue
+            print(f"E2c {model} / {name}: {len(spec['question_ids'])} questions")
+            judge_all(ROOT / spec["questions_file"], ROOT / spec["retrieval_file"],
+                      CORPUS, out_file, model=model,
+                      only_ids=set(spec["question_ids"]))
+
+
 def run_e2() -> None:
     """Cross-model agreement."""
     sample = load_sample()
@@ -259,16 +304,12 @@ def run_e4() -> None:
             if out_file.exists():
                 continue
             print(f"E4 {variant} / {name}")
-            rows = judge_all(ROOT / spec["questions_file"],
-                             ROOT / spec["retrieval_file"], CORPUS, out_file,
-                             prompt=prompt, prompt_id=f"prompt_{variant}",
-                             only_ids=set(spec["question_ids"]))
-            if variant == "neutral":  # decode L1-L4 / P1-P5 back to labels
-                for r in rows:
-                    r["outcome"] = CODE_MAP.get(r["outcome"], r["outcome"])
-                    r["premise_status"] = CODE_MAP.get(r["premise_status"],
-                                                       r["premise_status"])
-                write_jsonl(out_file, rows)
+            # L1-L4 / P1-P5 are decoded inside judge_all, before validation.
+            judge_all(ROOT / spec["questions_file"],
+                      ROOT / spec["retrieval_file"], CORPUS, out_file,
+                      prompt=prompt, prompt_id=f"prompt_{variant}",
+                      label_map=CODE_MAP if variant == "neutral" else None,
+                      only_ids=set(spec["question_ids"]))
 
 # --- reporting --------------------------------------------------------------
 
@@ -399,7 +440,7 @@ def report() -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=["sample", "e1", "e2", "e3", "e4",
+    parser.add_argument("stage", choices=["sample", "e1", "e2", "e2c", "e3", "e4",
                                           "all", "report"])
     args = parser.parse_args()
     if args.stage in ("sample", "all") or not (OUT / "sample.json").exists():
@@ -408,6 +449,8 @@ def main() -> None:
         run_e1()
     if args.stage in ("e2", "all"):
         run_e2()
+    if args.stage in ("e2c", "all"):
+        run_e2c()
     if args.stage in ("e3", "all"):
         run_e3()
     if args.stage in ("e4", "all"):

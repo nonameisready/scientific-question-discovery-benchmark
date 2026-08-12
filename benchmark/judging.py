@@ -146,11 +146,23 @@ def constrain(judged: dict, allowed_bibcodes: set[str], question_id: str) -> dic
     return record
 
 
+def _decode_labels(raw: dict, label_map: dict[str, str]) -> dict:
+    for field in ("outcome", "premise_status"):
+        value = raw.get(field)
+        if isinstance(value, str) and value in label_map:
+            raw[field] = label_map[value]
+    return raw
+
+
 def judge_all(questions_file: str | Path, retrieval_file: str | Path,
               corpus_file: str | Path, out_file: str | Path,
               *, model: str = "gpt-4.1", prompt: str = "",
               prompt_id: str = "default",
+              label_map: dict[str, str] | None = None,
               only_ids: set[str] | None = None) -> list[dict]:
+    """label_map decodes a prompt variant's private label codes back to
+    benchmark labels *before* validation, so a neutral-code prompt is not
+    mistaken for an invalid response and conservatively degraded."""
     questions = {q["question_id"]: q for q in load_jsonl(questions_file)}
     papers = {p["paper_id"]: p for p in load_jsonl(corpus_file)}
     records = []
@@ -161,6 +173,8 @@ def judge_all(questions_file: str | Path, retrieval_file: str | Path,
         candidates = [papers[d["bibcode"]] for d in r["documents"] if d["bibcode"] in papers]
         allowed = {d["bibcode"] for d in r["documents"]}
         raw = _call_judge(model, questions[qid]["question"], candidates, prompt)
+        if label_map:
+            raw = _decode_labels(raw, label_map)
         try:
             record = constrain(raw, allowed, qid)
         except CitationError:
@@ -168,6 +182,8 @@ def judge_all(questions_file: str | Path, retrieval_file: str | Path,
             # response but strip and log the stray citations (constrain
             # flags the record for mandatory human review).
             raw = _call_judge(model, questions[qid]["question"], candidates, prompt)
+            if label_map:
+                raw = _decode_labels(raw, label_map)
             raw["_strip_stray_citations"] = True
             record = constrain(raw, allowed, qid)
         record.update({
