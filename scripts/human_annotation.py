@@ -140,14 +140,17 @@ human-LLM agreement but no human-human ceiling, and the paper must say so.
 """
 
 
-def build() -> None:
+def build(seed: int = SEED) -> None:
     sample = json.loads(SAMPLE.read_text(encoding="utf-8"))
     papers = {p["paper_id"]: p for p in load_jsonl(CORPUS)}
-    rng = random.Random(SEED)
+    rng = random.Random(seed)
 
     system_names = sorted(sample)
-    codes = {name: f"sys_{chr(ord('A') + i)}"
-             for i, name in enumerate(system_names)}
+    # Letters are assigned at random, not by sorted system name: a fixed
+    # assignment leaks the mapping the moment any one code is disclosed.
+    letters = [f"sys_{chr(ord('A') + i)}" for i in range(len(system_names))]
+    rng.shuffle(letters)
+    codes = dict(zip(system_names, letters))
 
     items = []
     for name in system_names:
@@ -196,6 +199,12 @@ def build() -> None:
                                 "question_id": item["question_id"]}
               for item in items}
     (PACK / "decode.json").write_text(json.dumps(decode, indent=2), encoding="utf-8")
+    (PACK / "blinding_meta.json").write_text(json.dumps(
+        {"seed": seed, "n_items": len(items),
+         "note": "Item order and system codes are regenerated whenever the "
+                 "previous mapping is exposed; the question set is unchanged so "
+                 "labels stay aligned with the judge runs."},
+        indent=2), encoding="utf-8")
     print(f"OK: {len(items)} blinded items -> {PACK}/")
     print("     annotation_packet.md, codebook.md, README.md, "
           f"{len(ANNOTATORS)} sheets, decode.json (sealed)")
@@ -280,8 +289,10 @@ def score() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=["build", "score"])
+    parser.add_argument("--seed", type=int, default=SEED,
+                        help="reshuffle order and re-letter system codes")
     args = parser.parse_args()
-    build() if args.stage == "build" else score()
+    build(args.seed) if args.stage == "build" else score()
 
 
 if __name__ == "__main__":
