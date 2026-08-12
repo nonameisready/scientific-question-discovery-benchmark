@@ -46,3 +46,15 @@ def test_not_addressed_with_citations_drops_evidence_and_flags():
     assert rec["supporting_bibcodes"] == []
     assert rec["evidence"] == []
     assert rec["adjudication_status"] == "needs_review"
+
+
+def test_second_attempt_strips_and_logs_stray_citations():
+    bad = _raw(evidence=[
+        {"bibcode": "2024Natur.999....9Z", "relevance": "invented"},
+        {"bibcode": "2022ApJ...111....1A", "relevance": "real candidate"},
+    ])
+    bad["_strip_stray_citations"] = True
+    rec = constrain(bad, ALLOWED, "q_001")
+    assert rec["supporting_bibcodes"] == ["2022ApJ...111....1A"]
+    assert rec["citation_violations"] == ["2024Natur.999....9Z"]
+    assert rec["adjudication_status"] == "needs_review"

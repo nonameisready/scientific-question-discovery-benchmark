@@ -116,14 +116,22 @@ def constrain(judged: dict, allowed_bibcodes: set[str], question_id: str) -> dic
         premise, flagged = "not_applicable", True
     evidence = judged.get("evidence") or []
     stray = [e.get("bibcode") for e in evidence if e.get("bibcode") not in allowed_bibcodes]
-    if stray:
+    if stray and not judged.get("_strip_stray_citations"):
         raise CitationError(f"{question_id}: judge cited non-candidate bibcodes {stray}")
+    citation_violations = []
+    if stray:
+        # Second-attempt fallback (see judge_all): the violation is kept
+        # on the record — auditable, never silent — the stray citations
+        # are removed, and the record is forced to human review.
+        citation_violations = stray
+        evidence = [e for e in evidence if e.get("bibcode") in allowed_bibcodes]
+        flagged = True
     if outcome == "not_addressed" and evidence:
         # A judge that cites evidence while declaring non-engagement is
         # contradicting itself. Resolve conservatively: keep the weaker
         # outcome, drop the citations, and force human review.
         evidence, flagged = [], True
-    return {
+    record = {
         "question_id": question_id,
         "outcome": outcome,
         "premise_status": premise,
@@ -132,6 +140,9 @@ def constrain(judged: dict, allowed_bibcodes: set[str], question_id: str) -> dic
         "rationale": judged.get("rationale", ""),
         "adjudication_status": "needs_review" if flagged else "unreviewed",
     }
+    if citation_violations:
+        record["citation_violations"] = citation_violations
+    return record
 
 
 def judge_all(questions_file: str | Path, retrieval_file: str | Path,
@@ -143,8 +154,17 @@ def judge_all(questions_file: str | Path, retrieval_file: str | Path,
     for r in load_jsonl(retrieval_file):
         qid = r["question_id"]
         candidates = [papers[d["bibcode"]] for d in r["documents"] if d["bibcode"] in papers]
+        allowed = {d["bibcode"] for d in r["documents"]}
         raw = _call_judge(model, questions[qid]["question"], candidates)
-        record = constrain(raw, {d["bibcode"] for d in r["documents"]}, qid)
+        try:
+            record = constrain(raw, allowed, qid)
+        except CitationError:
+            # One fresh attempt; if the judge violates again, keep the
+            # response but strip and log the stray citations (constrain
+            # flags the record for mandatory human review).
+            raw = _call_judge(model, questions[qid]["question"], candidates)
+            raw["_strip_stray_citations"] = True
+            record = constrain(raw, allowed, qid)
         record.update({
             "retrieval_top_similarity": r.get("top1_similarity"),
             "judge_model": model,
