@@ -99,6 +99,24 @@
       "answered_rate": 0.3,
       "premise_refutation_rate": 0.1,
       "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_tension_template_v1",
+      "benchmark_version": "astronomy_v1L",
+      "n_questions": 125,
+      "future_attention_rate": 0.768,
+      "answered_rate": 0.248,
+      "premise_refutation_rate": 0.024,
+      "mean_lead_time_years": null
+    },
+    {
+      "system": "baseline_tension_llm_gpt41_v1",
+      "benchmark_version": "astronomy_v1L",
+      "n_questions": 125,
+      "future_attention_rate": 0.736,
+      "answered_rate": 0.392,
+      "premise_refutation_rate": 0.128,
+      "mean_lead_time_years": null
     }
   ]
 }
