@@ -42,7 +42,44 @@ SEED = 512026
 ANNOTATORS = ("annotator_1", "annotator_2")
 
 CODEBOOK = """\
-# Annotation codebook — historical backtesting outcomes
+# 标注手册 / Annotation codebook — historical backtesting outcomes
+
+> 中英对照版。术语代码（`answered` 等）保持英文原样填写，说明为中英双语。
+> Bilingual. Label codes are always written in English; explanations are given
+> in Chinese and English.
+
+## 中文速览
+
+你看到的是一个写于 **2021 年之前**的科研问题，加上最多 8 篇**之后**发表的论文摘要。
+**只根据这些摘要判断**，不要上网查——AI 裁判当时看到的就是这几篇。
+
+每题给**两个独立标签**：
+
+| `outcome` 问题本身的命运 | 含义 |
+|---|---|
+| `answered` | 已解决：后续文献实质性解决了它，你现在能说出答案 |
+| `partially_addressed` | 部分推进：有直接相关的实质进展，核心问题仍未解决 |
+| `posed_but_open` | 被提出但未解决：后续文献也提出了同一问题，但没解决 |
+| `not_addressed` | 未被触及：没有摘要实质涉及它（**同话题不算**） |
+
+| `premise_status` 它依赖的假设的命运 | 含义 |
+|---|---|
+| `supported` | 假设被证实 |
+| `refuted` | 假设被推翻 |
+| `weakened` | 假设被动摇，但未彻底证伪 |
+| `still_plausible` | 假设未被直接检验过 |
+| `not_applicable` | 这个问题不依赖任何可争议的假设 |
+
+**最容易犯的错：把「同话题」当成「有人研究了这个问题」。** 摘要讲同一颗行星、
+同一个分子都**不算**，必须碰到这个问题真正要检验的东西，或它依赖的那个假设。
+
+一个问题可以**正因为**假设被推翻而得到解决：`answered` + `refuted` 是合理组合。
+
+`confidence` 填 1（没把握）/ 2（一般）/ 3（很有把握）；`notes` 写你犹豫在哪里。
+
+---
+
+## English version
 
 You will see a research question written **before 2021**, and up to eight
 abstracts of papers published **after** it. Judge only from these abstracts.
