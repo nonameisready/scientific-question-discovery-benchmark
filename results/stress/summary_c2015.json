@@ -1,0 +1,55 @@
+{
+  "cutoff": "2015-12-31",
+  "window": [
+    "2016-01-01",
+    "2019-12-31"
+  ],
+  "direct_llm": {
+    "n": 50,
+    "engaged": 49,
+    "answered": 6,
+    "refuted": 0,
+    "engaged_rate": 0.98,
+    "answered_rate": 0.12,
+    "mean_top1_similarity": 0.7235,
+    "mean_specificity": 1.16,
+    "saf": 0.2133,
+    "censored_window": false
+  },
+  "random_claim": {
+    "n": 50,
+    "engaged": 30,
+    "answered": 3,
+    "refuted": 1,
+    "engaged_rate": 0.6,
+    "answered_rate": 0.06,
+    "mean_top1_similarity": 0.6218,
+    "mean_specificity": 2.18,
+    "saf": 0.2433,
+    "censored_window": false
+  },
+  "tension_llm": {
+    "n": 50,
+    "engaged": 47,
+    "answered": 13,
+    "refuted": 3,
+    "engaged_rate": 0.94,
+    "answered_rate": 0.26,
+    "mean_top1_similarity": 0.6799,
+    "mean_specificity": 1.96,
+    "saf": 0.385,
+    "censored_window": false
+  },
+  "tension_template": {
+    "n": 50,
+    "engaged": 37,
+    "answered": 3,
+    "refuted": 0,
+    "engaged_rate": 0.74,
+    "answered_rate": 0.06,
+    "mean_top1_similarity": 0.6889,
+    "mean_specificity": 3.0,
+    "saf": 0.39,
+    "censored_window": false
+  }
+}
