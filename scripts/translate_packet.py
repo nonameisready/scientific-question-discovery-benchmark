@@ -18,7 +18,9 @@ import hashlib
 import json
 import os
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -108,6 +110,8 @@ def main() -> None:
     parser.add_argument("--model", default="gpt-4.1")
     parser.add_argument("--batch-chars", type=int, default=9000,
                         help="approximate English characters per API call")
+    parser.add_argument("--workers", type=int, default=8,
+                        help="concurrent translation calls")
     args = parser.parse_args()
 
     todo = collect()
@@ -115,23 +119,34 @@ def main() -> None:
     pending = [(k, v) for k, v in sorted(todo.items()) if k not in cache]
     print(f"{len(todo)} strings total, {len(cache)} cached, {len(pending)} to translate")
 
+    batches: list[list[tuple[str, str]]] = []
     batch: list[tuple[str, str]] = []
     size = 0
-    done = 0
     for key, text in pending:
         batch.append((key, text))
         size += len(text)
         if size >= args.batch_chars:
-            cache.update(translate(batch, args.model))
-            done += len(batch)
-            CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=1),
-                             encoding="utf-8")
-            print(f"  {done}/{len(pending)} translated")
+            batches.append(batch)
             batch, size = [], 0
     if batch:
-        cache.update(translate(batch, args.model))
-        done += len(batch)
-    CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
+        batches.append(batch)
+    print(f"{len(batches)} batches, {args.workers} workers", flush=True)
+
+    lock = threading.Lock()
+    done = [0]
+
+    def run(bat: list[tuple[str, str]]) -> None:
+        result = translate(bat, args.model)
+        with lock:
+            cache.update(result)
+            done[0] += 1
+            CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=1),
+                             encoding="utf-8")
+            print(f"  batch {done[0]}/{len(batches)} ({len(cache)} cached)",
+                  flush=True)
+
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        list(pool.map(run, batches))
     missing = [k for k in todo if k not in cache]
     print(f"OK: {len(cache)} translations cached -> {CACHE}"
           + (f" ({len(missing)} still missing)" if missing else ""))
