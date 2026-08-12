@@ -70,11 +70,21 @@ small-sample conclusions and revises two of them: engagement rates
 $p<10^{-4}$), and premise refutation is rare but not unique---chasing
 highly cited results catches refutations on 3.2\% of questions, while
 random templates stay at zero and acquire a measurable
-11\%-answered floor. The direct-LLM contamination signature persists at
-scale: the closest phrasing to future literature (similarity 0.722 vs.\
-$\leq$0.682 for all others) and the broadest engagement, with an
-answered rate indistinguishable from random templates. We analyze
-failure modes and
+11\%-answered floor. Finally, we turn the benchmark's deepest threat---LLM weights that have
+read the future---into its subject: a generator decomposition (LLM-only
+vs.\ deterministic evidence-structure vs.\ structure-plus-LLM
+verbalization) crossed with a four-cutoff temporal stress test
+(2010--2024, 798 judged questions) whose last window postdates the
+model's training. LLM-only generation shows \emph{memorized relevance
+without specific foresight}: near-ceiling engagement and the closest
+phrasing to future literature at every cutoff, but an answered rate
+flat across the training boundary, indistinguishable from random
+templates, and zero premise refutations outside the deepest-history
+era. A weight-free structural generator finds engaged questions at
+every cutoff, and adding the LLM back as a pure verbalizer refutes
+premises in every era including the post-training one---locating the
+foresight signal in pre-cutoff evidence structure, with the LLM as a
+separable realization layer. We analyze failure modes and
 threats to validity, and position this pilot as the initial instance of
 a benchmark that any question-discovery system can run against.
 \end{abstract}
@@ -87,6 +97,7 @@ a benchmark that any question-discovery system can run against.
 \input{sections/baselines}
 \input{sections/results}
 \input{sections/scaled}
+\input{sections/foresight}
 \input{sections/error_analysis}
 \input{sections/threats}
 \input{sections/conclusion}

@@ -1,0 +1,55 @@
+{
+  "cutoff": "2020-12-31",
+  "window": [
+    "2021-01-01",
+    "2024-12-31"
+  ],
+  "direct_llm": {
+    "n": 50,
+    "engaged": 48,
+    "answered": 5,
+    "refuted": 0,
+    "engaged_rate": 0.96,
+    "answered_rate": 0.1,
+    "mean_top1_similarity": 0.7204,
+    "mean_specificity": 1.02,
+    "saf": 0.1817,
+    "censored_window": false
+  },
+  "random_claim": {
+    "n": 50,
+    "engaged": 36,
+    "answered": 2,
+    "refuted": 0,
+    "engaged_rate": 0.72,
+    "answered_rate": 0.04,
+    "mean_top1_similarity": 0.6094,
+    "mean_specificity": 2.14,
+    "saf": 0.2617,
+    "censored_window": false
+  },
+  "tension_llm": {
+    "n": 50,
+    "engaged": 36,
+    "answered": 17,
+    "refuted": 6,
+    "engaged_rate": 0.72,
+    "answered_rate": 0.34,
+    "mean_top1_similarity": 0.6842,
+    "mean_specificity": 1.96,
+    "saf": 0.3433,
+    "censored_window": false
+  },
+  "tension_template": {
+    "n": 50,
+    "engaged": 37,
+    "answered": 8,
+    "refuted": 0,
+    "engaged_rate": 0.74,
+    "answered_rate": 0.16,
+    "mean_top1_similarity": 0.7021,
+    "mean_specificity": 3.0,
+    "saf": 0.43,
+    "censored_window": false
+  }
+}

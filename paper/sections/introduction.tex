@@ -123,7 +123,12 @@ strength:
     scale, and premise refutation is rare (0--3.2\%) but not unique to
     the evidence-graph system---demonstrating that the benchmark
     updates its own conclusions as $n$ grows
-    (Sections~\ref{sec:baselines} and~\ref{sec:scaled}). With $n=10$
+    (Sections~\ref{sec:baselines} and~\ref{sec:scaled}). A generator
+    decomposition and a four-cutoff temporal stress test then separate
+    memorization from foresight empirically: the foresight signal
+    survives in a weight-free structural generator at every cutoff,
+    while LLM-only generation shows relevance without resolution in
+    every era (Section~\ref{sec:foresight}). With $n=10$
     questions from one system in one domain, we do \emph{not} claim
     that AI can reliably identify the most valuable future scientific
     questions; we claim the protocol can tell us, eventually, whether

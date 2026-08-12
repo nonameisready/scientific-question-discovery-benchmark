@@ -78,8 +78,11 @@ retrieval records (per-document scores included), judge annotations,
 and reports (Section~\ref{sec:baselines}); the scaled v1L instance
 (manifests, configs, 424 frozen baseline questions, retrieval records
 with per-document scores, judge annotations, per-system reports, and
-the statistical comparison script of Section~\ref{sec:scaled}); and
-the complete pipeline code with tests. The
+the statistical comparison script of Section~\ref{sec:scaled}); the
+tension-pair generators, the four-cutoff stress-test corpora manifests,
+all 798 stress-test judgments, and the deterministic specificity rubric
+of Section~\ref{sec:foresight}; and the complete pipeline code with
+tests. The
 data format is deliberately plain (JSONL + JSON manifests) so that other
 groups can mint new instances---different domain, different cutoff---by
 writing two manifests and one config file.

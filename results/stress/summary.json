@@ -1,0 +1,222 @@
+{
+  "c2010": {
+    "cutoff": "2010-12-31",
+    "window": [
+      "2011-01-01",
+      "2014-12-31"
+    ],
+    "direct_llm": {
+      "n": 50,
+      "engaged": 46,
+      "answered": 11,
+      "refuted": 2,
+      "engaged_rate": 0.92,
+      "answered_rate": 0.22,
+      "mean_top1_similarity": 0.7169,
+      "mean_specificity": 1.16,
+      "saf": 0.23,
+      "censored_window": false
+    },
+    "random_claim": {
+      "n": 50,
+      "engaged": 28,
+      "answered": 6,
+      "refuted": 1,
+      "engaged_rate": 0.56,
+      "answered_rate": 0.12,
+      "mean_top1_similarity": 0.6105,
+      "mean_specificity": 2.2,
+      "saf": 0.2533,
+      "censored_window": false
+    },
+    "tension_llm": {
+      "n": 48,
+      "engaged": 40,
+      "answered": 15,
+      "refuted": 6,
+      "engaged_rate": 0.8333,
+      "answered_rate": 0.3125,
+      "mean_top1_similarity": 0.7138,
+      "mean_specificity": 2.021,
+      "saf": 0.3785,
+      "censored_window": false
+    },
+    "tension_template": {
+      "n": 48,
+      "engaged": 40,
+      "answered": 5,
+      "refuted": 0,
+      "engaged_rate": 0.8333,
+      "answered_rate": 0.1042,
+      "mean_top1_similarity": 0.7219,
+      "mean_specificity": 3.0,
+      "saf": 0.4323,
+      "censored_window": false
+    }
+  },
+  "c2015": {
+    "cutoff": "2015-12-31",
+    "window": [
+      "2016-01-01",
+      "2019-12-31"
+    ],
+    "direct_llm": {
+      "n": 50,
+      "engaged": 49,
+      "answered": 6,
+      "refuted": 0,
+      "engaged_rate": 0.98,
+      "answered_rate": 0.12,
+      "mean_top1_similarity": 0.7235,
+      "mean_specificity": 1.16,
+      "saf": 0.2133,
+      "censored_window": false
+    },
+    "random_claim": {
+      "n": 50,
+      "engaged": 30,
+      "answered": 3,
+      "refuted": 1,
+      "engaged_rate": 0.6,
+      "answered_rate": 0.06,
+      "mean_top1_similarity": 0.6218,
+      "mean_specificity": 2.18,
+      "saf": 0.2433,
+      "censored_window": false
+    },
+    "tension_llm": {
+      "n": 50,
+      "engaged": 47,
+      "answered": 13,
+      "refuted": 3,
+      "engaged_rate": 0.94,
+      "answered_rate": 0.26,
+      "mean_top1_similarity": 0.6799,
+      "mean_specificity": 1.96,
+      "saf": 0.385,
+      "censored_window": false
+    },
+    "tension_template": {
+      "n": 50,
+      "engaged": 37,
+      "answered": 3,
+      "refuted": 0,
+      "engaged_rate": 0.74,
+      "answered_rate": 0.06,
+      "mean_top1_similarity": 0.6889,
+      "mean_specificity": 3.0,
+      "saf": 0.39,
+      "censored_window": false
+    }
+  },
+  "c2020": {
+    "cutoff": "2020-12-31",
+    "window": [
+      "2021-01-01",
+      "2024-12-31"
+    ],
+    "direct_llm": {
+      "n": 50,
+      "engaged": 48,
+      "answered": 5,
+      "refuted": 0,
+      "engaged_rate": 0.96,
+      "answered_rate": 0.1,
+      "mean_top1_similarity": 0.7204,
+      "mean_specificity": 1.02,
+      "saf": 0.1817,
+      "censored_window": false
+    },
+    "random_claim": {
+      "n": 50,
+      "engaged": 36,
+      "answered": 2,
+      "refuted": 0,
+      "engaged_rate": 0.72,
+      "answered_rate": 0.04,
+      "mean_top1_similarity": 0.6094,
+      "mean_specificity": 2.14,
+      "saf": 0.2617,
+      "censored_window": false
+    },
+    "tension_llm": {
+      "n": 50,
+      "engaged": 36,
+      "answered": 17,
+      "refuted": 6,
+      "engaged_rate": 0.72,
+      "answered_rate": 0.34,
+      "mean_top1_similarity": 0.6842,
+      "mean_specificity": 1.96,
+      "saf": 0.3433,
+      "censored_window": false
+    },
+    "tension_template": {
+      "n": 50,
+      "engaged": 37,
+      "answered": 8,
+      "refuted": 0,
+      "engaged_rate": 0.74,
+      "answered_rate": 0.16,
+      "mean_top1_similarity": 0.7021,
+      "mean_specificity": 3.0,
+      "saf": 0.43,
+      "censored_window": false
+    }
+  },
+  "c2024": {
+    "cutoff": "2024-12-31",
+    "window": [
+      "2025-01-01",
+      "2026-06-30"
+    ],
+    "direct_llm": {
+      "n": 50,
+      "engaged": 49,
+      "answered": 8,
+      "refuted": 0,
+      "engaged_rate": 0.98,
+      "answered_rate": 0.16,
+      "mean_top1_similarity": 0.7029,
+      "mean_specificity": 1.14,
+      "saf": 0.21,
+      "censored_window": true
+    },
+    "random_claim": {
+      "n": 50,
+      "engaged": 34,
+      "answered": 3,
+      "refuted": 0,
+      "engaged_rate": 0.68,
+      "answered_rate": 0.06,
+      "mean_top1_similarity": 0.6215,
+      "mean_specificity": 2.08,
+      "saf": 0.25,
+      "censored_window": true
+    },
+    "tension_llm": {
+      "n": 50,
+      "engaged": 33,
+      "answered": 16,
+      "refuted": 5,
+      "engaged_rate": 0.66,
+      "answered_rate": 0.32,
+      "mean_top1_similarity": 0.6658,
+      "mean_specificity": 2.1,
+      "saf": 0.34,
+      "censored_window": true
+    },
+    "tension_template": {
+      "n": 50,
+      "engaged": 35,
+      "answered": 2,
+      "refuted": 0,
+      "engaged_rate": 0.7,
+      "answered_rate": 0.04,
+      "mean_top1_similarity": 0.6929,
+      "mean_specificity": 3.0,
+      "saf": 0.36,
+      "censored_window": true
+    }
+  }
+}

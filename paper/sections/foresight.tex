@@ -1,0 +1,206 @@
+\section{Separating Hindsight Memorization from Foresight}
+\label{sec:foresight}
+
+The deepest objection to any backtest run with a modern LLM anywhere in
+the loop (Section~\ref{sec:threats}) is that its apparent performance
+decomposes into three terms:
+\begin{equation*}
+\text{Performance} \;=\;
+\underbrace{\text{reasoning over pre-cutoff evidence}}_{\text{what we want}}
+\;+\; \underbrace{\text{memorized future}}_{\text{contamination}}
+\;+\; \underbrace{\text{topic prior}}_{\text{fashion}}
+\end{equation*}
+and a single retrospective instance cannot tell the terms apart. A
+question that 2024 answered may have been \emph{predicted} from 2020
+evidence---or \emph{remembered} from the model's training data. This
+section reports two experiments designed to pry the terms apart:
+holding the cutoff fixed while varying which component generates the
+question, and holding the generators fixed while moving the cutoff
+across the judge-model's training boundary.
+
+\subsection{Same cutoff, different generators: where does the signal
+live?}
+\label{sec:foresight:abc}
+
+Three generation pipelines share the 2020 cutoff and the v1L evaluation
+conditions but differ in what produces the question:
+
+\begin{description}
+  \item[A --- LLM only.] The direct-LLM baseline: \texttt{gpt-4.1} reads
+    sampled pre-cutoff abstracts and proposes questions. Weights fully
+    exposed to post-2020 literature.
+  \item[B --- structure $\to$ LLM.] A deterministic, LLM-free detector
+    finds pairs of pre-cutoff abstracts about the same catalogued object
+    with opposing stances on the same species (detection vs.\
+    non-detection / upper limit); \texttt{gpt-4.1}'s only job is to
+    verbalize each detected tension as one falsifiable question. The
+    evidence structure is fixed before any LLM sees anything.
+  \item[C --- structure only.] The same detected pairs rendered by a
+    fixed template. No LLM anywhere: this generator has no weights to
+    contaminate.
+\end{description}
+
+B and C share identical evidence structures, so their gap isolates the
+language-realization layer; A and B share the same LLM, so their gap
+isolates evidence structure. (B/C are an evidence-structure-\emph{lite}
+probe---object co-mention plus stance cues---not a reimplementation of
+the evidence-graph system.) Table~\ref{tab:abc} gives the $n=125$
+results.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{The A/B/C decomposition on astronomy v1L (judge-only,
+  $n=125$ each; brackets are 95\% Clopper--Pearson intervals).
+  $s_{\mathrm{obj}}$ = share of questions naming a specific catalogued
+  object (deterministic rubric, Section~\ref{sec:foresight:saf}).}
+  \label{tab:abc}
+  \begin{tabular}{@{}lllllr@{}}
+    \toprule
+    Pipeline & Eng. & Ans. & Ref. & $s_1$ & $s_{\mathrm{obj}}$ \\
+    \midrule
+    A: LLM only              & 96\% [91,99] & 15\% [9,23]  & 0\% [0,3]   & 0.722 & 5\% \\
+    B: structure $\to$ LLM   & 74\% [65,81] & 39\% [31,48] & 13\% [8,20] & 0.694 & 95\% \\
+    C: structure only        & 77\% [68,84] & 25\% [17,33] & 2.4\% [0,7] & 0.721 & 100\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Three readings. \emph{First}, the contamination-free pipeline C beats
+the fully exposed pipeline A on answered rate (24.8\% vs.\ 15.2\%,
+$p=0.08$) and on refutations (3 vs.\ 0)---evidence that a foresight
+signal exists in pre-cutoff evidence structure alone, extractable with
+zero model weights. \emph{Second}, adding the LLM back as a pure
+verbalizer (B) roughly doubles resolution over the same structure
+(39.2\% vs.\ 24.8\% answered, $p=0.02$; 12.8\% vs.\ 2.4\% refuted,
+$p=0.003$): phrasing a tension as a crisp either/or question makes it
+judgeable, and B ends with five times pipeline A's refutation count
+while citing the same model. \emph{Third}, A's questions are
+structurally different, not just weaker: only 5\% name a specific
+object (vs.\ 95--100\% for B/C), and its engagement is the highest of
+any system---broad questions that everything touches and little
+settles.
+
+\subsection{Same generators, moving cutoff: the temporal stress test}
+\label{sec:foresight:stress}
+
+If pipeline A's performance were substantially the memorized-future
+term, it should degrade as the cutoff crosses the model's training
+boundary (June 2024 for \texttt{gpt-4.1}). We ran four generators (A,
+B, C, and random claims as an era control) at four cutoffs---2010,
+2015, 2020, 2024---with uniform four-year future windows ($n=50$ per
+cell; the 2024 window is censored at 2026-06 and flagged; corpora per
+era rebuilt from released manifests). Table~\ref{tab:stress} reports
+the grid.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Temporal contamination stress test (judge-only, $n=50$ per
+  cell; c2010 tension cells have $n=48$---the 855-paper 2005--2010
+  corpus yields only 48 detectable tension pairs). Cutoffs 2010--2020
+  lie inside the LLM's training data; the 2024 cutoff's future window
+  (2025--2026-06, censored) postdates it. Ans.\ = answered; Ref.\ =
+  refuted count.}
+  \label{tab:stress}
+  \begin{tabular}{@{}llcccc@{}}
+    \toprule
+    & & c2010 & c2015 & c2020 & c2024 \\
+    \midrule
+    A: LLM only & Ans. & 22\% & 12\% & 10\% & 16\% \\
+                & Ref. & 2 & 0 & 0 & 0 \\
+    B: structure $\to$ LLM & Ans. & 31\% & 26\% & 34\% & 32\% \\
+                & Ref. & 6 & 3 & 6 & 5 \\
+    C: structure only & Ans. & 10\% & 6\% & 16\% & 4\% \\
+                & Ref. & 0 & 0 & 0 & 0 \\
+    Random claims & Ans. & 12\% & 6\% & 4\% & 6\% \\
+                & Ref. & 1 & 1 & 0 & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{The naive collapse does not happen.} Pipeline A's answered
+rate is statistically flat across the training boundary (14.7\% pooled
+in-training vs.\ 16.0\% post-training, $p=0.82$), as is every other
+generator's. At the outcome level, the memorized-future term is
+\emph{not} where A's performance comes from---because, as the
+decomposition shows, A's performance never rested on specifics that
+memorization could supply. Its engagement sits at 92--98\% at every
+cutoff, its specificity at the floor ($\approx$1.1 of 3) at every
+cutoff: broad questions about each era's active topics, engaged
+everywhere, resolving little, in any era. That is the topic-prior term
+at work, and a topic prior does not need to remember the future---the
+present is enough.
+
+\paragraph{Where a memorization trace does appear.} Two places, both
+in the channels the topic prior cannot supply. Pipeline A's only
+premise refutations in the entire stress test (2 of 200) occur at the
+deepest-contamination cutoff, 2010---the one era whose reversals the
+model has certainly read about---and never after (0 of 150; too few
+for significance, CI [0.5\%, 13.7\%] at c2010). And A's phrasing
+similarity to future literature is highest inside its training window
+(0.717--0.724) with a mild post-training dip (0.703)---directionally
+consistent with phrasing-level memorization, though era confounds keep
+this suggestive rather than conclusive.
+
+\paragraph{The structural signal is era-robust.} Pipeline B refutes
+premises at every cutoff---6, 3, 6, 5---including the one whose future
+the model cannot have seen (10.0\% post-training vs.\ 10.1\%
+in-training). Across all cutoffs B refutes at 10.1\% vs.\ A's 1.0\%
+($p=4\times10^{-5}$), and B's answered margin over C persists
+post-training ($+28$ points at c2024). One residual channel remains
+open and is worth stating precisely: c2024 tension pairs are drawn from
+2019--2024 abstracts, and a tension resolved in early-2024 literature
+the model saw could steer B's phrasing even though the evaluation
+window postdates training. C is immune by construction, which is why C
+finding \emph{any} future engagement at every cutoff (70--83\%) is the
+cleanest single fact in the grid.
+
+\subsection{Specificity-adjusted foresight}
+\label{sec:foresight:saf}
+
+Coverage can be farmed by asking broad questions---``How can we better
+understand exoplanet atmospheres?'' will be engaged with probability 1
+in any active field. We therefore score every question with a
+deterministic, released rubric: $+1$ for naming a specific catalogued
+object, $+1$ for naming a measurable claim (species, quantity with
+units, abundance comparative), $+1$ for an explicit discriminative
+construction (``\ldots or an artifact of\ldots'', ``as tested by'');
+and define specificity-adjusted foresight
+$\mathrm{SAF} = \mathbb{E}[\,w(\text{outcome}) \cdot \text{specificity}/3\,]$
+with $w$ = 1 / 0.5 / 0.25 / 0 for answered / partial / posed-open /
+not addressed. (Template pipelines inherit the test-construction
+point from their template---the rubric's components are reported
+separately for exactly that reason; a novelty term awaits first-posed
+dates, Section~\ref{sec:conclusion}.) Two facts survive every era and
+instance: pipeline A's anchoring is an order of magnitude below the
+structure pipelines' ($s_{\mathrm{obj}}$ 5\% vs.\ 95--100\% on v1L),
+and its SAF never exceeds the random-template floor by more than a few
+points (0.18--0.23 vs.\ 0.24--0.26), while structure pipelines reach
+0.34--0.43. The evidence-graph submission's ten questions score
+$s_{\mathrm{obj}}=90\%$, SAF 0.40.
+
+\subsection{What this section establishes}
+
+\begin{quote}
+\emph{Memorized relevance is not scientific foresight.}
+\end{quote}
+
+The LLM-only pipeline exhibits relevance everywhere---near-ceiling
+engagement, the closest phrasing to the future literature at every
+cutoff---and specific foresight nowhere: no refutation outside the era
+it could have memorized, an answered rate indistinguishable from random
+templates, specificity at the floor. The structure-first pipelines
+invert the picture: lower engagement, higher resolution, refutations in
+every era including the one that postdates the model's training. On
+this evidence, the foresight signal measured by historical backtesting
+lives chiefly in pre-cutoff evidence structure; the LLM contributes a
+real but separable service---turning a detected tension into a
+question sharp enough to be judged. Contamination, meanwhile, turns
+out to be measurable rather than merely confessable: the stress test
+bounds its outcome-level effect (small for this task family) and
+localizes its traces (phrasing proximity; refutations only in deep
+history). All 798 stress-test judgments, the A/B/C submissions, and
+the per-cell corpora manifests are released; every number in this
+section is judge-only and carries $n=48$--$125$ intervals---the
+qualitative pattern, not any single rate, is the finding.
