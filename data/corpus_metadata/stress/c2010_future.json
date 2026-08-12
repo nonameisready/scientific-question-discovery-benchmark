@@ -1,0 +1,30 @@
+{
+  "corpus_id": "stress_c2010_future",
+  "role": "future_corpus",
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"hot Jupiter\" AND atmosphere",
+    "exoplanet AND (cloud OR haze OR aerosol) AND atmosphere",
+    "\"atmospheric escape\" AND exoplanet",
+    "\"phase curve\" AND exoplanet",
+    "\"secondary eclipse\" AND exoplanet",
+    "\"high-resolution spectroscopy\" AND exoplanet AND atmosphere",
+    "\"thermal inversion\" AND exoplanet",
+    "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere",
+    "JWST AND \"exoplanet atmosphere\""
+  ],
+  "n_papers": null,
+  "frozen_at": "2026-08-12",
+  "purpose": "Temporal contamination stress test (Paper 2, Section on memorization vs foresight). Uniform 4-year future windows; the 2024 cutoff window is censored at 2026-06 and flagged in the paper.",
+  "provenance": "this repository (data/corpus_metadata/stress/)",
+  "validates": "stress_c2010_past",
+  "validation_window": {
+    "min": 2011,
+    "max": 2014
+  },
+  "isolation_rule": "Same isolation rules as the v1/v1L future corpora."
+}

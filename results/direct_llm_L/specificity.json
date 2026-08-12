@@ -1,0 +1,1262 @@
+{
+  "n": 125,
+  "mean_specificity": 1.04,
+  "component_rates": {
+    "s_object": 0.048,
+    "s_quantity": 0.952,
+    "s_test": 0.04
+  },
+  "saf": 0.194,
+  "per_question": [
+    {
+      "question_id": "q_001",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_002",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_003",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_004",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_005",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_006",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 1,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_007",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_008",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_009",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_010",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_011",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_012",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_013",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_014",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_015",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_016",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 1,
+      "specificity": 2,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.6667
+    },
+    {
+      "question_id": "q_017",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "not_addressed",
+      "outcome_weight": 0.0,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_018",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_019",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_020",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_021",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_022",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_023",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_024",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_025",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_026",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_027",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_028",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_029",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_030",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_031",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_032",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_033",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 1,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_034",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_035",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_036",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_037",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_038",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_039",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_040",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_041",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_042",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_043",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_044",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_045",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_046",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_047",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_048",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_049",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_050",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_051",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_052",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_053",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_054",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_055",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "posed_but_open",
+      "outcome_weight": 0.25,
+      "saf_contribution": 0.0833
+    },
+    {
+      "question_id": "q_056",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_057",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_058",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_059",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_060",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_061",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_062",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_063",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_064",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "not_addressed",
+      "outcome_weight": 0.0,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_065",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_066",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_067",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_068",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_069",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_070",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_071",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_072",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "posed_but_open",
+      "outcome_weight": 0.25,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_073",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_074",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_075",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_076",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_077",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_078",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.6667
+    },
+    {
+      "question_id": "q_079",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_080",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_081",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_082",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_083",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "not_addressed",
+      "outcome_weight": 0.0,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_084",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_085",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_086",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.6667
+    },
+    {
+      "question_id": "q_087",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_088",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_089",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_090",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_091",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_092",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_093",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_094",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_095",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_096",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_097",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_098",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_099",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_100",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_101",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_102",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_103",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 1,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_104",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_105",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_106",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 1,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_107",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "not_addressed",
+      "outcome_weight": 0.0,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_108",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_109",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_110",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_111",
+      "s_object": 0,
+      "s_quantity": 0,
+      "s_test": 0,
+      "specificity": 0,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_112",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_113",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_114",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_115",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "not_addressed",
+      "outcome_weight": 0.0,
+      "saf_contribution": 0.0
+    },
+    {
+      "question_id": "q_116",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_117",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_118",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_119",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_120",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_121",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_122",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "answered",
+      "outcome_weight": 1.0,
+      "saf_contribution": 0.3333
+    },
+    {
+      "question_id": "q_123",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_124",
+      "s_object": 0,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 1,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.1667
+    },
+    {
+      "question_id": "q_125",
+      "s_object": 1,
+      "s_quantity": 1,
+      "s_test": 0,
+      "specificity": 2,
+      "outcome": "partially_addressed",
+      "outcome_weight": 0.5,
+      "saf_contribution": 0.3333
+    }
+  ]
+}

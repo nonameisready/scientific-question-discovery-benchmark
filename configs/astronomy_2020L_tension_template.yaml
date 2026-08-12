@@ -1,0 +1,22 @@
+# Astronomy v1L — tension_template submission (evidence-structure-lite probe).
+# Same instance parameters as the other v1L configs.
+
+benchmark_version: astronomy_v1L
+cutoff_date: "2020-12-31"
+domain: exoplanet_atmospheres
+
+questions_file: submissions/tension_template_L1/questions.jsonl
+retrieval_file: data/retrieval/tension_template_L_top8.jsonl
+annotations_file: data/annotations/outcomes_tension_template_L.jsonl
+results_dir: results/tension_template_L
+
+past_corpus_manifest: data/corpus_metadata/corpus_a_large_manifest.json
+future_corpus_manifest: data/corpus_metadata/corpus_b_large_manifest.json
+
+judge_model: gpt-4.1
+
+retrieval:
+  model: text-embedding-3-small
+  top_k: 8
+  corpus_start: "2021-01-01"
+  corpus_end: "2026-07-01"

@@ -1,0 +1,29 @@
+{
+  "corpus_id": "stress_c2020_past",
+  "role": "past_corpus",
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"hot Jupiter\" AND atmosphere",
+    "exoplanet AND (cloud OR haze OR aerosol) AND atmosphere",
+    "\"atmospheric escape\" AND exoplanet",
+    "\"phase curve\" AND exoplanet",
+    "\"secondary eclipse\" AND exoplanet",
+    "\"high-resolution spectroscopy\" AND exoplanet AND atmosphere",
+    "\"thermal inversion\" AND exoplanet",
+    "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere"
+  ],
+  "n_papers": null,
+  "frozen_at": "2026-08-12",
+  "purpose": "Temporal contamination stress test (Paper 2, Section on memorization vs foresight). Uniform 4-year future windows; the 2024 cutoff window is censored at 2026-06 and flagged in the paper.",
+  "provenance": "this repository (data/corpus_metadata/stress/)",
+  "cutoff_date": "2020-12-31",
+  "publication_year": {
+    "min": 2015,
+    "max": 2020
+  },
+  "leakage_rule": "Nothing dated after cutoff_date may enter this corpus."
+}
