@@ -49,13 +49,20 @@ contaminated. The protocol is explicitly designed so its instances
 convert from retrospective to prospective by just letting time pass.
 
 \paragraph{Judge and adjudicator reliability.} A single LLM judge,
-even citation-constrained and human-adjudicated, is one reading of the
-evidence; abstracts (not full texts) bound what it can see, and the
-adjudicators are not blind to which system produced the questions.
-Mitigations: labels ship with rationales and citations so any label is
-independently checkable; disagreement is handled by written conservative
-rules (prefer the weaker engagement); multi-judge agreement measurement
-and blinded adjudication are roadmap items.
+even citation-constrained, is one reading of the evidence, and
+abstracts (not full texts) bound what it can see.
+Section~\ref{sec:judgeval} measures rather than asserts what this
+costs: the judge discriminates real evidence from topical similarity
+(engagement 74\% $\to$ 20\% under mismatched evidence) but with a 20\%
+generosity floor; it is stable under resampling ($\kappa\approx0.9$)
+and moderately sensitive to prompt wording ($\kappa=0.57$--$0.72$);
+and every headline conclusion survives a judge swap, with all failures
+being ties at zero rather than reversals. Two gaps remain open and we
+do not paper over them: agreement with human experts is unmeasured
+(the blinded package is released, its results are not in), and the
+cross-model disagreement leaves undecided which judge is right where
+they differ. Blinded adjudication is now built into the released
+annotation apparatus rather than promised.
 
 \paragraph{Retrieval as a bottleneck.} Top-8 abstract-embedding
 retrieval can miss engaging papers (undercounting engagement) or

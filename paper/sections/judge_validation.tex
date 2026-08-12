@@ -1,0 +1,147 @@
+\section{Judge Validation}
+\label{sec:judgeval}
+
+Replacing expert scores with an LLM judge only helps if the judge is
+itself accountable. This section reports four validation experiments on
+a frozen 90-question sample, stratified across systems and outcome
+labels (\texttt{results/judge\_validation/}), plus a released blinded
+human-annotation package whose results are not yet in.
+
+\subsection{Does the judge discriminate, or merely detect topic?}
+\label{sec:judgeval:mismatch}
+
+The sharpest failure mode for an engagement metric is that it measures
+topical similarity and calls it engagement. We test this directly:
+re-judge every sampled question after swapping in \emph{another
+question's} retrieved evidence. A discriminating judge must collapse to
+\labelfmt{not\_addressed}.
+
+Engagement falls from 74\% (67/90) on true pairings to 20\% (18/90) on
+mismatched ones ($p<10^{-4}$, two-sided Fisher), and the drop is
+individually significant for five of six systems. Two further readings
+matter. The 20\% residual is a \emph{generosity bound}: on evidence
+that cannot possibly bear on the question, this judge still reports
+engagement one time in five, so every engagement rate in this paper
+should be read against that floor rather than against zero. And the
+drop tracks question specificity---cleanest for the most anchored
+questions (tension-LLM 12/16 $\to$ 1/16, $p=0.0002$; evidence-graph
+8/10 $\to$ 1/10) and weakest for the generic citation-leader template
+(11/16 $\to$ 5/16, $p=0.076$, the only non-significant cell). A
+question vague enough to accept unrelated evidence is vague enough to
+fool the judge, which is independent support for the specificity rubric
+of Section~\ref{sec:foresight:saf}.
+
+\subsection{Judge stochasticity and prompt sensitivity}
+
+Temperature 0 is not determinism. Re-running the identical
+configuration twice gives outcome agreement 96.7\% and 93.3\%
+($\kappa=0.95$, $0.91$) and premise agreement 95.6\% and 94.4\%
+($\kappa=0.92$, $0.90$): roughly 3--7 points of label noise, small
+relative to the effects the paper reports but not zero, and it should
+be assumed present in every rate.
+
+Prompt sensitivity is larger. A semantically equivalent rewrite of the
+judge prompt agrees at $\kappa=0.68$ (outcome) and $0.72$ (premise). A
+harder variant, replacing the label \emph{names} with neutral codes
+(\texttt{L1}--\texttt{L4}, \texttt{P1}--\texttt{P5}) while keeping the
+definitions verbatim, drops to $\kappa=0.57$ and $0.55$, and never once
+uses the code corresponding to \labelfmt{posed\_but\_open}. Part of the
+judge's behaviour therefore rests on the connotations of the label
+names, not on their stated definitions. We report this as a real
+limitation: label naming is part of the protocol and must be frozen
+along with everything else.
+
+\subsection{Cross-model agreement, and what low agreement means here}
+
+Re-judging with \texttt{gpt-4o} and \texttt{gpt-4-turbo} gives low
+nominal agreement with \texttt{gpt-4.1}: pairwise Cohen's
+$\kappa=0.34$ and $0.20$ on outcome, $0.19$ and $0.05$ on premise
+status; three-way Fleiss $\kappa=0.38$ and $0.03$. Taken alone these
+numbers say the instrument is unreliable, and we report them
+unadorned.
+
+The label distributions complicate that reading. On 90 items
+\texttt{gpt-4-turbo} assigns \labelfmt{still\_plausible} 87 times and
+never once uses \labelfmt{refuted} or \labelfmt{weakened};
+\texttt{gpt-4o} assigns it 78 times. On the outcome dimension both
+almost never use \labelfmt{answered} (2 and 4 times of 90, against 25
+for \texttt{gpt-4.1}), collapsing a four-way judgement into a
+two-way one. Their comparatively high mutual agreement
+($\kappa=0.71$ on outcome) is therefore consistent with a shared
+conservative default rather than with shared judgement, and $\kappa$ is
+in any case depressed when one rater's marginals are near-degenerate.
+
+We flag plainly that this reading is self-serving---``the judges who
+disagree with ours are the incompetent ones'' is exactly what a
+motivated author would say---and that only human annotation can
+arbitrate it. That is the purpose of the released package, and it is
+the single most important open item in this paper.
+
+What can be settled without humans is whether the paper's
+\emph{conclusions} depend on the judge. Because the stratified sample
+equalises label mixes across systems and so erases between-system rate
+differences, this requires a second, unstratified draw (40 random
+questions from each of four systems); we note the distinction because
+computing conclusion robustness on a label-stratified sample is a
+mistake that is easy to make and that we made first.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Conclusion robustness under three judges, unstratified
+  sample ($n=40$ per system). \checkmark{} = the stated ordering holds;
+  $\times$ = it does not. Every $\times$ is a tie at zero, where the
+  judge assigns the label to \emph{no} system; no judge reverses any
+  conclusion.}
+  \label{tab:judgerobust}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Conclusion & \texttt{gpt-4.1} & \texttt{gpt-4o} & \texttt{gpt-4-turbo} \\
+    \midrule
+    structure$\to$LLM answers more than LLM-only   & \checkmark & \checkmark & \checkmark \\
+    LLM-only engages more than random templates    & \checkmark & \checkmark & \checkmark \\
+    structure$\to$LLM refutes more than LLM-only   & \checkmark & \checkmark & $\times$ \\
+    structure-only answers more than LLM-only      & \checkmark & $\times$   & $\times$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:judgerobust} gives the result. The paper's headline
+claim---evidence-structure-first generation resolves more than LLM-only
+prompting---holds under all three judges. So does the engagement
+ordering. The two conclusions that fail do so in a specific and
+benign way: \texttt{gpt-4-turbo} reports 0\% refutation for
+\emph{every} system, and both weaker judges report 0\% answered for
+both compared systems, so the comparison has no resolution rather than
+the opposite sign. Across all twelve judge--conclusion cells, no judge
+ever orders the systems the other way.
+
+The practical implication is a requirement, not a reassurance: this
+benchmark has a \emph{judge capability floor}. The premise dimension in
+particular is unmeasurable with models that default to
+\labelfmt{still\_plausible}, so an instance is only reproducible on a
+judge that demonstrably uses the full label space. We recommend
+reporting the judge's label distribution alongside any submission, and
+treating a near-degenerate distribution as a failed run.
+
+\subsection{Human annotation: released, pending}
+
+The decisive experiment is human agreement, and we release its
+apparatus rather than claiming its result. The package
+(\texttt{annotation/}) contains the same 90 items, blinded three ways:
+system identity replaced by codes with the mapping sealed, items from
+all systems interleaved in one shuffled order, and candidate abstracts
+shuffled within each item so retrieval rank carries no signal. No LLM
+label, rationale, or citation appears anywhere in it. Two annotators
+label independently; the scorer reports human--human agreement (the
+ceiling this task admits) alongside human--LLM agreement (the number
+that decides adequacy), item-for-item against all three judge models
+and both self-consistency reruns.
+
+Until those labels exist, the honest summary is: the judge
+discriminates evidence from topic
+(Section~\ref{sec:judgeval:mismatch}), is stable under
+resampling, is moderately sensitive to prompt wording, and supports
+conclusions that survive a judge swap---but its absolute agreement with
+human experts is unmeasured, and the cross-model results leave open
+which judge is right where they differ.
