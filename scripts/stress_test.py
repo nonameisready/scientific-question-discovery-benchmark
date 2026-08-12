@@ -100,14 +100,22 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--summary", action="store_true",
                         help="print existing summary without running anything")
+    parser.add_argument("--only", choices=list(CUTOFFS), default=None,
+                        help="run a single cutoff (writes summary_<tag>.json); "
+                             "a later full run merges the per-tag files")
     parser.add_argument("--out", default="results/stress/summary.json")
     args = parser.parse_args()
     out_path = ROOT / args.out
     if args.summary:
         summary = json.loads(out_path.read_text(encoding="utf-8"))
     else:
+        tags = [args.only] if args.only else list(CUTOFFS)
         summary = {}
-        for tag in CUTOFFS:
+        for tag in tags:
+            per_tag = out_path.parent / f"summary_{tag}.json"
+            if not args.only and per_tag.exists():
+                summary[tag] = json.loads(per_tag.read_text(encoding="utf-8"))
+                continue
             summary[tag] = {"cutoff": CUTOFFS[tag]["cutoff"],
                             "window": CUTOFFS[tag]["window"]}
             for gen in GENERATORS:
@@ -115,10 +123,14 @@ def main() -> None:
                 questions = generate(tag, gen)
                 summary[tag][gen] = evaluate(tag, gen, questions)
                 print(f"   {summary[tag][gen]}")
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False),
-                            encoding="utf-8")
-        print(f"OK -> {out_path}")
+            per_tag.parent.mkdir(parents=True, exist_ok=True)
+            per_tag.write_text(json.dumps(summary[tag], indent=2,
+                                          ensure_ascii=False), encoding="utf-8")
+        if not args.only:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False),
+                                encoding="utf-8")
+            print(f"OK -> {out_path}")
     header = f"{'cutoff':8s} {'generator':18s} {'n':>4} {'eng':>6} {'ans':>6} {'ref':>4} {'sim':>7} {'spec':>5} {'saf':>6}"
     print(header)
     for tag, row in summary.items():

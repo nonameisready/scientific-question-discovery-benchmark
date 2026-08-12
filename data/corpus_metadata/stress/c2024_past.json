@@ -16,7 +16,7 @@
     "\"thermal inversion\" AND exoplanet",
     "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere"
   ],
-  "n_papers": null,
+  "n_papers": 5437,
   "frozen_at": "2026-08-12",
   "purpose": "Temporal contamination stress test (Paper 2, Section on memorization vs foresight). Uniform 4-year future windows; the 2024 cutoff window is censored at 2026-06 and flagged in the paper.",
   "provenance": "this repository (data/corpus_metadata/stress/)",
