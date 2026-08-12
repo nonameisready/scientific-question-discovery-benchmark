@@ -27,3 +27,5 @@ paper/*.log
 paper/*.out
 paper/*.pdf
 paper/*.synctex.gz
+annotation/annotator_*_sheet_filled.csv
+annotation/adjudicated_sheet.csv

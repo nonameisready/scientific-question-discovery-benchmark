@@ -71,7 +71,8 @@ class CitationError(ValueError):
     """The judge cited a bibcode outside the retrieved candidates."""
 
 
-def _call_judge(model: str, question: str, candidates: list[dict]) -> dict:
+def _call_judge(model: str, question: str, candidates: list[dict],
+                prompt: str = "") -> dict:
     import requests  # runtime dependency only for live judging
 
     headers = {
@@ -88,7 +89,7 @@ def _call_judge(model: str, question: str, candidates: list[dict]) -> dict:
         "response_format": {"type": "json_object"},
         "temperature": 0,
         "messages": [
-            {"role": "system", "content": JUDGE_PROMPT},
+            {"role": "system", "content": prompt or JUDGE_PROMPT},
             {"role": "user", "content":
                 f"Question (generated from pre-cutoff evidence): {question}\n\n"
                 "Candidate post-cutoff abstracts:\n\n" + "\n\n".join(blocks)},
@@ -147,27 +148,32 @@ def constrain(judged: dict, allowed_bibcodes: set[str], question_id: str) -> dic
 
 def judge_all(questions_file: str | Path, retrieval_file: str | Path,
               corpus_file: str | Path, out_file: str | Path,
-              *, model: str = "gpt-4.1") -> list[dict]:
+              *, model: str = "gpt-4.1", prompt: str = "",
+              prompt_id: str = "default",
+              only_ids: set[str] | None = None) -> list[dict]:
     questions = {q["question_id"]: q for q in load_jsonl(questions_file)}
     papers = {p["paper_id"]: p for p in load_jsonl(corpus_file)}
     records = []
     for r in load_jsonl(retrieval_file):
         qid = r["question_id"]
+        if only_ids is not None and qid not in only_ids:
+            continue
         candidates = [papers[d["bibcode"]] for d in r["documents"] if d["bibcode"] in papers]
         allowed = {d["bibcode"] for d in r["documents"]}
-        raw = _call_judge(model, questions[qid]["question"], candidates)
+        raw = _call_judge(model, questions[qid]["question"], candidates, prompt)
         try:
             record = constrain(raw, allowed, qid)
         except CitationError:
             # One fresh attempt; if the judge violates again, keep the
             # response but strip and log the stray citations (constrain
             # flags the record for mandatory human review).
-            raw = _call_judge(model, questions[qid]["question"], candidates)
+            raw = _call_judge(model, questions[qid]["question"], candidates, prompt)
             raw["_strip_stray_citations"] = True
             record = constrain(raw, allowed, qid)
         record.update({
             "retrieval_top_similarity": r.get("top1_similarity"),
             "judge_model": model,
+            "judge_prompt_id": prompt_id,
             "judge_protocol": JUDGE_PROTOCOL,
         })
         records.append(record)

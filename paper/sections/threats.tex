@@ -68,14 +68,38 @@ the released data schema and belongs in v1.1.
 \paragraph{Small $n$ where it matters most, one domain,
 self-evaluation.} The scaled instance lifts the baseline side to
 $n=125$ per system, and Section~\ref{sec:scaled} shows how much that
-matters: two of three small-sample conclusions did not survive. But
-the submission under test still has ten questions---every
-evidence-graph rate keeps a $\sim$30-point-wide interval, and the
-refutation-rate comparison against baselines is unresolvable at
-$n=10$ ($p=0.32$). One domain, evaluated by the group that built the
-leading system, judge-only baseline labels: all still true. We report
-priced reference points, not rankings; the protocol's value grows with
-adversarial use by systems we did not build.
+matters: two of three small-sample conclusions did not survive. The
+submission under test, however, still has ten questions, and we can now
+say exactly what that costs. At the observed effect size (10\% vs.\
+3.2\% premise refutation), detecting the difference at 80\% power and
+$\alpha=0.05$ requires $n\approx209$ \emph{per arm}; the ten-question
+instance has a power of roughly 12\%. The comparison is therefore not
+merely unresolved, it was never resolvable at this sample size, and
+$n\geq209$ is the design specification we adopt for the next instance
+rather than an aspiration.
+
+That specification collides with a structural fact worth reporting,
+because it constrains anyone building a high-precision question
+generator. The evidence-graph system's strongest signals (confirmed
+observational tensions, method challenges, qualifications between
+independent datasets) are gated on \emph{human-reviewed} claim
+relations: its released instance rests on 37 annotated claims and 16
+reviewed relation edges. Its question supply is bounded by annotation
+labour, not by compute or API budget---which is precisely why it ships
+ten questions while the automatic baselines ship 125 each. The
+benchmark thus measures a real precision/scale trade-off rather than
+mere effort: automatic generators reach $n$ easily and mostly produce
+questions no one can settle, while the human-gated generator produces
+few questions with high anchoring (90\% naming a specific object).
+Closing the gap requires either scaled annotation or an automatic
+tension detector of comparable precision---the latter is what
+Section~\ref{sec:foresight}'s B5/B6 probe begins, at visibly lower
+precision.
+
+One domain, evaluated by the group that built the leading system,
+judge-only baseline labels: all still true. We report priced reference
+points, not rankings; the protocol's value grows with adversarial use
+by systems we did not build.
 
 \paragraph{Curation hindsight.} Humans who edited questions before
 freezing know the post-2020 literature. The curation log is released so

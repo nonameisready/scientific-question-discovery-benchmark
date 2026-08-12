@@ -113,26 +113,27 @@ strength:
     computation with CI-enforced reproducibility, a submission format,
     and four reference baselines evaluated through the identical
     pipeline (Sections~\ref{sec:dataset} and~\ref{sec:baselines}).
-  \item \textbf{Empirical pilot (cautious).} In an initial set of ten
-    questions generated from pre-cutoff evidence only, all ten were
-    substantively engaged by the 2021--2026 literature, including one
-    whose underlying premise was subsequently refuted by three
-    independent analyses (Section~\ref{sec:results}). A scaled
-    instance with 424 baseline questions then revises two of the
-    small-sample baseline conclusions---engagement discriminates at
-    scale, and premise refutation is rare (0--3.2\%) but not unique to
-    the evidence-graph system---demonstrating that the benchmark
-    updates its own conclusions as $n$ grows
-    (Sections~\ref{sec:baselines} and~\ref{sec:scaled}). A generator
-    decomposition and a four-cutoff temporal stress test then separate
-    memorization from foresight empirically: the foresight signal
-    survives in a weight-free structural generator at every cutoff,
-    while LLM-only generation shows relevance without resolution in
-    every era (Section~\ref{sec:foresight}). With $n=10$
-    questions from one system in one domain, we do \emph{not} claim
-    that AI can reliably identify the most valuable future scientific
-    questions; we claim the protocol can tell us, eventually, whether
-    it can.
+  \item \textbf{Empirical findings (cautious, and separated by sample
+    size).} Our statistically supported claim concerns a \emph{class}
+    of methods, not a single system: across 125-question submissions,
+    evidence-structure-first generation resolves and refutes far more
+    than direct LLM prompting (39\% vs.\ 15\% answered; 13\% vs.\ 0\%
+    premise refutation, $p=3\times10^{-5}$), and this holds at four
+    historical cutoffs including one whose future postdates the model's
+    training data (Section~\ref{sec:foresight}). A weight-free
+    structural generator---no LLM anywhere---outperforms LLM-only
+    prompting on resolution, locating the foresight signal in
+    pre-cutoff evidence structure rather than in model weights.
+    Separately, and as an illustrative case rather than a statistical
+    claim, a ten-question evidence-graph submission had every question
+    engaged by later literature, one of them by refuting the premise it
+    challenged (Section~\ref{sec:results}). At $n=10$ that submission
+    cannot be ranked against baselines---detecting its apparent
+    advantage would require $n\approx209$ per arm---and we make no such
+    ranking claim. We do \emph{not} claim that AI reliably identifies
+    the most valuable future scientific questions; we claim the
+    protocol can tell us, eventually, whether it can, and that it
+    already discriminates between generator families.
 \end{enumerate}
 
 What we believe is ultimately most useful here is not any single
