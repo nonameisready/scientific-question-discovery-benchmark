@@ -14,6 +14,7 @@ anonymised code and no LLM label of any kind.
 """
 
 import argparse
+import hashlib
 import html
 import json
 import sys
@@ -27,6 +28,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "annotation"
 SAMPLE = ROOT / "results" / "judge_validation" / "sample.json"
 CORPUS = ROOT / "data" / "corpus" / "future_corpus_large_frozen_window.jsonl"
+TRANSLATIONS = PACK / "translations.json"
+
+
+def _sid(text: str) -> str:
+    """Same stable id scheme as scripts/translate_packet.py."""
+    return "q_" + hashlib.sha1(text.encode("utf-8")).hexdigest()[:12]
 
 # (code, English gloss, Chinese gloss)
 OUTCOMES = [
@@ -145,6 +152,11 @@ label.opt .en { display:block; margin-left:24px; color:var(--muted); font-size:1
 .guidebody code { background:var(--bg); padding:1px 5px; border-radius:4px; font-size:13px; }
 .warn { border-left:3px solid #e0a800; padding:8px 0 8px 12px; background:var(--bg);
         border-radius:0 6px 6px 0; }
+.qzh { font-size:16px; font-weight:600; color:var(--accent); margin:-10px 0 16px; }
+.zhtext { margin-top:8px; padding-top:8px; border-top:1px dashed var(--line); }
+.zhtext h4 { margin:0 0 4px; font-size:14px; color:var(--muted); font-weight:600; }
+.zhtext p { font-size:14px; }
+body.hide-zh .qzh, body.hide-zh .zhtext { display:none; }
 .row { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-end; margin-top:14px; }
 input[type=text] { width:100%; padding:8px 10px; border:1px solid var(--line);
                    border-radius:7px; background:var(--bg); color:var(--fg); font:inherit; }
@@ -212,6 +224,15 @@ function download() {
   a.download = ANNOTATOR + '_sheet.csv';
   a.click();
 }
+document.getElementById('togglezh').addEventListener('click', e => {
+  const hidden = document.body.classList.toggle('hide-zh');
+  e.target.textContent = hidden ? '显示中文 Show Chinese' : '隐藏中文 Hide Chinese';
+  localStorage.setItem(KEY + '_hidezh', hidden ? '1' : '');
+});
+if (localStorage.getItem(KEY + '_hidezh')) {
+  document.body.classList.add('hide-zh');
+  document.getElementById('togglezh').textContent = '显示中文 Show Chinese';
+}
 document.getElementById('export').addEventListener('click', download);
 document.getElementById('jump').addEventListener('click', () => {
   const next = ITEMS.find(i => !(state[i] && state[i].outcome && state[i].premise_status));
@@ -225,6 +246,12 @@ def build(annotator: str) -> Path:
     sample = json.loads(SAMPLE.read_text(encoding="utf-8"))
     decode = json.loads((PACK / "decode.json").read_text(encoding="utf-8"))
     papers = {p["paper_id"]: p for p in load_jsonl(CORPUS)}
+
+    zh = (json.loads(TRANSLATIONS.read_text(encoding="utf-8"))
+          if TRANSLATIONS.exists() else {})
+    if not zh:
+        print("  note: annotation/translations.json missing — building "
+              "English-only. Run scripts/translate_packet.py first.")
 
     questions: dict[tuple[str, str], str] = {}
     retrieval: dict[tuple[str, str], list] = {}
@@ -244,10 +271,17 @@ def build(annotator: str) -> Path:
         abstracts = []
         for i, d in enumerate(docs, start=1):
             abstract = " ".join((d.get("abstract") or "").split())
+            bib = d["paper_id"]
+            zh_title = zh.get(f"t:{bib}", "")
+            zh_abs = zh.get(f"a:{bib}", "")
+            zh_block = ""
+            if zh_title or zh_abs:
+                zh_block = (f'<div class="zhtext"><h4>[{i}] {html.escape(zh_title)}</h4>'
+                            f'<p>{html.escape(zh_abs)}</p></div>')
             abstracts.append(
                 f'<div class="abs"><h4>[{i}] {html.escape(d.get("title") or "")}</h4>'
                 f'<div class="meta">{html.escape(d.get("pubdate") or "")}</div>'
-                f'<p>{html.escape(abstract)}</p></div>')
+                f'<p>{html.escape(abstract)}</p>{zh_block}</div>')
         outcome_opts = "".join(
             f'<label class="opt"><input type="radio" name="{item_id}::outcome" '
             f'value="{code}"> <code>{code}</code>'
@@ -263,10 +297,15 @@ def build(annotator: str) -> Path:
         conf_opts = "".join(
             f'<label class="opt" style="display:inline-block"><input type="radio" '
             f'name="{item_id}::confidence" value="{v}"> {v}</label>' for v in (1, 2, 3))
+        question_en = questions.get(key, "")
+        question_zh = zh.get(_sid(question_en), "")
+        question_zh_html = (f'<div class="qzh">{html.escape(question_zh)}</div>'
+                            if question_zh else "")
         parts.append(f"""
 <section class="item" id="{item_id}">
   <div class="qid">{item_id} &middot; {meta['system_code']}</div>
-  <div class="q">{html.escape(questions.get(key, ''))}</div>
+  <div class="q">{html.escape(question_en)}</div>
+  {question_zh_html}
   <details open><summary>{len(docs)} 篇截止日之后发表的候选摘要 / candidate abstracts</summary>
     {''.join(abstracts)}
   </details>
@@ -288,11 +327,14 @@ def build(annotator: str) -> Path:
   <h1>盲化标注 Blinded annotation — {annotator}</h1>
   <span id="count" class="hint">0 / {len(item_ids)}</span>
   <div class="bar"><div></div></div>
+  <button id="togglezh">隐藏中文 Hide Chinese</button>
   <button id="jump">跳到下一道未答 Next unanswered</button>
   <button id="export" class="primary">导出 CSV</button>
 </header>
 <main>
   <p class="hint"><strong>只根据下面显示的摘要判断。同话题不等于有人研究了这个问题。</strong>
+  中文为机器翻译的辅助阅读版，<strong>以英文原文为准</strong>——AI 裁判读的是英文原文，
+  两边看同一份材料，对比才成立。
   答案会自动保存在本浏览器里，随时可以关掉再回来；全部做完点右上角
   <em>Export CSV</em> 导出文件。<br>
   <em>Judge only from the abstracts shown; same topic is not engagement.
