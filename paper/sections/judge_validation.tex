@@ -4,8 +4,10 @@
 Replacing expert scores with an LLM judge only helps if the judge is
 itself accountable. This section reports four validation experiments on
 a frozen 90-question sample, stratified across systems and outcome
-labels (\texttt{results/judge\_validation/}), plus a released blinded
-human-annotation package whose results are not yet in.
+labels (\texttt{results/judge\_validation/}), plus a first pass through
+the released blinded human-annotation package. Three of the five
+results are reassuring; the fifth, agreement with a human reader, is
+not, and Section~\ref{sec:judgeval:human} reports it in full.
 
 \subsection{Does the judge discriminate, or merely detect topic?}
 \label{sec:judgeval:mismatch}
@@ -124,24 +126,53 @@ judge that demonstrably uses the full label space. We recommend
 reporting the judge's label distribution alongside any submission, and
 treating a near-degenerate distribution as a failed run.
 
-\subsection{Human annotation: released, pending}
+\subsection{Human annotation: a first, adverse datapoint}
+\label{sec:judgeval:human}
 
-The decisive experiment is human agreement, and we release its
-apparatus rather than claiming its result. The package
-(\texttt{annotation/}) contains the same 90 items, blinded three ways:
-system identity replaced by codes with the mapping sealed, items from
-all systems interleaved in one shuffled order, and candidate abstracts
-shuffled within each item so retrieval rank carries no signal. No LLM
-label, rationale, or citation appears anywhere in it. Two annotators
-label independently; the scorer reports human--human agreement (the
-ceiling this task admits) alongside human--LLM agreement (the number
-that decides adequacy), item-for-item against all three judge models
-and both self-consistency reruns.
+The decisive experiment is agreement with a human reader. We release
+the apparatus (\texttt{annotation/}: the same 90 items, system identity
+replaced by codes with the mapping sealed, items interleaved in one
+shuffled order, abstracts shuffled within each item, no LLM label or
+rationale anywhere) and report the first pilot pass through it.
 
-Until those labels exist, the honest summary is: the judge
-discriminates evidence from topic
-(Section~\ref{sec:judgeval:mismatch}), is stable under
-resampling, is moderately sensitive to prompt wording, and supports
-conclusions that survive a judge swap---but its absolute agreement with
-human experts is unmeasured, and the cross-model results leave open
-which judge is right where they differ.
+One annotator, not a domain specialist, labelled the first 23 items of
+the shuffled order---an effectively random subsample---from the
+abstracts alone. \textbf{Agreement with the judge is at chance:} 30.4\%
+raw agreement on outcome ($\kappa=0.04$) and 30.4\% on premise status
+($\kappa=-0.11$). The other two judge models fare no better
+($\kappa=-0.06$ and $0.03$ on outcome). Agreement does not improve with
+the annotator's self-reported confidence (33\% at both confidence 2 and
+3), which rules out the most convenient explanation---that disagreement
+is concentrated in items the annotator found hard.
+
+The disagreement is systematic, not random. On these 23 items the human
+assigned \labelfmt{answered} 12 times to the judge's 5, and
+\labelfmt{not\_addressed} once to the judge's 7; the human never used
+\labelfmt{posed\_but\_open}, which the judge used 3 times. Every LLM
+judge is markedly \emph{more conservative} than the human reader, in the
+same direction. Where \texttt{gpt-4.1} and \texttt{gpt-4o} disagree, the
+human sides with \texttt{gpt-4.1} 3 times, \texttt{gpt-4o} twice, and
+with neither 4 times: this pilot does not arbitrate the cross-model
+disagreement of Section~5.3 either.
+
+We report this as what it is---a serious adverse result for the
+instrument---and decline the available mitigations. The annotator was
+untrained, self-described as unsure, worked without domain expertise,
+and left no rationales; $n=23$ leaves wide intervals. All true, and none
+of it licenses discarding the datapoint, because the same reasoning
+would have licensed discarding a favourable one. Three readings remain
+open: the judge does not measure what a careful reader measures; this
+particular reader was unreliable; or the taxonomy is underdetermined
+enough that independent readers cannot converge on it---a finding about
+the protocol, not the judge.
+
+Exactly one experiment separates them: \textbf{human--human agreement}.
+If two independent readers agree at $\kappa\approx0.05$, the labelling
+task itself is the problem and the taxonomy needs sharper decision
+rules before any judge, human or model, can be validated against it. If
+they agree substantially, the judge is the problem. Until that number
+exists, the rates throughout this paper should be read as the output of
+a stable, discriminating, self-consistent procedure whose correspondence
+to human judgement is \emph{unestablished and, on the only evidence we
+have, poor}. We consider obtaining that number, with at least one
+domain-expert annotator, the highest-priority item in this line of work.

@@ -338,7 +338,13 @@ def score() -> None:
                             continue
                         bucket = hits.setdefault(stratum_of[key], [])
                         bucket.append(int(row[field] == table[key][field]))
-                    if len(hits) < len(weights):
+                    covered = sum(len(v) for v in hits.values())
+                    expected = sum(st["sampled"] for st in spec["strata"].values())
+                    if len(hits) < len(weights) or covered < 0.8 * expected:
+                        # Too little of the stratified subset was labelled for
+                        # post-stratification to mean anything; reporting it
+                        # anyway would dress up a handful of items as a
+                        # population estimate.
                         continue
                     weighted = sum(weights[s] * (sum(v) / len(v))
                                    for s, v in hits.items() if v)

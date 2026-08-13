@@ -57,11 +57,15 @@ costs: the judge discriminates real evidence from topical similarity
 generosity floor; it is stable under resampling ($\kappa\approx0.9$)
 and moderately sensitive to prompt wording ($\kappa=0.57$--$0.72$);
 and every headline conclusion survives a judge swap, with all failures
-being ties at zero rather than reversals. Two gaps remain open and we
-do not paper over them: agreement with human experts is unmeasured
-(the blinded package is released, its results are not in), and the
-cross-model disagreement leaves undecided which judge is right where
-they differ. Blinded adjudication is now built into the released
+being ties at zero rather than reversals. The most serious gap is now measured rather than
+open, and it is unfavourable: in a first blinded pass a non-expert
+annotator agreed with the judge at chance ($\kappa=0.04$ on outcome over
+23 items), disagreeing systematically in one direction---every model
+judge is more conservative than the human reader
+(Section~\ref{sec:judgeval:human}). Whether this indicts the judge, the
+annotator, or the taxonomy cannot be settled without human--human
+agreement, which we have not yet obtained; the paper's rates should be
+read accordingly. Blinded adjudication is now built into the released
 annotation apparatus rather than promised.
 
 \paragraph{Retrieval as a bottleneck.} Top-8 abstract-embedding
