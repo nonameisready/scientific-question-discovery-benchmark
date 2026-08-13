@@ -1,0 +1,140 @@
+{
+  "n": 24,
+  "seed": 24081201,
+  "strata": {
+    "D": {
+      "description": "gpt-4.1 and gpt-4o disagree on outcome",
+      "population_size": 42,
+      "sampled": 12,
+      "weight": 0.4667
+    },
+    "A": {
+      "description": "gpt-4.1 and gpt-4o agree on outcome",
+      "population_size": 48,
+      "sampled": 12,
+      "weight": 0.5333
+    }
+  },
+  "items": [
+    {
+      "system": "citation_leader",
+      "question_id": "q_034",
+      "stratum": "D"
+    },
+    {
+      "system": "direct_llm",
+      "question_id": "q_017",
+      "stratum": "D"
+    },
+    {
+      "system": "evidence_graph",
+      "question_id": "q_010",
+      "stratum": "D"
+    },
+    {
+      "system": "random_claim",
+      "question_id": "q_007",
+      "stratum": "D"
+    },
+    {
+      "system": "tension_llm",
+      "question_id": "q_049",
+      "stratum": "D"
+    },
+    {
+      "system": "tension_template",
+      "question_id": "q_029",
+      "stratum": "D"
+    },
+    {
+      "system": "citation_leader",
+      "question_id": "q_068",
+      "stratum": "D"
+    },
+    {
+      "system": "direct_llm",
+      "question_id": "q_122",
+      "stratum": "D"
+    },
+    {
+      "system": "evidence_graph",
+      "question_id": "q_005",
+      "stratum": "D"
+    },
+    {
+      "system": "random_claim",
+      "question_id": "q_122",
+      "stratum": "D"
+    },
+    {
+      "system": "tension_llm",
+      "question_id": "q_075",
+      "stratum": "D"
+    },
+    {
+      "system": "tension_template",
+      "question_id": "q_005",
+      "stratum": "D"
+    },
+    {
+      "system": "citation_leader",
+      "question_id": "q_097",
+      "stratum": "A"
+    },
+    {
+      "system": "direct_llm",
+      "question_id": "q_067",
+      "stratum": "A"
+    },
+    {
+      "system": "evidence_graph",
+      "question_id": "q_002",
+      "stratum": "A"
+    },
+    {
+      "system": "random_claim",
+      "question_id": "q_088",
+      "stratum": "A"
+    },
+    {
+      "system": "tension_llm",
+      "question_id": "q_098",
+      "stratum": "A"
+    },
+    {
+      "system": "tension_template",
+      "question_id": "q_061",
+      "stratum": "A"
+    },
+    {
+      "system": "citation_leader",
+      "question_id": "q_062",
+      "stratum": "A"
+    },
+    {
+      "system": "direct_llm",
+      "question_id": "q_107",
+      "stratum": "A"
+    },
+    {
+      "system": "evidence_graph",
+      "question_id": "q_007",
+      "stratum": "A"
+    },
+    {
+      "system": "random_claim",
+      "question_id": "q_082",
+      "stratum": "A"
+    },
+    {
+      "system": "tension_llm",
+      "question_id": "q_012",
+      "stratum": "A"
+    },
+    {
+      "system": "tension_template",
+      "question_id": "q_099",
+      "stratum": "A"
+    }
+  ]
+}

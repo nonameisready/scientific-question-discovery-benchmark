@@ -29,6 +29,7 @@ PACK = ROOT / "annotation"
 SAMPLE = ROOT / "results" / "judge_validation" / "sample.json"
 CORPUS = ROOT / "data" / "corpus" / "future_corpus_large_frozen_window.jsonl"
 TRANSLATIONS = PACK / "translations.json"
+SUBSET = ROOT / "results" / "judge_validation" / "subset.json"
 
 
 def _sid(text: str) -> str:
@@ -242,7 +243,7 @@ restore();
 """
 
 
-def build(annotator: str) -> Path:
+def build(annotator: str, subset_only: bool = False) -> Path:
     sample = json.loads(SAMPLE.read_text(encoding="utf-8"))
     decode = json.loads((PACK / "decode.json").read_text(encoding="utf-8"))
     papers = {p["paper_id"]: p for p in load_jsonl(CORPUS)}
@@ -261,10 +262,17 @@ def build(annotator: str) -> Path:
         for r in load_jsonl(ROOT / spec["retrieval_file"]):
             retrieval[(name, r["question_id"])] = r["documents"]
 
+    keep: set[tuple[str, str]] | None = None
+    if subset_only:
+        spec = json.loads(SUBSET.read_text(encoding="utf-8"))
+        keep = {(i["system"], i["question_id"]) for i in spec["items"]}
+
     parts, item_ids = [], []
     for item_id in sorted(decode):
         meta = decode[item_id]
         key = (meta["system"], meta["question_id"])
+        if keep is not None and key not in keep:
+            continue
         item_ids.append(item_id)
         docs = [papers[d["bibcode"]] for d in retrieval.get(key, [])
                 if d["bibcode"] in papers]
@@ -346,7 +354,8 @@ def build(annotator: str) -> Path:
 const ITEMS = {json.dumps(item_ids)};
 {JS}</script></body></html>"""
 
-    out = PACK / f"{annotator}_form.html"
+    out = PACK / (f"{annotator}_form_subset.html" if subset_only
+                  else f"{annotator}_form.html")
     out.write_text(page, encoding="utf-8")
     print(f"OK: {len(item_ids)} items -> {out} ({out.stat().st_size // 1024} KB)")
     return out
@@ -355,8 +364,11 @@ const ITEMS = {json.dumps(item_ids)};
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--annotator", default="annotator_1")
+    parser.add_argument("--subset", action="store_true",
+                        help="render only the stratified subset "
+                             "(results/judge_validation/subset.json)")
     args = parser.parse_args()
-    build(args.annotator)
+    build(args.annotator, args.subset)
 
 
 if __name__ == "__main__":

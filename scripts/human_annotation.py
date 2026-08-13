@@ -317,6 +317,40 @@ def score() -> None:
                 (sum(hl) / len(hl)) / hh, 3) if hh else None
         report[field] = block
 
+    # Post-stratification: when only the stratified subset was labelled,
+    # reweight each stratum by its share of the full 90-item sample so the
+    # reported agreement estimates the population rather than the
+    # disagreement-enriched subset.
+    subset_path = ROOT / "results" / "judge_validation" / "subset.json"
+    if subset_path.exists():
+        spec = json.loads(subset_path.read_text(encoding="utf-8"))
+        stratum_of = {(i["system"], i["question_id"]): i["stratum"]
+                      for i in spec["items"]}
+        weights = {k: v["weight"] for k, v in spec["strata"].items()}
+        for field in ("outcome", "premise_status"):
+            for who, sheet in sheets.items():
+                for model, table in llm.items():
+                    hits: dict[str, list[int]] = {}
+                    for item_id, row in sheet.items():
+                        meta = decode[item_id]
+                        key = (meta["system"], meta["question_id"])
+                        if key not in stratum_of or key not in table:
+                            continue
+                        bucket = hits.setdefault(stratum_of[key], [])
+                        bucket.append(int(row[field] == table[key][field]))
+                    if len(hits) < len(weights):
+                        continue
+                    weighted = sum(weights[s] * (sum(v) / len(v))
+                                   for s, v in hits.items() if v)
+                    report[field][f"{who}_vs_{model}_stratum_weighted"] = {
+                        "weighted_percent_agreement": round(weighted, 4),
+                        "per_stratum": {s: {"n": len(v),
+                                            "agreement": round(sum(v) / len(v), 4)}
+                                        for s, v in hits.items()},
+                        "note": "post-stratified to the 90-item sample; "
+                                "stratum D = judges disagreed, A = judges agreed",
+                    }
+
     out = ROOT / "results" / "judge_validation" / "human_agreement.json"
     out.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(report, indent=2, ensure_ascii=False))
