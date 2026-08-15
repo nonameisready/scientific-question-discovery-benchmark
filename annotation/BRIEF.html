@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Annotation brief 标注说明书</title>
+<style>
+:root { --bg:#fff; --fg:#1a1a1a; --muted:#5b5b5b; --line:#e2e2e2; --accent:#1f6feb;
+        --card:#f7f8fa; --warn:#b26a00; }
+@media (prefers-color-scheme: dark) { :root {
+  --bg:#15171a; --fg:#e9e9e9; --muted:#a0a6ac; --line:#2c3036; --accent:#6aa5ff;
+  --card:#1c1f24; --warn:#e0a800; } }
+* { box-sizing:border-box; }
+body { margin:0 auto; max-width:780px; padding:36px 24px 80px; background:var(--bg);
+       color:var(--fg); font:16.5px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",
+       Roboto,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif; }
+h1 { font-size:25px; line-height:1.35; margin:0 0 4px; }
+h1 + h1 { color:var(--muted); font-weight:600; margin-bottom:26px; }
+h2 { font-size:19px; margin:38px 0 6px; padding-top:14px; border-top:1px solid var(--line); }
+h2 + h2 { border-top:none; padding-top:0; color:var(--muted); font-size:17px;
+          font-weight:600; margin-top:0; margin-bottom:14px; }
+h3 { font-size:17px; margin:22px 0 6px; }
+p { margin:10px 0; }
+strong { font-weight:650; }
+em { color:var(--muted); }
+code { background:var(--card); padding:1.5px 6px; border-radius:5px;
+       font:14px ui-monospace,SFMono-Regular,Menlo,monospace; }
+blockquote { margin:16px 0; padding:12px 18px; border-left:4px solid var(--accent);
+             background:var(--card); border-radius:0 8px 8px 0; }
+blockquote h3 { margin:4px 0; color:var(--warn); }
+table { border-collapse:collapse; width:100%; margin:14px 0; font-size:15.5px; }
+th,td { border:1px solid var(--line); padding:8px 11px; text-align:left; vertical-align:top; }
+th { background:var(--card); font-weight:650; }
+hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+ol,ul { margin:10px 0; padding-left:26px; }
+li { margin:7px 0; }
+a { color:var(--accent); }
+@media print {
+  body { max-width:none; padding:0; font-size:11pt; color:#000; background:#fff; }
+  h2 { page-break-after:avoid; } table,blockquote { page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<h1>Annotation brief — 30 minutes to read, ~1 hour to do</h1>
+<h1>标注说明书 —— 3 分钟读完，约 1 小时完成</h1>
+<hr>
+<h2>1. What you are doing / 你要做什么</h2>
+<p>You will see <strong>23 research questions</strong>. Each question was written from literature published <strong>before 2021</strong>. Below each question are <strong>up to 8 abstracts of papers published after it</strong>.</p>
+<p>你会看到 <strong>23 个科研问题</strong>。每个问题都是根据 <strong>2021 年以前</strong>的文献写出来的。 每个问题下面是 <strong>最多 8 篇在那之后发表的论文摘要</strong>。</p>
+<p><strong>Your job: decide what the later literature did to that question.</strong> Two labels per item. About 2–3 minutes each.</p>
+<p><strong>你的任务：判断后来的文献对这个问题做了什么。</strong> 每题两个标签，每题约 2–3 分钟。</p>
+<hr>
+<h2>2. Why it matters / 为什么这件事重要</h2>
+<p>We built a benchmark that scores AI systems on the research questions they generate. The labels currently come from an LLM. In a first blinded pass, a non-expert annotator agreed with the LLM <strong>at chance level</strong> (κ = 0.04).</p>
+<p>我们做了一个基准，用来评价 AI 提出的科研问题好不好。目前的标签是 LLM 打的。 第一轮盲测中，一位非专业标注者与 LLM 的一致度<strong>处于随机水平</strong>（κ = 0.04）。</p>
+<p>We do not know whether the LLM is wrong, that reader was, or our label definitions are too vague for anyone to apply consistently. <strong>Your independent pass is the experiment that tells us which.</strong> Please label what you actually see — a disagreement with the LLM is just as useful to us as an agreement.</p>
+<p>我们不知道是 LLM 判错了、那位读者判错了，还是我们的标签定义本身太模糊、 换谁来都统一不了。<strong>你这一遍独立标注，就是能区分这三者的实验。</strong> 请按你真实看到的判断——<strong>你和 LLM 不一致，对我们同样有价值。</strong></p>
+<hr>
+<h2>3. The one rule that matters most / 最重要的一条规则</h2>
+<blockquote>
+<h3>Same topic is NOT engagement.</h3>
+<h3>同话题 ≠ 有人研究了这个问题。</h3>
+</blockquote>
+<p>An abstract about the same planet, the same molecule, or the same instrument <strong>does not count</strong> — unless it bears on <strong>the specific thing this question asks you to test</strong>, or on <strong>the assumption the question rests on</strong>.</p>
+<p>一篇摘要讲的是同一颗行星、同一个分子、同一台望远镜，<strong>都不算</strong>。 必须真的碰到<strong>这个问题要检验的那件具体的事</strong>，或者碰到<strong>这个问题所依赖的假设</strong>。</p>
+<p><em>Example / 例子:</em> the question asks about CO on <strong>Proxima Centauri b</strong>; an abstract reports no thick CO₂ atmosphere on <strong>TRAPPIST-1 c</strong>. Same field, same kind of measurement — but a different planet, so it says nothing about this question. &rarr; <code>not_addressed</code></p>
+<p><em>问题问的是 <strong>Proxima Centauri b</strong> 上的 CO；摘要报告的是 <strong>TRAPPIST-1 c</strong> 没有 厚 CO₂ 大气。同一领域、同类测量，但不同的行星，对这个问题什么也没说。&rarr; <code>not_addressed</code></em></p>
+<hr>
+<h2>4. Label 1 — <code>outcome</code>: what happened to the question?</h2>
+<h2>标签一 —— <code>outcome</code>：这个<strong>问题</strong>后来怎么样了？</h2>
+<p><strong>Ask these four questions in order. Stop at the first one you can answer.</strong> <strong>按顺序问自己这四个问题，第一个能回答的就是答案。</strong></p>
+<p><strong>Q1. Does any abstract bear on this question&#x27;s actual test, or on its assumption?</strong> <strong>问 1：有没有任何一篇摘要，真的碰到了这个问题要检验的事，或它依赖的假设？</strong></p>
+<p>&rarr; <strong>No</strong> &rArr; <strong><code>not_addressed</code></strong> — stop here. / <strong>没有</strong> &rArr; <strong><code>not_addressed</code></strong>，到此为止。</p>
+<p><strong>Q2. Could you now state an answer to the question, citing these abstracts?</strong> <strong>问 2：读完这些摘要，你现在能说出这个问题的答案吗？</strong></p>
+<p>&rarr; <strong>Yes</strong> &rArr; <strong><code>answered</code></strong> / <strong>能</strong> &rArr; <strong><code>answered</code></strong></p>
+<p><strong>Q3. Do the abstracts explicitly raise the same question, without settling it?</strong> <strong>问 3：这些摘要是不是也提出了同一个问题，但没有解决它？</strong></p>
+<p>&rarr; <strong>Yes</strong> &rArr; <strong><code>posed_but_open</code></strong> / <strong>是</strong> &rArr; <strong><code>posed_but_open</code></strong></p>
+<p><strong>Q4. Otherwise</strong> &rArr; <strong><code>partially_addressed</code></strong> — real relevant progress, core question still open. <strong>问 4：以上都不是</strong> &rArr; <strong><code>partially_addressed</code></strong> —— 有实质的相关进展， 但核心问题仍未解决。</p>
+<hr>
+<h2>5. Label 2 — <code>premise_status</code>: what happened to its underlying assumption?</h2>
+<h2>标签二 —— <code>premise_status</code>：它<strong>依赖的那个假设</strong>怎么样了？</h2>
+<p>Many questions quietly assume something that could turn out to be false.</p>
+<p>很多问题里悄悄埋了一个&quot;可能其实是错的&quot;的前提。</p>
+<blockquote>
+<p>*&quot;Is the strongly subsolar water abundance of HD 209458 b real, or an</p>
+<p>artifact of retrieval assumptions?&quot;*</p>
+<p>— assumes that a strongly subsolar abundance <strong>was in fact reported</strong>.</p>
+<p>—— 它假设了&quot;确实有人报告过极低含水量&quot;这件事。</p>
+</blockquote>
+<p><strong>Ask in order / 按顺序问：</strong></p>
+<p><strong>Q1. Does the question rest on an assumption that could be wrong at all?</strong> <strong>问 1：这个问题依赖任何一个「可能是错的」假设吗？</strong></p>
+<p>&rarr; <strong>No</strong> &rArr; <strong><code>not_applicable</code></strong> / <strong>不依赖</strong> &rArr; <strong><code>not_applicable</code></strong></p>
+<p><strong>Q2. Do the abstracts actually test that assumption?</strong> <strong>问 2：这些摘要真的检验了那个假设吗？</strong></p>
+<p>&rarr; <strong>No</strong> &rArr; <strong><code>still_plausible</code></strong> (untested, not &quot;true&quot;) / <strong>没有</strong> &rArr; <strong><code>still_plausible</code></strong>（是&quot;没被检验&quot;，不是&quot;成立&quot;）</p>
+<p><strong>Q3. If tested — what happened? / 检验了的话，结果是：</strong></p>
+<table><thead><tr><th>Result</th><th>Label</th></tr></thead><tbody>
+<tr><td>Confirmed / 被证实</td><td><code>supported</code></td></tr>
+<tr><td>Falsified / 被证伪</td><td><code>refuted</code></td></tr>
+<tr><td>Seriously undermined, not settled / 被严重削弱但未定论</td><td><code>weakened</code></td></tr>
+</tbody></table>
+<p><strong>Important / 重要：</strong> a question can be <code>answered</code> <strong>because</strong> its assumption was <code>refuted</code>. That combination is expected, not a contradiction.</p>
+<p>一个问题可以<strong>正因为</strong>它的假设被推翻而得到解决。<code>answered</code> + <code>refuted</code> 是合理组合，不是自相矛盾。</p>
+<hr>
+<h2>6. Three worked examples / 三个完整例子</h2>
+<p><strong>A.</strong> <em>Question:</em> Is HD 209458 b&#x27;s strongly subsolar water abundance real, or an artifact of retrieval assumptions? <em>Abstracts:</em> three independent reanalyses, all converging on a solar abundance. &rarr; <strong><code>answered</code> + <code>refuted</code></strong> — settled, and settled by overturning the assumption the question challenged. &rarr; 问题解决了，而且是靠推翻它质疑的那个假设解决的。</p>
+<p><strong>B.</strong> <em>Same question.</em> <em>Abstracts:</em> several papers measuring water in <strong>other</strong> hot Jupiters. &rarr; <strong><code>not_addressed</code> + <code>still_plausible</code></strong> — same topic, different object; nothing here bears on this test. &rarr; 同话题、不同天体，对这个检验没有任何贡献。</p>
+<p><strong>C.</strong> <em>Question:</em> How do inhomogeneous terminators bias retrieved abundances? <em>Abstracts:</em> papers showing the bias exists in general, none resolving the specific case asked about. &rarr; <strong><code>partially_addressed</code> + <code>still_plausible</code></strong> — real progress, core question open, and the assumption was never directly tested. &rarr; 有实质进展，核心问题未决，假设也没被直接检验。</p>
+<hr>
+<h2>7. Four rules / 四条规则</h2>
+<ol start="1"><li><strong>Judge only from the abstracts shown. Do not look the papers up.</strong> The LLM saw exactly these abstracts; if you use outside knowledge, the comparison is no longer valid. If you happen to know the later history, set it aside. <strong>只根据显示的摘要判断，不要上网查。</strong> LLM 当时看到的就是这几篇； 你用了外部知识，这个对比就不成立了。就算你知道后来发生了什么，也请放到一边。</li></ol>
+<ol start="2"><li><strong>Do not discuss the items with anyone before you finish.</strong> Inter-rater agreement only means something if the two passes are independent. <strong>标完之前不要和任何人讨论。</strong> 两遍标注必须独立，一致度才有意义。</li></ol>
+<ol start="3"><li><strong>Use confidence honestly: 1 = unsure, 2 = medium, 3 = confident.</strong> Low-confidence items are analysed separately — they are information, not failure. Please do use 1 when you mean it. <strong>信心度请如实填：1 没把握 / 2 一般 / 3 很有把握。</strong> 低信心的条目会单独分析， 它们是有用信息，不是失败。该填 1 就填 1。</li></ol>
+<ol start="4"><li><strong>Write a note wherever you hesitated.</strong> One line on what made it hard is genuinely valuable when we adjudicate disagreements. <strong>犹豫的地方请写一句备注。</strong> 说明你卡在哪里——在后面仲裁分歧时非常有用。</li></ol>
+<hr>
+<h2>8. How to do it / 怎么操作</h2>
+<ol start="1"><li>Open <strong><code>annotator_2_form_subset.html</code></strong> in any browser. It runs <strong>offline</strong>; nothing is uploaded. 用浏览器打开 <strong><code>annotator_2_form_subset.html</code></strong>，<strong>完全离线</strong>，不上传任何内容。</li><li>For each item: read the question, read the abstracts, click two labels, set confidence, add a note if you hesitated. Chinese translations are shown under each English original — <strong>the English is authoritative</strong>. 每题：读问题 &rarr; 读摘要 &rarr; 点两个标签 &rarr; 选信心度 &rarr; 犹豫就写备注。 中文译文在英文原文下方，<strong>以英文原文为准</strong>。</li><li>Progress <strong>saves automatically</strong> in your browser. You can close and come back. 进度<strong>自动保存</strong>在浏览器里，可以关掉再回来。</li><li>When all 23 are done, click <strong>Export CSV</strong> and send the file back. 全部完成后点 <strong>Export CSV</strong>，把文件发回。</li></ol>
+<p><strong>What you will NOT see, by design:</strong> which AI system produced which question, and what the LLM judge answered. That is deliberate — it keeps your pass independent.</p>
+<p><strong>你看不到（这是刻意的）：</strong> 每个问题是哪个 AI 系统生成的，以及 LLM 裁判怎么判的。 这样才能保证你这一遍是独立的。</p>
+<hr>
+<h2>9. One thing to expect / 一个提醒</h2>
+<p>One of the 23 items corresponds to a case study already described in our paper draft, so you may recognise it. <strong>Label it as you see it.</strong> We report agreement both with and without that item.</p>
+<p>23 题里有一题对应我们论文草稿中已描述的一个案例，你可能会认出来。 <strong>照你看到的标就行。</strong> 我们会同时报告包含和剔除这一题的结果。</p>
+<hr>
+<p><em>Questions about the task are welcome at any point — but please ask before you start rather than midway, so your pass stays uniform.</em></p>
+<p><em>任何关于任务本身的疑问随时欢迎——但请在开始之前问，不要标到一半再问， 以保证你这一遍的标准前后一致。</em></p>
+</body></html>
