@@ -1,21 +1,21 @@
-# Annotation brief — 30 minutes to read, ~1 hour to do
-# 标注说明书 —— 3 分钟读完，约 1 小时完成
+# Annotation brief — 3 minutes to read, ~4 hours to do
+# 标注说明书 —— 3 分钟读完，约 4 小时完成
 
 ---
 
 ## 1. What you are doing / 你要做什么
 
-You will see **23 research questions**. Each question was written from
+You will see **90 research questions**. Each question was written from
 literature published **before 2021**. Below each question are **up to 8
 abstracts of papers published after it**.
 
-你会看到 **23 个科研问题**。每个问题都是根据 **2021 年以前**的文献写出来的。
+你会看到 **90 个科研问题**。每个问题都是根据 **2021 年以前**的文献写出来的。
 每个问题下面是 **最多 8 篇在那之后发表的论文摘要**。
 
 **Your job: decide what the later literature did to that question.**
-Two labels per item. About 2–3 minutes each.
+Two labels per item. About 2–3 minutes each, so roughly 3.5–4 hours in total.
 
-**你的任务：判断后来的文献对这个问题做了什么。** 每题两个标签，每题约 2–3 分钟。
+**你的任务：判断后来的文献对这个问题做了什么。** 每题两个标签，每题约 2–3 分钟，合计约 3.5–4 小时。
 
 ---
 
@@ -184,9 +184,9 @@ open, and the assumption was never directly tested.
 
 ## 8. How to do it / 怎么操作
 
-1. Open **`annotator_2_form_subset.html`** in any browser. It runs **offline**;
+1. Open **`annotator_2_form.html`** in any browser. It runs **offline**;
    nothing is uploaded.
-   用浏览器打开 **`annotator_2_form_subset.html`**，**完全离线**，不上传任何内容。
+   用浏览器打开 **`annotator_2_form.html`**，**完全离线**，不上传任何内容。
 2. For each item: read the question, read the abstracts, click two labels, set
    confidence, add a note if you hesitated. Chinese translations are shown
    under each English original — **the English is authoritative**.
@@ -194,8 +194,8 @@ open, and the assumption was never directly tested.
    中文译文在英文原文下方，**以英文原文为准**。
 3. Progress **saves automatically** in your browser. You can close and come back.
    进度**自动保存**在浏览器里，可以关掉再回来。
-4. When all 23 are done, click **Export CSV** and send the file back.
-   全部完成后点 **Export CSV**，把文件发回。
+4. When all 90 are done, click **Export CSV** and send the file back. If you stop early, export anyway and send what you have.
+   全部完成后点 **Export CSV**，把文件发回。中途停下也请导出，把已完成的发回。
 
 **What you will NOT see, by design:** which AI system produced which question,
 and what the LLM judge answered. That is deliberate — it keeps your pass
@@ -208,11 +208,11 @@ independent.
 
 ## 9. One thing to expect / 一个提醒
 
-One of the 23 items corresponds to a case study already described in our paper
+One of the 90 items corresponds to a case study already described in our paper
 draft, so you may recognise it. **Label it as you see it.** We report agreement
 both with and without that item.
 
-23 题里有一题对应我们论文草稿中已描述的一个案例，你可能会认出来。
+90 题里有一题对应我们论文草稿中已描述的一个案例，你可能会认出来。
 **照你看到的标就行。** 我们会同时报告包含和剔除这一题的结果。
 
 ---

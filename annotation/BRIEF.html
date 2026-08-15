@@ -40,14 +40,14 @@ a { color:var(--accent); }
 </style>
 </head>
 <body>
-<h1>Annotation brief — 30 minutes to read, ~1 hour to do</h1>
-<h1>标注说明书 —— 3 分钟读完，约 1 小时完成</h1>
+<h1>Annotation brief — 3 minutes to read, ~4 hours to do</h1>
+<h1>标注说明书 —— 3 分钟读完，约 4 小时完成</h1>
 <hr>
 <h2>1. What you are doing / 你要做什么</h2>
-<p>You will see <strong>23 research questions</strong>. Each question was written from literature published <strong>before 2021</strong>. Below each question are <strong>up to 8 abstracts of papers published after it</strong>.</p>
-<p>你会看到 <strong>23 个科研问题</strong>。每个问题都是根据 <strong>2021 年以前</strong>的文献写出来的。 每个问题下面是 <strong>最多 8 篇在那之后发表的论文摘要</strong>。</p>
-<p><strong>Your job: decide what the later literature did to that question.</strong> Two labels per item. About 2–3 minutes each.</p>
-<p><strong>你的任务：判断后来的文献对这个问题做了什么。</strong> 每题两个标签，每题约 2–3 分钟。</p>
+<p>You will see <strong>90 research questions</strong>. Each question was written from literature published <strong>before 2021</strong>. Below each question are <strong>up to 8 abstracts of papers published after it</strong>.</p>
+<p>你会看到 <strong>90 个科研问题</strong>。每个问题都是根据 <strong>2021 年以前</strong>的文献写出来的。 每个问题下面是 <strong>最多 8 篇在那之后发表的论文摘要</strong>。</p>
+<p><strong>Your job: decide what the later literature did to that question.</strong> Two labels per item. About 2–3 minutes each, so roughly 3.5–4 hours in total.</p>
+<p><strong>你的任务：判断后来的文献对这个问题做了什么。</strong> 每题两个标签，每题约 2–3 分钟，合计约 3.5–4 小时。</p>
 <hr>
 <h2>2. Why it matters / 为什么这件事重要</h2>
 <p>We built a benchmark that scores AI systems on the research questions they generate. The labels currently come from an LLM. In a first blinded pass, a non-expert annotator agreed with the LLM <strong>at chance level</strong> (κ = 0.04).</p>
@@ -112,13 +112,13 @@ a { color:var(--accent); }
 <ol start="4"><li><strong>Write a note wherever you hesitated.</strong> One line on what made it hard is genuinely valuable when we adjudicate disagreements. <strong>犹豫的地方请写一句备注。</strong> 说明你卡在哪里——在后面仲裁分歧时非常有用。</li></ol>
 <hr>
 <h2>8. How to do it / 怎么操作</h2>
-<ol start="1"><li>Open <strong><code>annotator_2_form_subset.html</code></strong> in any browser. It runs <strong>offline</strong>; nothing is uploaded. 用浏览器打开 <strong><code>annotator_2_form_subset.html</code></strong>，<strong>完全离线</strong>，不上传任何内容。</li><li>For each item: read the question, read the abstracts, click two labels, set confidence, add a note if you hesitated. Chinese translations are shown under each English original — <strong>the English is authoritative</strong>. 每题：读问题 &rarr; 读摘要 &rarr; 点两个标签 &rarr; 选信心度 &rarr; 犹豫就写备注。 中文译文在英文原文下方，<strong>以英文原文为准</strong>。</li><li>Progress <strong>saves automatically</strong> in your browser. You can close and come back. 进度<strong>自动保存</strong>在浏览器里，可以关掉再回来。</li><li>When all 23 are done, click <strong>Export CSV</strong> and send the file back. 全部完成后点 <strong>Export CSV</strong>，把文件发回。</li></ol>
+<ol start="1"><li>Open <strong><code>annotator_2_form.html</code></strong> in any browser. It runs <strong>offline</strong>; nothing is uploaded. 用浏览器打开 <strong><code>annotator_2_form.html</code></strong>，<strong>完全离线</strong>，不上传任何内容。</li><li>For each item: read the question, read the abstracts, click two labels, set confidence, add a note if you hesitated. Chinese translations are shown under each English original — <strong>the English is authoritative</strong>. 每题：读问题 &rarr; 读摘要 &rarr; 点两个标签 &rarr; 选信心度 &rarr; 犹豫就写备注。 中文译文在英文原文下方，<strong>以英文原文为准</strong>。</li><li>Progress <strong>saves automatically</strong> in your browser. You can close and come back. 进度<strong>自动保存</strong>在浏览器里，可以关掉再回来。</li><li>When all 90 are done, click <strong>Export CSV</strong> and send the file back. If you stop early, export anyway and send what you have. 全部完成后点 <strong>Export CSV</strong>，把文件发回。中途停下也请导出，把已完成的发回。</li></ol>
 <p><strong>What you will NOT see, by design:</strong> which AI system produced which question, and what the LLM judge answered. That is deliberate — it keeps your pass independent.</p>
 <p><strong>你看不到（这是刻意的）：</strong> 每个问题是哪个 AI 系统生成的，以及 LLM 裁判怎么判的。 这样才能保证你这一遍是独立的。</p>
 <hr>
 <h2>9. One thing to expect / 一个提醒</h2>
-<p>One of the 23 items corresponds to a case study already described in our paper draft, so you may recognise it. <strong>Label it as you see it.</strong> We report agreement both with and without that item.</p>
-<p>23 题里有一题对应我们论文草稿中已描述的一个案例，你可能会认出来。 <strong>照你看到的标就行。</strong> 我们会同时报告包含和剔除这一题的结果。</p>
+<p>One of the 90 items corresponds to a case study already described in our paper draft, so you may recognise it. <strong>Label it as you see it.</strong> We report agreement both with and without that item.</p>
+<p>90 题里有一题对应我们论文草稿中已描述的一个案例，你可能会认出来。 <strong>照你看到的标就行。</strong> 我们会同时报告包含和剔除这一题的结果。</p>
 <hr>
 <h2>10. Scope, and how your labels will be used</h2>
 <h2>10. 工作范围与你的标注将被如何使用</h2>
