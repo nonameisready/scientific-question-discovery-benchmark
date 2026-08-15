@@ -168,6 +168,11 @@ input[type=text] { width:100%; padding:8px 10px; border:1px solid var(--line);
 JS = """
 const KEY = 'sqb_annotation_' + ANNOTATOR;
 const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+// Seed answers already given elsewhere (e.g. a CSV filled in earlier), without
+// ever overwriting work this browser already holds.
+for (const [id, vals] of Object.entries(PREFILL)) {
+  if (!state[id] || !state[id].outcome) state[id] = Object.assign({}, vals);
+}
 
 function render(id) {
   const card = document.getElementById(id);
@@ -243,7 +248,19 @@ restore();
 """
 
 
-def build(annotator: str, subset_only: bool = False) -> Path:
+def load_prefill(path: Path) -> dict:
+    """Existing labels, so a partly-finished sheet is never redone."""
+    import csv as _csv
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return {r["item_id"]: {k: r.get(k, "") for k in
+                               ("outcome", "premise_status", "confidence", "notes")}
+                for r in _csv.DictReader(f) if (r.get("outcome") or "").strip()}
+
+
+def build(annotator: str, subset_only: bool = False,
+          prefill: dict | None = None) -> Path:
     sample = json.loads(SAMPLE.read_text(encoding="utf-8"))
     decode = json.loads((PACK / "decode.json").read_text(encoding="utf-8"))
     papers = {p["paper_id"]: p for p in load_jsonl(CORPUS)}
@@ -352,6 +369,7 @@ def build(annotator: str, subset_only: bool = False) -> Path:
 </main>
 <script>const ANNOTATOR = {json.dumps(annotator)};
 const ITEMS = {json.dumps(item_ids)};
+const PREFILL = {json.dumps(prefill or {}, ensure_ascii=False)};
 {JS}</script></body></html>"""
 
     out = PACK / (f"{annotator}_form_subset.html" if subset_only
@@ -367,8 +385,12 @@ def main() -> None:
     parser.add_argument("--subset", action="store_true",
                         help="render only the stratified subset "
                              "(results/judge_validation/subset.json)")
+    parser.add_argument("--prefill", default=None,
+                        help="CSV of labels already given; they are seeded into "
+                             "the page so completed items are not redone")
     args = parser.parse_args()
-    build(args.annotator, args.subset)
+    build(args.annotator, args.subset,
+          load_prefill(Path(args.prefill)) if args.prefill else None)
 
 
 if __name__ == "__main__":
