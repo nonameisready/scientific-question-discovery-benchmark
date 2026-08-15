@@ -217,6 +217,38 @@ both with and without that item.
 
 ---
 
+## 10. Scope, and how your labels will be used
+## 10. 工作范围与你的标注将被如何使用
+
+**Scope:** all **90 items**, in the order given. Roughly 2–3 minutes each, so
+about 3.5–4 hours in total. You can stop and resume freely; progress is saved
+in your browser. If you can only finish part of it, **stop at a whole item**
+and send what you have — partial sheets are usable, and we report exactly how
+many items were labelled.
+
+**范围：** 全部 **90 题**，按给定顺序。每题约 2–3 分钟，合计约 3.5–4 小时。
+可随时中断续做，进度存在浏览器里。如果只能做一部分，**请在一整题结束处停下**
+并把已完成的发回——部分标注同样可用，我们会如实报告标注了多少题。
+
+**How the labels are used:** they are the human reference against which we
+measure an LLM judge. They will be **published** with the paper and the public
+repository, attributed to you or anonymised — **your choice, tell us which**.
+Your individual labels, including any that disagree with the model, will appear
+in the released data.
+
+**标注的用途：** 它们是用来检验 LLM 裁判的人类参照。这些标注会随论文和公开仓库
+**一并发布**，署你的名字或匿名——**由你决定，请告诉我们**。你的每一条标注，
+包括与模型不一致的那些，都会出现在公开数据中。
+
+**What we will not do:** we will not adjust, filter, or re-label your entries to
+improve agreement with the model. If your labels disagree with the LLM, that is
+the result, and it gets reported as the result.
+
+**我们不会做的事：** 我们不会为了提高与模型的一致度而修改、筛选或重标你的条目。
+如果你的标注与 LLM 不一致，那就是结果，我们就照结果报告。
+
+---
+
 *Questions about the task are welcome at any point — but please ask before you
 start rather than midway, so your pass stays uniform.*
 
