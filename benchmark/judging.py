@@ -87,7 +87,6 @@ def _call_judge(model: str, question: str, candidates: list[dict],
     body = {
         "model": model,
         "response_format": {"type": "json_object"},
-        "temperature": 0,
         "messages": [
             {"role": "system", "content": prompt or JUDGE_PROMPT},
             {"role": "user", "content":
@@ -95,8 +94,13 @@ def _call_judge(model: str, question: str, candidates: list[dict],
                 "Candidate post-cutoff abstracts:\n\n" + "\n\n".join(blocks)},
         ],
     }
+    # Reasoning-series models (gpt-5*, o*) reject explicit temperature;
+    # everything else gets the protocol's temperature 0.
+    if not (model.startswith("gpt-5") or model.startswith("o1")
+            or model.startswith("o3") or model.startswith("o4")):
+        body["temperature"] = 0
     for attempt in range(4):
-        resp = requests.post(API_URL, headers=headers, json=body, timeout=180)
+        resp = requests.post(API_URL, headers=headers, json=body, timeout=600)
         if resp.status_code == 429 or resp.status_code >= 500:
             time.sleep(2 ** (attempt + 1))
             continue
