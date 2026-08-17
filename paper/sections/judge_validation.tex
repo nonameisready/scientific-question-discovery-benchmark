@@ -4,12 +4,12 @@
 Replacing expert scores with an LLM judge only helps if the judge is
 itself accountable. This section reports four validation experiments on
 a frozen 90-question sample, stratified across systems and outcome
-labels (\texttt{results/judge\_validation/}), plus a first pass through
-the released blinded human-annotation package. Three of the five
-results are reassuring; the fifth --- a seven-rater agreement study
-with two independent human annotators and five judge models --- is
-not, and it reframes what an LLM judge can even be validated against
-(Section~\ref{sec:judgeval:human}).
+labels (\texttt{results/judge\_validation/}), plus a seven-rater
+agreement study built on the released blinded annotation apparatus.
+The internal checks pass, or fail in ways the data explain; the
+external one --- two independent human annotators against five judge
+models --- does not, and it reframes what an LLM judge can even be
+validated against (Section~\ref{sec:judgeval:human}).
 
 \subsection{Does the judge discriminate, or merely detect topic?}
 \label{sec:judgeval:mismatch}
@@ -78,8 +78,10 @@ in any case depressed when one rater's marginals are near-degenerate.
 We flag plainly that this reading is self-serving---``the judges who
 disagree with ours are the incompetent ones'' is exactly what a
 motivated author would say---and that only human annotation can
-arbitrate it. That is the purpose of the released package, and it is
-the single most important open item in this paper.
+arbitrate it. Section~\ref{sec:judgeval:human} reports that
+arbitration; it part-vindicates the reading (the human sides with the
+non-degenerate judge) while overturning the larger assumption that any
+of the judges tracks human judgement well.
 
 What can be settled without humans is whether the paper's
 \emph{conclusions} depend on the judge. Because the stratified sample
@@ -185,7 +187,12 @@ five models span $\kappa=0.17$--$0.26$, with the original
 the LLM judge is vindicated: it agrees with the expert about as well as
 another human does, and slightly better. In every other sense it is
 not: $\kappa=0.26$ is far below any conventional reliability threshold,
-and newer, stronger models do not close the gap.
+and newer, stronger models do not close the gap. One narrower check
+does lean the deployed judge's way: on the 42 items where
+\texttt{gpt-4.1} and \texttt{gpt-4o} disagree, both humans side with
+\texttt{gpt-4.1} more often (19--9 for the non-expert, uncorrected
+$p=0.015$ and suggestive only; 18--13 for the professional team, not
+significant), consistent with the degeneracy reading above.
 
 \paragraph{3. Models agree with each other far more than with any
 human.} Model--model agreement runs 0.20--0.71, with the two frontier

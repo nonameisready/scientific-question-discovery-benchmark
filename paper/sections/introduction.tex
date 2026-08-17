@@ -13,8 +13,10 @@ three share the same defect: they are subjective. Expert panels disagree
 with each other and with themselves \citep{si2024llmideas}; LLM judges
 inherit the biases of their training distribution and can be steered by
 phrasing; case studies are selected by the authors. None of these
-evaluations can be \emph{wrong} in a way that data could demonstrate,
-which is another way of saying none of them measures anything.
+evaluations can be \emph{wrong} in a way that data could demonstrate.
+We hold our own instrument to that standard too: Section~\ref{sec:judgeval}
+subjects it to a seven-rater reliability study and reports the result,
+which is not flattering, in full.
 
 Science itself offers a harder criterion. Research questions are bets
 about where inquiry should go next, and the scientific community
@@ -75,7 +77,7 @@ occurring after training \citep{zou2022autocast}.
   \node[right=0.5cm of f1, font=\footnotesize\itshape, text width=4.4cm, align=left]
     {temporally isolated;\\ never seen at generation time};
   \node[right=0.5cm of e1, font=\footnotesize\itshape, text width=4.4cm, align=left]
-    {constrained judge +\\ human adjudication};
+    {constrained judge;\\ adjudicated tier for\\ released labels};
 \end{tikzpicture}
 \caption{The historical backtesting protocol. No question generator,
 evidence graph, or particular LLM appears in the loop: the protocol
@@ -91,8 +93,9 @@ heuristic, a human scientist---can be evaluated under identical
 conditions. This is what makes it a benchmark rather than a validation
 appendix for one particular architecture.
 
-\paragraph{Contributions.} We make three claims, in decreasing order of
-strength:
+\paragraph{Contributions.} We make five contributions; the first two
+are claims ordered by strength, the remaining three are measurements
+and artifacts:
 
 \begin{enumerate}
   \item \textbf{Protocol (strong).} We formalize historical backtesting

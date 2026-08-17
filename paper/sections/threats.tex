@@ -114,6 +114,17 @@ judge-only baseline labels: all still true. We report priced reference
 points, not rankings; the protocol's value grows with adversarial use
 by systems we did not build.
 
+\paragraph{Multiple comparisons.} This paper reports roughly twenty
+significance tests. Under a conservative Bonferroni correction at that
+count, the headline contrasts survive comfortably: the
+structure-vs-LLM refutation gap ($p=4\times10^{-5}$), the engagement
+orderings at scale ($p<10^{-4}$), the mismatched-evidence control
+($p<10^{-4}$), and the B/C refutation gap ($p=0.003$). Contrasts
+reported at $p\approx0.01$--$0.05$ (the B/C answered gap, the
+citation-leader engagement gap, the humans' arbitration splits)
+do not, and are labelled suggestive where they appear. No headline
+claim rests on a contrast that fails correction.
+
 \paragraph{Curation hindsight.} Humans who edited questions before
 freezing know the post-2020 literature. The curation log is released so
 every edit is auditable (e.g.\ q\_008's reframing strengthened

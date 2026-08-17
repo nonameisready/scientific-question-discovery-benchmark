@@ -101,11 +101,16 @@ it may cite only bibcodes from the retrieved candidates (violations are
 errors, never silently dropped); topical similarity is explicitly
 insufficient---the cited paper must bear on the question's actual test
 or premise; unknown labels fall back to the most conservative value and
-are flagged. Every machine-assigned label then passes \emph{human
-adjudication} under written guidelines (citation validity, the
-engagement bar, the outcome/premise split), and the adjudication log is
-released alongside the labels. No result enters the benchmark
-unreviewed.
+are flagged. Labels then occupy one of two declared tiers.
+\emph{Adjudicated} labels have passed human review under written
+guidelines (citation validity, the engagement bar, the outcome/premise
+split), with the adjudication log released; the headline labels of a
+released instance are required to be of this tier (Astronomy~v1's are).
+\emph{Judge-only} labels have not, are marked as such wherever
+reported, and are the tier at which this paper's large-$n$ comparative
+studies run (Sections~\ref{sec:scaled}--\ref{sec:foresight}). The
+tier is part of every result's provenance; conflating them is a
+protocol violation.
 
 \subsection{Submissions}
 A system is evaluated by submitting a directory containing
@@ -113,7 +118,8 @@ A system is evaluated by submitting a directory containing
 \texttt{metadata.json} (system description, including a mandatory
 declaration of any LLM components and their versions, for contamination
 auditing). The benchmark pipeline---isolation checks, retrieval,
-judging, adjudication, metrics, report---is identical for every
+judging, adjudication where the tier requires it, metrics,
+report---is identical for every
 submission; the system whose questions we evaluate in
 Section~\ref{sec:results} interacts with the benchmark only through
 this interface.
