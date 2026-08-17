@@ -58,14 +58,18 @@ generosity floor; it is stable under resampling ($\kappa\approx0.9$)
 and moderately sensitive to prompt wording ($\kappa=0.57$--$0.72$);
 and every headline conclusion survives a judge swap, with all failures
 being ties at zero rather than reversals. The most serious gap is now measured rather than
-open, and it is unfavourable: in a first blinded pass a non-expert
-annotator agreed with the judge at chance ($\kappa=0.04$ on outcome over
-23 items), disagreeing systematically in one direction---every model
-judge is more conservative than the human reader
-(Section~\ref{sec:judgeval:human}). Whether this indicts the judge, the
-annotator, or the taxonomy cannot be settled without human--human
-agreement, which we have not yet obtained; the paper's rates should be
-read accordingly. Blinded adjudication is now built into the released
+open, and it is unfavourable: a blinded non-expert annotator labelling
+all 90 items agreed with the judge at $\kappa=0.10$ on outcome and
+$0.13$ on premise status, with the judge declaring non-engagement 2.6
+times as often as the human ($p=0.010$;
+Section~\ref{sec:judgeval:human}). The same pass did settle a
+narrower question in the instrument's favour---where judge models
+disagree, the human sides with \texttt{gpt-4.1} over \texttt{gpt-4o}
+19 to 9 ($p=0.015$), corroborating the capability floor we had argued
+for on internal evidence alone. Whether the residual gap indicts the
+judge or the taxonomy cannot be settled without human--human agreement,
+which we have not yet obtained; the paper's rates should be read
+accordingly. Blinded adjudication is now built into the released
 annotation apparatus rather than promised.
 
 \paragraph{Retrieval as a bottleneck.} Top-8 abstract-embedding
