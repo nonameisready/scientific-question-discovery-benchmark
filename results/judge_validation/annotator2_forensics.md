@@ -39,8 +39,9 @@ checks plus label-set fingerprinting against all five model judges.
   commissioning fact attested by the requester, not a property of the
   data. Commissioning records are the only possible evidence and are
   retained by the requester.
-- Which language the annotators primarily read: the form displays the
-  English originals with machine-translated Chinese beneath, and both
-  notes are in Chinese. If the Chinese was primary, the annotators and
-  the LLM judges did not read literally identical text; the paper
-  carries this caveat.
+- Reading language: the commissioner confirms the team worked from the
+  bilingual form, mixing the English originals with the machine-translated
+  Chinese beneath them. The LLM judges read English only, so translation
+  artefacts are a possible contributor to human--model disagreement.
+  They cannot affect the human--human figure: both annotators used the
+  same bilingual form.
