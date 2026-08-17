@@ -1,23 +1,36 @@
 \section{Roadmap and Conclusion}
 \label{sec:conclusion}
 
-\paragraph{Roadmap.} The released instances are a floor, not a
-ceiling. In order: (1) scale the \emph{submission} side---a 100+
-question evidence-graph run on v1L---to resolve the refutation-rate
-comparison that $n=10$ leaves open (Section~\ref{sec:scaled}), and
-adjudicate the judge-only rows; (2) release full top-8 retrieval lists
-for v1 with per-document scores and a near-duplicate screen (v1.1;
-the v1L records already ship with full scores); (3) annotate community
-first-posed dates in the review literature to activate lead time;
-(4) calibrate a community-attention index (papers, citations, observing
-programs) against the popularity confound; (5) mint instances in
-additional domains and at additional cutoffs, including
-\emph{prospective} instances---questions frozen now, scored when the
-future arrives---which eliminate the contamination and hindsight
-channels entirely; (6) complete the human-annotation study whose
-blinded package this release ships (Section~\ref{sec:judgeval})---the
-one experiment that can arbitrate the cross-model judge disagreement we
-report---and extend judge robustness to retrieval sensitivity.
+\paragraph{A prospective instance, frozen now.} The one experiment no
+retrospective design can deliver is the one this release starts: 200
+questions --- 50 each from the four automatic generators of
+Sections~\ref{sec:baselines} and~\ref{sec:foresight} --- generated from
+a 2015--2026 corpus, frozen at cutoff \textbf{2026-08-17}, and
+committed to the public repository with per-file SHA-256 digests
+recorded below. The scoring window is pre-registered as
+\textbf{2027-01-01 to 2030-12-31}, with a 4.5-month buffer between
+cutoff and window so papers already in flight at freeze time do not
+contaminate the future corpus, whose ADS query manifest is likewise
+frozen now and may be executed no earlier than 2031. Evaluation is
+pre-registered to the released pipeline (frozen retrieval settings,
+judge protocol \texttt{sqb-v1}, judge label distributions reported
+alongside results), with one explicitly permitted amendment: if a
+reliability-gated v2 taxonomy exists before the window closes, results
+are to be reported under both taxonomies. No model that exists today
+has seen 2027; whatever these 200 questions score in 2031 is foresight
+or its absence, untouched by memorization, hindsight, or curation.
+
+\paragraph{Roadmap.} Beyond waiting: (1) a reliability-gated v2 outcome
+taxonomy---fewer labels, checkable conditions, and a measured
+human--human $\kappa$ as a release gate before any judge is scored
+against it (Section~\ref{sec:judgeval}); (2) scale the
+\emph{submission} side---a 100+ question evidence-graph run on v1L---to
+resolve the refutation-rate comparison that $n=10$ leaves open;
+(3) release full top-8 retrieval lists for v1 (v1.1; the v1L records
+already ship with full scores); (4) annotate community first-posed
+dates to activate lead time, and calibrate a community-attention index
+against the popularity confound; (5) mint instances in additional
+domains.
 
 \paragraph{Conclusion.} We formalized historical backtesting as an
 evaluation protocol for scientific question discovery, released two

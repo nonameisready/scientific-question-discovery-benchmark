@@ -1,0 +1,29 @@
+{
+  "corpus_id": "exoplanet_atmospheres_prospective_2026_future",
+  "role": "future_corpus",
+  "validates": "exoplanet_atmospheres_prospective_2026",
+  "validation_window": {
+    "min": 2027,
+    "max": 2030
+  },
+  "n_papers": null,
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"hot Jupiter\" AND atmosphere",
+    "exoplanet AND (cloud OR haze OR aerosol) AND atmosphere",
+    "\"atmospheric escape\" AND exoplanet",
+    "\"phase curve\" AND exoplanet",
+    "\"secondary eclipse\" AND exoplanet",
+    "\"high-resolution spectroscopy\" AND exoplanet AND atmosphere",
+    "\"thermal inversion\" AND exoplanet",
+    "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere"
+  ],
+  "isolation_rule": "To be collected no earlier than 2031-01-01 with the frozen queries; same dedup and abstract rules as v1/v1L. Window starts strictly after the cutoff with a 4.5-month buffer.",
+  "purpose": "Scoring corpus for the prospective instance; does not exist yet by construction.",
+  "frozen_at": "2026-08-17",
+  "provenance": "this repository (data/corpus_metadata/prospective_2026_future_manifest.json)"
+}

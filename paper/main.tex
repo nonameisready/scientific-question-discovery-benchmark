@@ -84,9 +84,26 @@ era. A weight-free structural generator finds engaged questions at
 every cutoff, and adding the LLM back as a pure verbalizer refutes
 premises in every era including the post-training one---locating the
 foresight signal in pre-cutoff evidence structure, with the LLM as a
-separable realization layer. We analyze failure modes and
-threats to validity, and position this pilot as the initial instance of
-a benchmark that any question-discovery system can run against.
+separable realization layer. We then validate the measurement
+instrument itself with a seven-rater agreement study (two independent
+blinded human annotators, five judge models, 90 items) and report what
+it shows: two careful humans agree with each other at only
+$\kappa=0.17$, every judge model agrees with the professional annotator
+as well as or better than the humans agree with each other
+($\kappa=0.17$--$0.26$), and frontier models agree with one another at
+$\kappa=0.60$---so the common practice of certifying an LLM judge by
+model--model agreement would have overstated its reliability threefold
+here. The outcome taxonomy, not the judge, fails validation; absolute
+rates are therefore rater-relative throughout, while the paper's
+comparative claims are checked under three judges and survive with no
+reversals. Two findings result: evidence-structure-first generation
+outperforms LLM-only prompting at scale, and outcome taxonomies for
+scientific-question evaluation need a measured human--human reliability
+gate before any judge, human or model, is scored against them. A
+prospective instance---200 questions from four generators, frozen
+2026-08-17 with a 2027--2030 scoring window---is released so the
+central claims become contamination-free tests that time itself will
+grade.
 \end{abstract}
 
 \input{sections/introduction}

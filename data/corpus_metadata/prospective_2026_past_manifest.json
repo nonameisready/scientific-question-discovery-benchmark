@@ -1,0 +1,36 @@
+{
+  "corpus_id": "exoplanet_atmospheres_prospective_2026",
+  "role": "past_corpus",
+  "cutoff_date": "2026-08-17",
+  "publication_year": {
+    "min": 2015,
+    "max": 2026
+  },
+  "n_papers": null,
+  "source": "NASA_ADS",
+  "ads_queries": [
+    "\"exoplanet atmosphere\"",
+    "\"transmission spectroscopy\" AND exoplanet",
+    "\"emission spectroscopy\" AND exoplanet",
+    "\"atmospheric retrieval\" AND exoplanet",
+    "\"hot Jupiter\" AND atmosphere",
+    "exoplanet AND (cloud OR haze OR aerosol) AND atmosphere",
+    "\"atmospheric escape\" AND exoplanet",
+    "\"phase curve\" AND exoplanet",
+    "\"secondary eclipse\" AND exoplanet",
+    "\"high-resolution spectroscopy\" AND exoplanet AND atmosphere",
+    "\"thermal inversion\" AND exoplanet",
+    "(\"mini-Neptune\" OR \"super-Earth\") AND atmosphere"
+  ],
+  "fields": [
+    "title",
+    "abstract",
+    "pubdate",
+    "bibcode",
+    "citation_count"
+  ],
+  "leakage_rule": "Nothing dated after cutoff_date may enter this corpus.",
+  "purpose": "Prospective instance: questions frozen at cutoff 2026-08-17, scored against literature published 2027-01-01..2030-12-31. The gap from cutoff to window start is a deliberate buffer against in-flight papers.",
+  "frozen_at": "2026-08-17",
+  "provenance": "this repository (data/corpus_metadata/prospective_2026_past_manifest.json)"
+}
