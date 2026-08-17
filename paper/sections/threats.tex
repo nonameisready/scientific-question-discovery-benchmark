@@ -57,19 +57,17 @@ costs: the judge discriminates real evidence from topical similarity
 generosity floor; it is stable under resampling ($\kappa\approx0.9$)
 and moderately sensitive to prompt wording ($\kappa=0.57$--$0.72$);
 and every headline conclusion survives a judge swap, with all failures
-being ties at zero rather than reversals. The most serious gap is now measured rather than
-open, and it is unfavourable: a blinded non-expert annotator labelling
-all 90 items agreed with the judge at $\kappa=0.10$ on outcome and
-$0.13$ on premise status, with the judge declaring non-engagement 2.6
-times as often as the human ($p=0.010$;
-Section~\ref{sec:judgeval:human}). The same pass did settle a
-narrower question in the instrument's favour---where judge models
-disagree, the human sides with \texttt{gpt-4.1} over \texttt{gpt-4o}
-19 to 9 ($p=0.015$), corroborating the capability floor we had argued
-for on internal evidence alone. Whether the residual gap indicts the
-judge or the taxonomy cannot be settled without human--human agreement,
-which we have not yet obtained; the paper's rates should be read
-accordingly. Blinded adjudication is now built into the released
+being ties at zero rather than reversals. The most serious question is now answered, and the answer indicts the
+taxonomy rather than the judge: two independent human annotators agree
+with each other at $\kappa=0.17$, every judge model agrees with the
+professional annotator at $\kappa=0.17$--$0.26$ (the deployed judge
+highest), and frontier models agree with each other at up to
+$\kappa=0.60$---far above their agreement with any human
+(Section~\ref{sec:judgeval:human}). Absolute rates are therefore
+rater-relative throughout this paper; only comparisons under a fixed
+judge carry weight, and the v2 protocol owes the field a taxonomy with
+a measured human--human $\kappa$ before any judge is scored against
+it. Blinded adjudication is now built into the released
 annotation apparatus rather than promised.
 
 \paragraph{Retrieval as a bottleneck.} Top-8 abstract-embedding

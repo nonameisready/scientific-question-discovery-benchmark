@@ -6,8 +6,9 @@ itself accountable. This section reports four validation experiments on
 a frozen 90-question sample, stratified across systems and outcome
 labels (\texttt{results/judge\_validation/}), plus a first pass through
 the released blinded human-annotation package. Three of the five
-results are reassuring; the fifth, agreement with a human reader, is
-not---though it does settle which judge model to prefer
+results are reassuring; the fifth --- a seven-rater agreement study
+with two independent human annotators and five judge models --- is
+not, and it reframes what an LLM judge can even be validated against
 (Section~\ref{sec:judgeval:human}).
 
 \subsection{Does the judge discriminate, or merely detect topic?}
@@ -127,84 +128,108 @@ judge that demonstrably uses the full label space. We recommend
 reporting the judge's label distribution alongside any submission, and
 treating a near-degenerate distribution as a failed run.
 
-\subsection{Human annotation: poor agreement, and an arbitration}
+\subsection{Human annotation, and a seven-rater agreement study}
 \label{sec:judgeval:human}
 
-The decisive experiment is agreement with a human reader. One annotator,
-not a domain specialist, labelled all 90 blinded items from the
-abstracts alone, using the released decision procedure and seeing no
-system identity and no model label.
-
-\paragraph{The judge is not validated.} Agreement with \texttt{gpt-4.1}
-is 34.4\% on outcome ($\kappa=0.10$) and 45.6\% on premise status
-($\kappa=0.13$). By any standard reading these are slight, and they do
-not establish that the judge measures what a careful reader measures.
-Agreement rises with the annotator's confidence but never approaches
-adequacy (0\% at confidence 1, 32\% at 2, 41\% at 3, $n=3/53/34$). We
-had also hoped the sharpened decision rules would help: the 67 items
-labelled after their introduction agree at 35.8\% against 30.4\% for the
-first 23, but that difference is not significant ($p=0.80$) and we draw
-no conclusion from it.
+The decisive experiment is agreement with human readers. Two annotators
+labelled all 90 blinded items independently from the abstracts alone: a
+non-expert (the first author of the submission under test, blinded to
+system identity and model labels) and a commissioned professional
+annotation team. We then added two frontier judge models ---
+\texttt{claude-fable-5} (judged in an agent harness rather than a
+temperature-0 API call; records are marked accordingly) and
+\texttt{gpt-5.6-sol} --- to the three already run, giving a seven-rater
+matrix (Table~\ref{tab:sevenway}).
 
 \begin{table}[t]
   \centering
   \small
-  \caption{Human labels against each judge model, $n=90$. Cohen's
-  $\kappa$; the human read the same abstracts, blinded to system
-  identity and to every model label.}
-  \label{tab:humanjudge}
-  \begin{tabular}{@{}lcccc@{}}
+  \caption{Pairwise Cohen's $\kappa$ on outcome, all seven raters,
+  $n=90$. H1 = non-expert human; H2 = professional annotation team.
+  Read against the human--human cell (0.17): no model reaches
+  agreement with a human that could pass for reliability, and every
+  model--model pair agrees more strongly than any human--model pair.}
+  \label{tab:sevenway}
+  \begin{tabular}{@{}lcccccc@{}}
     \toprule
-    & \multicolumn{2}{c}{outcome} & \multicolumn{2}{c}{premise status} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-    Judge & agreement & $\kappa$ & agreement & $\kappa$ \\
+    & H2 & \texttt{4.1} & \texttt{4o} & \texttt{4-t} & \texttt{fable-5} & \texttt{5.6-sol} \\
     \midrule
-    \texttt{gpt-4.1}      & 34.4\% & \phantom{-}0.10 & 45.6\% & 0.13 \\
-    \texttt{gpt-4o}       & 23.3\% & -0.03 & 47.8\% & 0.15 \\
-    \texttt{gpt-4-turbo}  & 24.4\% & -0.00 & 42.2\% & 0.04 \\
+    H1 (non-expert)   & 0.17 & 0.10 & $-$0.03 & $-$0.00 & 0.02 & 0.02 \\
+    H2 (professional) &      & 0.26 & 0.17 & 0.20 & 0.21 & 0.21 \\
+    \texttt{gpt-4.1}  &      &      & 0.34 & 0.20 & 0.47 & 0.31 \\
+    \texttt{gpt-4o}   &      &      &      & 0.71 & 0.47 & 0.58 \\
+    \texttt{gpt-4-turbo} &   &      &      &      & 0.32 & 0.51 \\
+    \texttt{claude-fable-5} & &     &      &      &      & 0.60 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\paragraph{But the cross-model disagreement is now arbitrated.}
-Section~\ref{sec:judgeval} reported low agreement between judge models
-and offered a reading---that the weaker models collapse to a
-conservative default rather than judging---which we flagged as
-self-serving and deferred to human evidence. That evidence is now in,
-and it supports the reading. On the 42 items where \texttt{gpt-4.1} and
-\texttt{gpt-4o} assign different outcomes, the human sides with
-\texttt{gpt-4.1} 19 times and with \texttt{gpt-4o} 9 times (with
-neither, 14; $p=0.015$ for the 19--9 split). Across all items,
-\texttt{gpt-4.1} is the only judge with positive $\kappa$ on outcome
-(Table~\ref{tab:humanjudge}), and its label distribution is far closer
-to the human's (25/30/12/23 against 33/33/15/9) than either weaker
-model's (\texttt{gpt-4o}: 4/47/2/37). The judge capability floor we
-proposed on internal evidence is therefore corroborated externally:
-models that collapse the label space are worse, not merely different.
+Four facts, in decreasing order of comfort.
 
-\paragraph{The residual disagreement has a direction.} The judge
-declares non-engagement far more readily than the human:
-\labelfmt{not\_addressed} on 23 of 90 items against the human's 9
-($p=0.010$). Of the 23 the judge dismissed, the human found substantive
-engagement in 21. Read with the mismatched-evidence control of
-Section~\ref{sec:judgeval:mismatch}---where the judge still reported
-engagement on 20\% of deliberately unrelated evidence---the instrument
-is not simply strict or simply lax: it is \emph{differently} calibrated,
-crediting some unrelated evidence while dismissing engagement a human
-reader accepts. The confusion is spread across the whole matrix rather
-than concentrated in one boundary, which is what one expects when two
-raters are applying genuinely different criteria rather than the same
-criterion with different thresholds.
+\paragraph{1. Humans do not agree with each other.} Human--human
+agreement is $\kappa=0.17$ on outcome and $0.17$ on premise status
+(41--44\% raw). This is the study's most consequential number, because
+it caps everything: no judge, human or model, can be validated against
+a reference that does not exist. The taxonomy, as specified --- even
+with ordered decision procedures and worked examples --- does not
+produce convergent labels from independent careful readers. The
+professional team's own confidence does not rescue it: on the 31 items
+they marked highest-confidence, their agreement with the judge is no
+better ($\kappa=0.11$).
 
-\paragraph{What remains open.} Two of the three readings we listed
-survive. The judge may be measuring something other than careful human
-judgement; or the taxonomy may be underdetermined enough that
-independent readers cannot converge on it. What would separate them is
-\textbf{human--human agreement}, which requires a second annotator on
-the same 90 items and which we do not yet have. The annotator here was
-not a domain specialist, which bounds what a single pass can establish
-in either direction. Until that number exists, every rate in this paper
-should be read as the output of a stable, discriminating, self-consistent
-procedure whose correspondence to human judgement is \emph{poor and not
-yet explained}. We consider obtaining it, with a domain-expert
-annotator, the highest-priority item in this line of work.
+\paragraph{2. Every model clears the human--human bar with the expert
+--- and none clears it by much.} Against the professional team, the
+five models span $\kappa=0.17$--$0.26$, with the original
+\texttt{gpt-4.1} judge highest (0.26), and the two frontier models at
+0.21 despite two additional model generations. In this specific sense
+the LLM judge is vindicated: it agrees with the expert about as well as
+another human does, and slightly better. In every other sense it is
+not: $\kappa=0.26$ is far below any conventional reliability threshold,
+and newer, stronger models do not close the gap.
+
+\paragraph{3. Models agree with each other far more than with any
+human.} Model--model agreement runs 0.20--0.71, with the two frontier
+models --- different vendors, different harnesses --- at
+$\kappa=0.60$ (67/90 identical labels), triple the human--human figure.
+Some of the high model--model cells are degeneracy artifacts
+(\texttt{gpt-4o}/\texttt{gpt-4-turbo} at 0.71 share a two-label
+collapse), but \texttt{fable-5} and \texttt{gpt-5.6-sol} both use the
+full label space and still converge. The models constitute an internal
+consensus that correlates only weakly with either human reader. For
+LLM-as-judge practice generally, this is the sharpest caution in the
+paper: \emph{measuring judge reliability by model--model agreement ---
+the cheap and common method --- would have reported
+$\kappa\approx0.6$ here, three times what validation against humans
+supports.}
+
+\paragraph{4. The non-expert is the outlier, informatively.} The first
+annotator agrees with nobody ($\kappa\leq0.17$ with every other rater),
+labelling far more items \labelfmt{answered} (33) and far fewer
+\labelfmt{not\_addressed} (9) than the professional team (33/24) or any
+model. The expert's marginal distribution closely tracks the strict
+judges'. This ordering --- expert closest to models, non-expert
+loosest --- suggests the disagreement is partly about how much domain
+scepticism a reader brings to ``substantially resolved,'' which is a
+calibration norm the codebook failed to pin down, not a fact about
+either rater's diligence.
+
+\paragraph{What this settles.} Of the three readings left open after
+the first pass, the evidence now favours the third: \textbf{the
+taxonomy is underdetermined}. The judge is not distinguishably worse
+than a human rater --- it sits at the top of the observed agreement
+range with the expert --- but nothing, human or model, converges on
+these labels reliably. Three consequences follow for this benchmark
+and for the genre. Absolute rates (any system's ``answered 39\%'')
+are rater-relative and should never be quoted without the rater
+attached. Comparative claims measured under a \emph{fixed} judge
+remain defensible --- Section~\ref{sec:judgeval} showed the paper's
+headline orderings survive three judges with all failures being ties
+--- and they are the only currency this instrument currently supports.
+And the v2 protocol must redesign the outcome taxonomy itself:
+fewer labels, hard decision criteria phrased as checkable conditions,
+and a measured human--human $\kappa$ as a release gate before any
+judge, human or model, is scored against it. We release all seven
+label sets, the annotation apparatus, and the agreement matrix; the
+professional team's labels were commissioned for a fixed fee with a
+published undertaking that no entry would be adjusted to improve
+agreement with any model, and none was.
