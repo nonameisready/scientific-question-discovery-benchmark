@@ -1,0 +1,79 @@
+\section{Outlook: Discovery as Search, Language as Realization}
+\label{sec:outlook}
+
+A scope statement first. Nothing in this paper shows that large
+language models cannot originate scientific questions \emph{in
+principle}; a single prompting strategy against a single model family
+in a single domain cannot support that claim, and we do not make it.
+What the data do support is narrower and more useful: \emph{bare
+prompting does not reliably perform problem discovery}, and the
+components of the systems that do perform better can be named.
+
+\paragraph{Three capabilities the experiments separate.} Read together,
+the decomposition (Section~\ref{sec:foresight:abc}), the anchoring
+rubric (Section~\ref{sec:foresight:saf}), and the temporal stress test
+(Section~\ref{sec:foresight:stress}) distinguish three things that
+``asking good questions'' conflates. First, a \emph{topic prior}:
+knowing what a field is likely to work on next. This is what LLM-only
+generation exhibits---near-ceiling engagement in every era (92--98\%),
+questions that name object classes rather than objects (5\% anchoring
+against 95--100\% for the structural pipelines), and
+specificity-adjusted foresight within a few points of the
+random-template floor. A topic prior is genuinely predictive of where
+attention flows, and genuinely cheap: it requires no memory of the
+future, which is why it survives the training boundary unchanged.
+Second, \emph{structural problem discovery}: locating specific,
+contestable configurations of existing evidence---a claim, a
+counter-claim, a method dependency, an untested premise. The
+weight-free pipeline C is the clean witness that this capability does
+not reside in model weights: with no language model anywhere, it finds
+questions the future substantively engages at every cutoff, and it
+beats LLM-only prompting on resolution. Third,
+\emph{articulation}: turning a detected configuration into a question a
+scientist would recognize as askable. This is where the LLM earns its
+place---over identical evidence structures, LLM verbalization roughly
+doubles resolution and quintuples refutations relative to a fixed
+template---and it is a capability the stress test shows to be
+era-robust rather than memorized.
+
+\paragraph{The architecture this implies.} These results point away
+from ``make the model smarter and ask it for a hundred ideas'' and
+toward a division of labour:
+\begin{quote}
+\emph{machine-scale structural search over the evidence space
+$\;\rightarrow\;$ candidate scientific tensions $\;\rightarrow\;$ LLM
+articulation $\;\rightarrow\;$ testable questions.}
+\end{quote}
+The asymmetry that motivates it is quantitative. A literature of
+thousands of papers yields tens of thousands of claims and a
+combinatorially larger space of claim pairs, evidence paths, and
+method dependencies---far beyond what any single reader, human or
+prompted model, holds in attention at once, but squarely within what a
+machine can sweep in parallel. Under this framing the LLM is never
+asked to conjure novelty from nothing; it is asked to do what it
+demonstrably does well---local semantic understanding, claim
+extraction, relation judgment, and finally phrasing---while the search
+system carries the burden of combinatorial exploration. Scientific
+question discovery becomes a \emph{computable search problem} over an
+explicit representation of what the literature claims, and the
+interesting engineering question shifts from prompting to
+representation and search: what to index, which configurations to
+enumerate, and how to rank them.
+
+\paragraph{The next measurable question.} Ranking is where this
+benchmark and that architecture meet. Every question in the released
+instances carries its generating signal---tension type, object,
+method-dependency, source claims---and its measured fate. That pairing
+makes a new question answerable: \emph{which structural patterns most
+often lead to questions the future answers, advances, or
+refutes?} Our own probe is deliberately crude---object co-mention plus
+stance cues, visibly below the human-gated graph in precision---so the
+headroom is real: contradiction typing, dataset-dependency detection,
+and archival-data availability are all candidate features for a
+learned prior over the tension space. We flag the honest status of all
+of this: an interpretation consistent with our data, not an
+established causal account---and the frozen prospective instance
+(Section~\ref{sec:conclusion}) is the experiment that will test it
+without any of this paper's retrospective caveats. Learning that prior
+from backtested outcomes, and validating it prospectively, is the
+natural next paper.
