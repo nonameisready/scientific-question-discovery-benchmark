@@ -1,0 +1,16 @@
+{"question_id": "q_005", "outcome": "partially_addressed", "premise_status": "weakened", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_028", "outcome": "not_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_029", "outcome": "posed_but_open", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_038", "outcome": "answered", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_042", "outcome": "partially_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_059", "outcome": "not_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_061", "outcome": "partially_addressed", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_070", "outcome": "partially_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_071", "outcome": "partially_addressed", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_072", "outcome": "partially_addressed", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_087", "outcome": "not_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_099", "outcome": "partially_addressed", "premise_status": "weakened", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_101", "outcome": "partially_addressed", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_106", "outcome": "posed_but_open", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_107", "outcome": "not_addressed", "premise_status": "still_plausible", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
+{"question_id": "q_125", "outcome": "answered", "premise_status": "supported", "judge_model": "claude-fable-5(agent)", "judge_protocol": "sqb-v1-agent"}
