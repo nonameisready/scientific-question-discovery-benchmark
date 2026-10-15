@@ -1,4 +1,4 @@
-# Scientific Question Backtesting Benchmark
+# Scientific Question Backtesting Benchmark(Paper2)
 
 A model-agnostic benchmark for evaluating whether AI-generated
 scientific questions anticipate future scientific progress.
